@@ -1,0 +1,291 @@
+{
+  "id": "case-3x4-00000BBC",
+  "title": "Case 3x4 (#00000B)",
+  "rows": 3,
+  "columns": 4,
+  "seed": 3004,
+  "initially_revealed": [
+    "C1",
+    "B2"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Mbappe",
+      "profession": "Forward (France)",
+      "portrait_index": 3
+    },
+    {
+      "cell": "B1",
+      "name": "Griezmann",
+      "profession": "Forward (France)",
+      "portrait_index": 10
+    },
+    {
+      "cell": "C1",
+      "name": "Gavi",
+      "profession": "Midfielder (Spain)",
+      "portrait_index": 23
+    },
+    {
+      "cell": "D1",
+      "name": "Vinicius",
+      "profession": "Winger (Brazil)",
+      "portrait_index": 14
+    },
+    {
+      "cell": "A2",
+      "name": "Valverde",
+      "profession": "Midfielder (Uruguay)",
+      "portrait_index": 19
+    },
+    {
+      "cell": "B2",
+      "name": "Salah",
+      "profession": "Forward (Egypt)",
+      "portrait_index": 13
+    },
+    {
+      "cell": "C2",
+      "name": "Benzema",
+      "profession": "Striker (France)",
+      "portrait_index": 8
+    },
+    {
+      "cell": "D2",
+      "name": "Hakimi",
+      "profession": "Defender (Morocco)",
+      "portrait_index": 20
+    },
+    {
+      "cell": "A3",
+      "name": "Kane",
+      "profession": "Striker (England)",
+      "portrait_index": 5
+    },
+    {
+      "cell": "B3",
+      "name": "Kroos",
+      "profession": "Midfielder (Germany)",
+      "portrait_index": 16
+    },
+    {
+      "cell": "C3",
+      "name": "Modric",
+      "profession": "Midfielder (Croatia)",
+      "portrait_index": 9
+    },
+    {
+      "cell": "D3",
+      "name": "Alaba",
+      "profession": "Defender (Austria)",
+      "portrait_index": 17
+    }
+  ],
+  "solution": {
+    "A1": "INNOCENT",
+    "B1": "INNOCENT",
+    "C1": "CRIMINAL",
+    "D1": "INNOCENT",
+    "A2": "CRIMINAL",
+    "B2": "INNOCENT",
+    "C2": "INNOCENT",
+    "D2": "CRIMINAL",
+    "A3": "CRIMINAL",
+    "B3": "INNOCENT",
+    "C3": "CRIMINAL",
+    "D3": "CRIMINAL"
+  },
+  "clues": {
+    "C1": {
+      "id": "CLUE-01",
+      "owner": "C1",
+      "kind": "SAME",
+      "targets": [
+        "A3",
+        "C1"
+      ],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "A3": {
+      "id": "CLUE-02",
+      "owner": "A3",
+      "kind": "EXACTLY",
+      "targets": [],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [
+        "C3",
+        "A3"
+      ],
+      "k": 2,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "C3": {
+      "id": "CLUE-03",
+      "owner": "C3",
+      "kind": "FACT",
+      "targets": [
+        "C2"
+      ],
+      "status": "INNOCENT",
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "C2": {
+      "id": "CLUE-04",
+      "owner": "C2",
+      "kind": "AT_LEAST",
+      "targets": [],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [
+        "D2",
+        "C2",
+        "C3"
+      ],
+      "k": 2,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "D2": {
+      "id": "CLUE-05",
+      "owner": "D2",
+      "kind": "SAME",
+      "targets": [
+        "A2",
+        "D2"
+      ],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "A2": {
+      "id": "CLUE-06",
+      "owner": "A2",
+      "kind": "FACT",
+      "targets": [
+        "C1"
+      ],
+      "status": "CRIMINAL",
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "B2": {
+      "id": "CLUE-07",
+      "owner": "B2",
+      "kind": "PARITY",
+      "targets": [],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [
+        "D1",
+        "B2"
+      ],
+      "k": null,
+      "parity": "EVEN",
+      "region_b": [],
+      "comparison": null
+    },
+    "D1": {
+      "id": "CLUE-08",
+      "owner": "D1",
+      "kind": "COUNT_COMPARE",
+      "targets": [],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [
+        "A1"
+      ],
+      "k": null,
+      "parity": null,
+      "region_b": [
+        "D1"
+      ],
+      "comparison": "EQ"
+    },
+    "A1": {
+      "id": "CLUE-09",
+      "owner": "A1",
+      "kind": "SAME",
+      "targets": [
+        "B1",
+        "A1"
+      ],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "B1": {
+      "id": "CLUE-10",
+      "owner": "B1",
+      "kind": "FACT",
+      "targets": [
+        "B3"
+      ],
+      "status": "INNOCENT",
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "B3": {
+      "id": "CLUE-11",
+      "owner": "B3",
+      "kind": "DIFFERENT",
+      "targets": [
+        "D3",
+        "B3"
+      ],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "D3": {
+      "id": "CLUE-12",
+      "owner": "D3",
+      "kind": "FACT",
+      "targets": [
+        "B2"
+      ],
+      "status": "INNOCENT",
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    }
+  }
+}

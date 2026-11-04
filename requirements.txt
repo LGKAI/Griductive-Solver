@@ -1,0 +1,5 @@
+# Griductive Solver Requirements
+# All essential components use the Python Standard Library (Tkinter, itertools, json, csv, unittest).
+# Python 3.10 or higher is recommended.
+# No external third-party dependencies are strictly required.
+

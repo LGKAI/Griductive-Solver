@@ -1,0 +1,222 @@
+{
+  "id": "case-3x3-00000BBB",
+  "title": "Case 3x3 (#00000B)",
+  "rows": 3,
+  "columns": 3,
+  "seed": 3003,
+  "initially_revealed": [
+    "B3",
+    "C2"
+  ],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Suarez",
+      "profession": "Striker (Uruguay)",
+      "portrait_index": 4
+    },
+    {
+      "cell": "B1",
+      "name": "Modric",
+      "profession": "Midfielder (Croatia)",
+      "portrait_index": 9
+    },
+    {
+      "cell": "C1",
+      "name": "De Bruyne",
+      "profession": "Midfielder (Belgium)",
+      "portrait_index": 12
+    },
+    {
+      "cell": "A2",
+      "name": "Bernardo",
+      "profession": "Midfielder (Portugal)",
+      "portrait_index": 15
+    },
+    {
+      "cell": "B2",
+      "name": "Pedri",
+      "profession": "Midfielder (Spain)",
+      "portrait_index": 22
+    },
+    {
+      "cell": "C2",
+      "name": "Kane",
+      "profession": "Striker (England)",
+      "portrait_index": 5
+    },
+    {
+      "cell": "A3",
+      "name": "Lewandowski",
+      "profession": "Striker (Poland)",
+      "portrait_index": 6
+    },
+    {
+      "cell": "B3",
+      "name": "Rodrygo",
+      "profession": "Forward (Brazil)",
+      "portrait_index": 24
+    },
+    {
+      "cell": "C3",
+      "name": "Salah",
+      "profession": "Forward (Egypt)",
+      "portrait_index": 13
+    }
+  ],
+  "solution": {
+    "A1": "INNOCENT",
+    "B1": "INNOCENT",
+    "C1": "CRIMINAL",
+    "A2": "INNOCENT",
+    "B2": "CRIMINAL",
+    "C2": "CRIMINAL",
+    "A3": "CRIMINAL",
+    "B3": "INNOCENT",
+    "C3": "INNOCENT"
+  },
+  "clues": {
+    "B3": {
+      "id": "CLUE-01",
+      "owner": "B3",
+      "kind": "SAME",
+      "targets": [
+        "A1",
+        "B3"
+      ],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "A1": {
+      "id": "CLUE-02",
+      "owner": "A1",
+      "kind": "EXACTLY",
+      "targets": [],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [
+        "B2",
+        "A1",
+        "B3"
+      ],
+      "k": 1,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "B2": {
+      "id": "CLUE-03",
+      "owner": "B2",
+      "kind": "COUNT_COMPARE",
+      "targets": [],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [
+        "B1"
+      ],
+      "k": null,
+      "parity": null,
+      "region_b": [
+        "B2"
+      ],
+      "comparison": "LT"
+    },
+    "B1": {
+      "id": "CLUE-04",
+      "owner": "B1",
+      "kind": "PARITY",
+      "targets": [],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [
+        "C1",
+        "B1"
+      ],
+      "k": null,
+      "parity": "ODD",
+      "region_b": [],
+      "comparison": null
+    },
+    "C1": {
+      "id": "CLUE-05",
+      "owner": "C1",
+      "kind": "FACT",
+      "targets": [
+        "B3"
+      ],
+      "status": "INNOCENT",
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "C2": {
+      "id": "CLUE-06",
+      "owner": "C2",
+      "kind": "FACT",
+      "targets": [
+        "A3"
+      ],
+      "status": "CRIMINAL",
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "A3": {
+      "id": "CLUE-07",
+      "owner": "A3",
+      "kind": "FACT",
+      "targets": [
+        "A2"
+      ],
+      "status": "INNOCENT",
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "A2": {
+      "id": "CLUE-08",
+      "owner": "A2",
+      "kind": "SAME",
+      "targets": [
+        "C3",
+        "A2"
+      ],
+      "status": null,
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    },
+    "C3": {
+      "id": "CLUE-09",
+      "owner": "C3",
+      "kind": "FACT",
+      "targets": [
+        "C2"
+      ],
+      "status": "CRIMINAL",
+      "region_type": "EXPLICIT",
+      "region": [],
+      "k": null,
+      "parity": null,
+      "region_b": [],
+      "comparison": null
+    }
+  }
+}
