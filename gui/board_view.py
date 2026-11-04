@@ -1,6 +1,6 @@
 """
 Thành phần hiển thị bàn cờ suy luận dạng lưới Griductive.
-Quản lý các thẻ nhân vật, hiển thị chân dung cầu thủ sắc nét và hiệu ứng thị giác.
+Thiết kế theo phong cách thẻ bài cầu thủ bóng đá, chân dung cầu thủ sắc nét.
 """
 from __future__ import annotations
 
@@ -14,13 +14,13 @@ try:
 except ImportError:
     HAS_PIL = False
 
-from core.clues import all_references, describe_clue
-from core.models import Character, Clue, PublicState, Status
+from core.clues import describe_clue
+from core.models import Character, PublicState, Status
 from gui.theme import Theme
 
 
 class BoardView(tk.Frame):
-    """Khu vực bàn cờ chứa lưới các thẻ nhân vật, tọa độ hàng/cột và hiệu ứng viền."""
+    """Khu vực bàn cờ chứa lưới các thẻ bài cầu thủ và hiệu ứng sân cỏ."""
 
     def __init__(
         self,
@@ -33,7 +33,7 @@ class BoardView(tk.Frame):
         self.on_card_select = on_card_select
         self.on_card_spotlight = on_card_spotlight
 
-        # Bộ nhớ lưu trữ ảnh chân dung cầu thủ
+        # Bộ nhớ lưu ảnh chân dung cầu thủ
         self.portrait_images: list[object] = []
         self._load_portraits()
 
@@ -45,15 +45,14 @@ class BoardView(tk.Frame):
         self.highlighted_cells: set[str] = set()
 
     def _load_portraits(self) -> None:
-        """Tải và cắt 25 chân dung cầu thủ từ ảnh gốc với chất lượng cao chống nhòe."""
+        """Tải và cắt 25 chân dung cầu thủ với chất lượng LANCZOS sắc nét tối đa."""
         asset_path = Path(__file__).resolve().parents[1] / "assets" / "suspect_portraits.png"
         if not asset_path.exists():
             return
 
-        target_size = (76, 76)  # Kích thước chuẩn sắc nét cho ảnh đại diện
+        target_size = (80, 80)
 
         if HAS_PIL:
-            # Sử dụng Pillow với thuật toán LANCZOS để hình ảnh đạt độ sắc nét tối đa
             try:
                 full_image = Image.open(str(asset_path)).convert("RGBA")
                 tile_w = full_image.width / 5.0
@@ -76,7 +75,6 @@ class BoardView(tk.Frame):
             except Exception:
                 self.portrait_images.clear()
 
-        # Fallback bằng Tkinter PhotoImage thuần nếu môi trường không có Pillow
         try:
             full_img = tk.PhotoImage(file=str(asset_path))
             tile_w = full_img.width() // 5
@@ -95,7 +93,6 @@ class BoardView(tk.Frame):
 
     def build_grid(self, rows: int, columns: int, characters: tuple[Character, ...]) -> None:
         """Khởi dựng lưới các ô thẻ bài kèm tiêu đề tọa độ hàng và cột."""
-        # Xóa các thành phần giao diện cũ
         for widget in self.winfo_children():
             widget.destroy()
         self.card_frames.clear()
@@ -104,38 +101,38 @@ class BoardView(tk.Frame):
         self.spotlight_owner = None
         self.highlighted_cells.clear()
 
-        # Thiết lập trọng số co giãn cho các hàng và cột
+        # Thiết lập trọng số co giãn
         for c in range(columns + 1):
             self.grid_columnconfigure(c, weight=1 if c > 0 else 0)
         for r in range(rows + 1):
             self.grid_rowconfigure(r, weight=1 if r > 0 else 0)
 
-        # Vẽ tiêu đề cột (A, B, C...)
+        # Tiêu đề cột (A, B, C...)
         for c in range(columns):
             col_letter = chr(65 + c)
             lbl = tk.Label(
                 self,
-                text=f"Cột {col_letter}",
+                text=col_letter,
                 font=Theme.font_heading(),
-                fg=Theme.TEXT_CYAN,
+                fg=Theme.TEXT_PITCH,
                 bg=Theme.BG_BOARD,
                 pady=4,
             )
             lbl.grid(row=0, column=c + 1, sticky="nsew")
 
-        # Vẽ tiêu đề hàng (1, 2, 3...)
+        # Tiêu đề hàng (1, 2, 3...)
         for r in range(rows):
             lbl = tk.Label(
                 self,
-                text=f"Hàng {r + 1}",
+                text=str(r + 1),
                 font=Theme.font_heading(),
-                fg=Theme.TEXT_CYAN,
+                fg=Theme.TEXT_PITCH,
                 bg=Theme.BG_BOARD,
                 padx=6,
             )
             lbl.grid(row=r + 1, column=0, sticky="nsew")
 
-        # Khởi tạo các thẻ bài nhân vật
+        # Khởi tạo các thẻ bài cầu thủ
         char_by_cell = {char.cell: char for char in characters}
         for r in range(rows):
             for c in range(columns):
@@ -163,7 +160,7 @@ class BoardView(tk.Frame):
 
                 coord_lbl = tk.Label(
                     header_frame,
-                    text=f"📍 {cell_coord}",
+                    text=cell_coord,
                     font=Theme.font_mono_bold(),
                     fg=Theme.TEXT_GOLD,
                     bg=Theme.BG_CARD_FACE_DOWN,
@@ -173,10 +170,10 @@ class BoardView(tk.Frame):
 
                 status_badge = tk.Label(
                     header_frame,
-                    text="🔒 ÚP MẶT",
+                    text="Chưa lật",
                     font=Theme.font_small(),
                     fg=Theme.TEXT_MUTED,
-                    bg="#2d3748",
+                    bg="#1e382b",
                     padx=6,
                     pady=2,
                 )
@@ -227,12 +224,12 @@ class BoardView(tk.Frame):
                 prof_lbl.pack(fill="x")
                 prof_lbl.bind("<Button-1>", lambda e, cell=cell_coord: self._on_card_click(cell))
 
-                # Khung hiển thị nội dung manh mối logic
+                # Khung hiển thị nội dung manh mối
                 clue_frame = tk.Frame(
                     card_frame,
                     bg=Theme.BG_CLUE_FACE_DOWN,
                     highlightthickness=1,
-                    highlightbackground="#2d3748",
+                    highlightbackground="#1b3527",
                     padx=6,
                     pady=6,
                 )
@@ -241,7 +238,7 @@ class BoardView(tk.Frame):
 
                 clue_lbl = tk.Label(
                     clue_frame,
-                    text="🔒 MANH MỐI BÍ MẬT\n(Phán đoán đúng để lật thẻ)",
+                    text="Manh mối bí mật\n(Phán đoán đúng để lật)",
                     font=Theme.font_small(),
                     fg=Theme.TEXT_MUTED,
                     bg=Theme.BG_CLUE_FACE_DOWN,
@@ -266,7 +263,7 @@ class BoardView(tk.Frame):
                 }
 
     def update_state(self, state: PublicState, name_lookup: Mapping[str, str]) -> None:
-        """Cập nhật giao diện thẻ bài dựa theo trạng thái công khai PublicState hiện tại."""
+        """Cập nhật giao diện thẻ bài dựa theo trạng thái công khai hiện tại."""
         revealed_map = {clue.owner: clue for clue in state.revealed_clues}
 
         for cell, frame in self.card_frames.items():
@@ -286,24 +283,23 @@ class BoardView(tk.Frame):
 
             if is_revealed and known_status:
                 clue = revealed_map.get(cell)
-                clue_desc = describe_clue(clue, name_lookup) if clue else "Không có manh mối bổ sung."
+                clue_desc = describe_clue(clue, name_lookup) if clue else "Không có thêm manh mối."
 
                 if known_status is Status.CRIMINAL:
                     card_bg = Theme.BG_CARD_CRIMINAL
                     clue_bg = Theme.BG_CLUE_CRIMINAL
                     border_color = Theme.BORDER_CRIMINAL
                     badge_bg = Theme.BTN_CRIMINAL_BG
-                    badge_text = "🚨 CRIMINAL"
-                    clue_text_color = "#fef08a"  # Vàng sáng nổi bật trên nền tối
+                    badge_text = "Criminal"
+                    clue_text_color = "#fef08a"
                 else:
                     card_bg = Theme.BG_CARD_INNOCENT
                     clue_bg = Theme.BG_CLUE_INNOCENT
                     border_color = Theme.BORDER_INNOCENT
                     badge_bg = Theme.BTN_INNOCENT_BG
-                    badge_text = "🛡️ INNOCENT"
-                    clue_text_color = "#a7f3d0"  # Xanh ngọc sáng nổi bật
+                    badge_text = "Innocent"
+                    clue_text_color = "#a7f3d0"
 
-                # Cập nhật màu nền cho toàn bộ các panel bên trong thẻ
                 frame.configure(bg=card_bg, highlightbackground=border_color)
                 header_frame.configure(bg=card_bg)
                 profile_frame.configure(bg=card_bg)
@@ -315,13 +311,12 @@ class BoardView(tk.Frame):
                 status_badge.configure(text=badge_text, bg=badge_bg, fg=Theme.TEXT_LIGHT, font=Theme.font_bold())
                 clue_frame.configure(bg=clue_bg, highlightbackground=border_color)
                 clue_lbl.configure(
-                    text=f"📜 {clue_desc}",
+                    text=clue_desc,
                     fg=clue_text_color,
                     bg=clue_bg,
                     font=Theme.font_regular(),
                 )
             else:
-                # Trạng thái thẻ đang úp
                 card_bg = Theme.BG_CARD_FACE_DOWN
                 clue_bg = Theme.BG_CLUE_FACE_DOWN
 
@@ -334,14 +329,14 @@ class BoardView(tk.Frame):
                 portrait_lbl.configure(bg=card_bg, highlightbackground=Theme.BORDER_DEFAULT)
 
                 status_badge.configure(
-                    text="🔒 ÚP MẶT",
-                    bg="#334155",
+                    text="Chưa lật",
+                    bg="#1e382b",
                     fg=Theme.TEXT_MUTED,
                     font=Theme.font_small(),
                 )
-                clue_frame.configure(bg=clue_bg, highlightbackground="#2d3748")
+                clue_frame.configure(bg=clue_bg, highlightbackground="#1b3527")
                 clue_lbl.configure(
-                    text="🔒 MANH MỐI BÍ MẬT\n(Nhấp chọn & phán đoán để mở)",
+                    text="Manh mối bí mật\n(Phán đoán đúng để lật)",
                     fg=Theme.TEXT_MUTED,
                     bg=clue_bg,
                     font=Theme.font_small(),
@@ -350,34 +345,30 @@ class BoardView(tk.Frame):
         self._refresh_borders()
 
     def set_selection(self, cell: str | None) -> None:
-        """Đánh dấu thẻ chưa giải đang được người chơi chọn để đưa ra phán đoán."""
+        """Đánh dấu thẻ chưa giải đang được chọn."""
         self.selected_cell = cell
         self._refresh_borders()
 
     def set_spotlight(self, owner_cell: str | None, referenced_cells: set[str]) -> None:
-        """Kích hoạt hiệu ứng chiếu sáng manh mối: viền vàng cho thẻ chủ, viền xanh cho mục tiêu."""
+        """Kích hoạt hiệu ứng soi rọi manh mối liên quan."""
         self.spotlight_owner = owner_cell
         self.highlighted_cells = set(referenced_cells)
         self._refresh_borders()
 
     def _refresh_borders(self) -> None:
-        """Vẽ lại màu sắc và độ dày viền của từng thẻ bài."""
+        """Cập nhật độ dày và màu viền các thẻ."""
         for cell, frame in self.card_frames.items():
             if cell == self.selected_cell:
-                # Đang được chọn để phán đoán -> Viền xanh Sky phát sáng
                 frame.configure(highlightbackground=Theme.BORDER_SELECTED, highlightthickness=3)
             elif cell == self.spotlight_owner:
-                # Là thẻ chủ của manh mối đang xem -> Viền vàng kim
                 frame.configure(highlightbackground=Theme.BORDER_SPOTLIGHT, highlightthickness=3)
             elif cell in self.highlighted_cells:
-                # Là ô nằm trong vùng manh mối đang xem -> Viền xanh cyan
                 frame.configure(highlightbackground=Theme.BORDER_HIGHLIGHT, highlightthickness=3)
             else:
-                # Thẻ bình thường -> Giữ viền theo trạng thái đã mở hoặc mặc định
                 status = self.card_widgets[cell]["status_badge"].cget("text")
-                if "CRIMINAL" in status:
+                if "Criminal" in status:
                     frame.configure(highlightbackground=Theme.BORDER_CRIMINAL, highlightthickness=2)
-                elif "INNOCENT" in status:
+                elif "Innocent" in status:
                     frame.configure(highlightbackground=Theme.BORDER_INNOCENT, highlightthickness=2)
                 else:
                     frame.configure(highlightbackground=Theme.BORDER_DEFAULT, highlightthickness=2)
@@ -388,9 +379,7 @@ class BoardView(tk.Frame):
         if not widgets:
             return
         status_text = widgets["status_badge"].cget("text")
-        if "CRIMINAL" in status_text or "INNOCENT" in status_text:
-            # Thẻ đã mở: Kích hoạt soi rọi manh mối
+        if "Criminal" in status_text or "Innocent" in status_text:
             self.on_card_spotlight(cell)
         else:
-            # Thẻ chưa mở: Chọn thẻ để phán đoán
             self.on_card_select(cell)

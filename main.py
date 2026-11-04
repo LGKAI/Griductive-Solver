@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Điểm khởi chạy chính của ứng dụng trò chơi Griductive Solver.
-Khởi tạo và điều hành giao diện người dùng Desktop.
+Griductive Solver - Điểm khởi chạy chính của ứng dụng.
+Bật độ phân giải cao High-DPI và khởi tạo giao diện trò chơi.
 """
 from __future__ import annotations
 
@@ -11,11 +11,24 @@ from pathlib import Path
 # Thêm thư mục Source vào đường dẫn tìm kiếm module của Python
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+# Kích hoạt DPI awareness trên Windows để giao diện đạt độ nét tối đa, không bị mờ
+if sys.platform == "win32":
+    try:
+        import ctypes
+        ctypes.windll.shcore.SetProcessDpiAwareness(2)  # Per-Monitor High DPI v2
+    except Exception:
+        try:
+            ctypes.windll.shcore.SetProcessDpiAwareness(1)  # System High DPI
+        except Exception:
+            try:
+                ctypes.windll.user32.SetProcessDPIAware()
+            except Exception:
+                pass
+
 from gui.app import GriductiveApp
 
 
 def main() -> None:
-    # Khởi tạo ứng dụng và chạy vòng lặp sự kiện chính
     app = GriductiveApp()
     app.run()
 

@@ -5,6 +5,7 @@ bộ quản lý ván chơi (GameEngine) và tác tử suy luận tự động (L
 """
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox
@@ -26,12 +27,16 @@ class GriductiveApp:
 
     def __init__(self, root: tk.Tk | None = None) -> None:
         self.root = root or tk.Tk()
-        self.root.title("Griductive Solver — Trò Chơi Suy Luận Logic Mệnh Đề & DPLL SAT")
-        self.root.geometry("1440x890")
-        self.root.minsize(1160, 720)
+        # Đặt tiêu đề ngắn gọn đúng yêu cầu
+        self.root.title("Griductive Solver")
+        self.root.geometry("1400x880")
+        self.root.minsize(1120, 700)
         self.root.configure(bg=Theme.BG_APP)
 
-        # Khởi tạo tác tử suy luận diễn dịch
+        # Cài đặt biểu tượng trái bóng thám tử cho cửa sổ
+        self._set_app_icon()
+
+        # Khởi tạo tác tử suy luận
         self.agent = LogicAgent()
         # Khởi tạo ván chơi mặc định (3x3)
         default_puzzle = generate_puzzle(seed=3003, rows=3, columns=3)
@@ -42,16 +47,63 @@ class GriductiveApp:
 
         self._build_layout()
         self._refresh_all(
-            feedback_msg="Ván mới đã sẵn sàng. Mọi manh mối đã mở đều đúng 100% — hãy chứng minh bằng logic trước khi phán đoán!",
+            feedback_msg="Ván mới sẵn sàng. Mọi manh mối đã mở đều đúng 100% — hãy chứng minh trước khi phán đoán!",
             feedback_type="INFO",
         )
+
+    def _set_app_icon(self) -> None:
+        """Cài đặt biểu tượng trái bóng thám tử cho thanh tiêu đề và taskbar."""
+        assets_dir = Path(__file__).resolve().parents[1] / "assets"
+        icon_ico = assets_dir / "app_icon.ico"
+        icon_png = assets_dir / "app_icon.png"
+
+        # 1. Cài đặt qua Tkinter iconbitmap bằng đường dẫn tuyệt đối tới file .ico
+        if icon_ico.exists():
+            try:
+                self.root.iconbitmap(str(icon_ico.resolve()))
+            except Exception:
+                pass
+
+        # 2. Cài đặt qua Tkinter iconphoto (hỗ trợ hiển thị và tương thích chéo nền tảng)
+        if icon_png.exists():
+            try:
+                self._icon_photo = tk.PhotoImage(file=str(icon_png.resolve()))
+                self.root.iconphoto(True, self._icon_photo)
+            except Exception:
+                pass
+
+        # 3. Kích hoạt trực tiếp qua Win32 API WM_SETICON để đảm bảo 100% hiển thị trên Windows 11
+        if sys.platform == "win32" and icon_ico.exists():
+            try:
+                import ctypes
+                self.root.update_idletasks()
+                hwnd = self.root.winfo_id()
+                parent_hwnd = ctypes.windll.user32.GetParent(hwnd)
+                target_hwnd = parent_hwnd if parent_hwnd else hwnd
+
+                WM_SETICON = 0x0080
+                ICON_SMALL = 0
+                ICON_BIG = 1
+                IMAGE_ICON = 1
+                LR_LOADFROMFILE = 0x00000010
+
+                ico_full = str(icon_ico.resolve())
+                h_sm = ctypes.windll.user32.LoadImageW(0, ico_full, IMAGE_ICON, 16, 16, LR_LOADFROMFILE)
+                h_lg = ctypes.windll.user32.LoadImageW(0, ico_full, IMAGE_ICON, 32, 32, LR_LOADFROMFILE)
+
+                if h_sm:
+                    ctypes.windll.user32.SendMessageW(target_hwnd, WM_SETICON, ICON_SMALL, h_sm)
+                if h_lg:
+                    ctypes.windll.user32.SendMessageW(target_hwnd, WM_SETICON, ICON_BIG, h_lg)
+            except Exception:
+                pass
 
     def run(self) -> None:
         """Bắt đầu vòng lặp sự kiện chính của ứng dụng."""
         self.root.mainloop()
 
     def _build_layout(self) -> None:
-        """Xây dựng bố cục tổng thể chia làm 2 phần: Bàn cờ (trái) và Bảng điều khiển (phải)."""
+        """Xây dựng bố cục chia làm 2 phần: Bàn cờ (trái) và Bảng điều khiển (phải)."""
         container = tk.Frame(self.root, bg=Theme.BG_APP)
         container.pack(fill="both", expand=True)
 
@@ -62,6 +114,7 @@ class GriductiveApp:
             on_call_innocent=lambda: self._handle_verdict_call(Status.INNOCENT),
             on_load_puzzle=self._handle_load_puzzle,
             on_new_random=self._handle_new_random,
+            on_change_size=self._handle_change_size,
             on_restart=self._handle_restart,
             on_hint=self._handle_hint,
             on_auto_step=self._handle_auto_step,
@@ -93,7 +146,7 @@ class GriductiveApp:
         char_name = next((c.name for c in self.engine.puzzle.characters if c.cell == cell), "")
         self.sidebar.set_selected_card(cell, char_name)
         self.sidebar.set_feedback(
-            f"Đã chọn mục tiêu: {cell} ({char_name}). Hãy bấm CRIMINAL hoặc INNOCENT để kết luận.",
+            f"Mục tiêu: {cell} ({char_name}). Chọn Criminal hoặc Innocent.",
             "INFO",
         )
 
@@ -105,14 +158,14 @@ class GriductiveApp:
         refs = set(all_references(clue))
         self.board.set_spotlight(owner_cell, refs)
         self.sidebar.set_feedback(
-            f"Chiếu sáng manh mối từ {owner_cell}: Đang làm nổi bật {len(refs)} ô cầu thủ có liên quan.",
+            f"Soi manh mối từ {owner_cell}: Nổi bật {len(refs)} ô cầu thủ liên quan.",
             "INFO",
         )
 
     def _handle_verdict_call(self, proposed_status: Status) -> None:
         """Xử lý hành động nộp phán đoán: Kiểm tra chứng minh logic từ Knowledge Base."""
         if not self.selected_unsolved_cell:
-            self.sidebar.set_feedback("Vui lòng nhấp chọn một thẻ chưa giải trên bàn cờ trước!", "INFO")
+            self.sidebar.set_feedback("Hãy chọn một ô chưa mở trên bàn cờ trước!", "INFO")
             return
 
         target_cell = self.selected_unsolved_cell
@@ -123,24 +176,24 @@ class GriductiveApp:
             self.board.set_selection(None)
             self.sidebar.set_selected_card(None, None)
             self._refresh_all(
-                f"CHÍNH XÁC! Logic đã chứng minh thành công: {target_cell} là {proposed_status.value}.",
+                f"Chính xác! {target_cell} là {proposed_status.value}.",
                 "ACCEPTED",
             )
             if self.engine.is_solved():
                 messagebox.showinfo(
                     "Hoàn Thành Vụ Án!",
-                    "Chúc mừng! Toàn bộ các cầu thủ bí ẩn đã được xác định hoàn toàn bằng suy luận logic, không cần đoán mò!",
+                    "Chúc mừng! Toàn bộ các cầu thủ đã được xác định hoàn toàn bằng suy luận logic!",
                 )
 
         elif res is SubmissionResult.NOT_PROVABLE:
             self.sidebar.set_feedback(
-                f"TỪ CHỐI (NOT_PROVABLE): Chưa đủ dữ kiện để bắt buộc {target_cell} là {proposed_status.value}. Không được phỏng đoán!",
+                f"Từ chối: Chưa đủ dữ kiện để khẳng định {target_cell} là {proposed_status.value}. Không đoán mò!",
                 "NOT_PROVABLE",
             )
 
         elif res is SubmissionResult.CONTRADICTED:
             self.sidebar.set_feedback(
-                f"TỪ CHỐI (CONTRADICTED): Suy luận logic chứng minh {target_cell} mang trạng thái NGƯỢC LẠI!",
+                f"Từ chối: Suy luận logic chứng minh {target_cell} mang trạng thái ngược lại!",
                 "CONTRADICTED",
             )
 
@@ -148,15 +201,15 @@ class GriductiveApp:
             self.sidebar.set_feedback(f"Ô {target_cell} đã được giải trước đó.", "INFO")
 
         elif res is SubmissionResult.INCONSISTENT:
-            self.sidebar.set_feedback("LỖI XUNG ĐỘT (INCONSISTENT): Knowledge Base không còn mô hình thỏa mãn!", "INCONSISTENT")
+            self.sidebar.set_feedback("Lỗi: Knowledge Base xảy ra xung đột logic!", "INCONSISTENT")
 
     def _handle_load_puzzle(self) -> None:
-        """Mở hộp thoại cho phép người chơi tải câu đố từ file JSON."""
+        """Mở hộp thoại cho phép tải câu đố từ file JSON."""
         puzzles_dir = Path(__file__).resolve().parents[1] / "puzzles"
         file_path = filedialog.askopenfilename(
             initialdir=str(puzzles_dir) if puzzles_dir.exists() else ".",
-            title="Tải Màn Chơi Griductive",
-            filetypes=[("Tệp JSON", "*.json"), ("Tất cả các tệp", "*.*")],
+            title="Mở file câu đố",
+            filetypes=[("Tệp JSON", "*.json"), ("Tất cả", "*.*")],
         )
         if not file_path:
             return
@@ -165,78 +218,40 @@ class GriductiveApp:
             puzzle = load_puzzle_from_json(file_path)
             self.engine = GameEngine(puzzle)
             self.selected_unsolved_cell = None
-            self._refresh_all(f"Đã tải thành công câu đố: {puzzle.title}")
+            self._refresh_all(f"Đã mở file: {puzzle.title}")
         except Exception as e:
-            messagebox.showerror("Lỗi Tải File", f"Không thể tải câu đố từ file:\n{e}")
+            messagebox.showerror("Lỗi Mở File", f"Không thể tải câu đố:\n{e}")
+
+    def _handle_change_size(self, rows: int, cols: int) -> None:
+        """Tạo ván chơi mới ngay lập tức với kích thước được chọn (không mở popup dialog)."""
+        new_p = generate_puzzle(rows=rows, columns=cols)
+        self.engine = GameEngine(new_p)
+        self.selected_unsolved_cell = None
+        self.board.set_selection(None)
+        self.board.set_spotlight(None, set())
+        self._refresh_all(f"Đã tạo ván mới {rows}x{cols} (#{new_p.id.split('-')[-1]}).")
 
     def _handle_new_random(self) -> None:
-        """Mở hộp thoại chọn kích thước và tạo một ván chơi ngẫu nhiên mới."""
-        dialog = tk.Toplevel(self.root)
-        dialog.title("Tạo Ván Mới")
-        dialog.geometry("340x220")
-        dialog.configure(bg=Theme.BG_SECTION)
-        dialog.resizable(False, False)
-        dialog.transient(self.root)
-        dialog.grab_set()
-
-        tk.Label(
-            dialog,
-            text="Chọn Kích Thước Bàn Cờ:",
-            font=Theme.font_heading(),
-            fg=Theme.TEXT_GOLD,
-            bg=Theme.BG_SECTION,
-        ).pack(pady=(16, 10))
-
-        dim_var = tk.StringVar(value="3x3")
-        radio_frame = tk.Frame(dialog, bg=Theme.BG_SECTION)
-        radio_frame.pack()
-
-        for opt in ("3x3", "3x4", "4x4", "5x5"):
-            tk.Radiobutton(
-                radio_frame,
-                text=f"Lưới {opt}",
-                value=opt,
-                variable=dim_var,
-                font=Theme.font_regular(),
-                fg=Theme.TEXT_LIGHT,
-                bg=Theme.BG_SECTION,
-                selectcolor=Theme.BG_SIDEBAR,
-                activebackground=Theme.BG_SECTION,
-                activeforeground=Theme.TEXT_LIGHT,
-            ).pack(anchor="w", pady=2)
-
-        def on_confirm():
-            dim = dim_var.get()
-            dialog.destroy()
-            r, c = map(int, dim.split("x"))
-            new_p = generate_puzzle(rows=r, columns=c)
-            self.engine = GameEngine(new_p)
-            self.selected_unsolved_cell = None
-            self._refresh_all(f"Đã tạo ván chơi mới kích thước {dim} (#{new_p.id.split('-')[-1]})")
-
-        tk.Button(
-            dialog,
-            text="Bắt Đầu Chơi",
-            font=Theme.font_bold(),
-            bg=Theme.BTN_PRIMARY_BG,
-            fg=Theme.TEXT_LIGHT,
-            activebackground=Theme.BTN_PRIMARY_HOVER,
-            activeforeground=Theme.TEXT_LIGHT,
-            relief="flat",
-            pady=6,
-            command=on_confirm,
-        ).pack(pady=14)
+        """Tạo ván chơi ngẫu nhiên mới với cùng kích thước hiện tại (không mở popup dialog)."""
+        r = self.engine.puzzle.rows
+        c = self.engine.puzzle.columns
+        new_p = generate_puzzle(rows=r, columns=c)
+        self.engine = GameEngine(new_p)
+        self.selected_unsolved_cell = None
+        self.board.set_selection(None)
+        self.board.set_spotlight(None, set())
+        self._refresh_all(f"Đã tạo ván ngẫu nhiên mới {r}x{c} (#{new_p.id.split('-')[-1]}).")
 
     def _handle_restart(self) -> None:
         """Đặt lại ván chơi hiện tại về trạng thái 2 thẻ mở ban đầu."""
         self.engine.restart()
         self.selected_unsolved_cell = None
-        self._refresh_all("Đã đặt lại ván chơi về trạng thái ban đầu.")
+        self._refresh_all("Đã đặt lại ván chơi về ban đầu.")
 
     def _handle_hint(self) -> None:
-        """Hệ thống tìm kiếm và gợi ý một bước đi có thể chứng minh được từ tri thức công khai."""
+        """Hệ thống tìm kiếm và gợi ý một bước đi có thể chứng minh được."""
         if self.engine.is_solved():
-            self.sidebar.set_feedback("Vụ án đã được giải quyết hoàn toàn!", "INFO")
+            self.sidebar.set_feedback("Vụ án đã được giải quyết xong!", "INFO")
             return
 
         relevant_clue, deduction = self.agent.get_hint(self.engine.public_state())
@@ -244,7 +259,6 @@ class GriductiveApp:
             self.sidebar.set_feedback("Chưa có ô nào có thể chứng minh bắt buộc tại bước này.", "INFO")
             return
 
-        # Chiếu sáng manh mối liên quan nếu tìm thấy
         if relevant_clue:
             refs = set(all_references(relevant_clue))
             self.board.set_spotlight(relevant_clue.owner, refs)
@@ -255,14 +269,14 @@ class GriductiveApp:
         char_name = next((c.name for c in self.engine.puzzle.characters if c.cell == deduction.cell), "")
         self.sidebar.set_selected_card(deduction.cell, char_name)
         self.sidebar.set_feedback(
-            f"GỢI Ý: Ô {deduction.cell} ({char_name}) có thể chứng minh tiếp theo! (Lý do: {deduction.queries[0]})",
+            f"Gợi ý: {deduction.cell} ({char_name}) là {deduction.verdict.value}.",
             "HINT",
         )
 
     def _handle_auto_step(self) -> None:
         """Thực hiện một bước suy luận tự động duy nhất."""
         if self.engine.is_solved():
-            self.sidebar.set_feedback("Vụ án đã được giải quyết hoàn toàn!", "INFO")
+            self.sidebar.set_feedback("Vụ án đã được giải quyết xong!", "INFO")
             return
 
         res, deduction = self.engine.auto_step(self.agent)
@@ -270,7 +284,7 @@ class GriductiveApp:
             self.selected_unsolved_cell = None
             self.board.set_selection(None)
             self.sidebar.set_selected_card(None, None)
-            self._refresh_all(f"Tự động giải: Đã chứng minh {deduction.cell} là {deduction.verdict.value}.", "ACCEPTED")
+            self._refresh_all(f"Tự động: Đã chứng minh {deduction.cell} là {deduction.verdict.value}.", "ACCEPTED")
             if self.engine.is_solved():
                 messagebox.showinfo("Thành Công!", "Đã tự động giải quyết toàn bộ vụ án thành công!")
         else:
@@ -279,7 +293,7 @@ class GriductiveApp:
     def _handle_auto_solve(self) -> None:
         """Tự động suy luận giải toàn bộ bàn cờ với hiệu ứng lật thẻ tuần tự."""
         if self.engine.is_solved():
-            self.sidebar.set_feedback("Vụ án đã được giải quyết hoàn toàn!", "INFO")
+            self.sidebar.set_feedback("Vụ án đã được giải quyết xong!", "INFO")
             return
 
         self.is_auto_solving = True
@@ -295,13 +309,12 @@ class GriductiveApp:
 
             res, ded = self.engine.auto_step(self.agent)
             if res is SubmissionResult.ACCEPTED and ded:
-                self._refresh_all(f"Tự động giải: Đã chứng minh {ded.cell} là {ded.verdict.value}.", "ACCEPTED")
-                # Lặp bước tiếp theo sau 250ms để tạo hiệu ứng thị giác mượt mà
-                self.root.after(250, step)
+                self._refresh_all(f"Tự động: {ded.cell} = {ded.verdict.value}.", "ACCEPTED")
+                self.root.after(200, step)
             else:
                 self.is_auto_solving = False
                 self.sidebar.btn_solve.configure(state="normal")
-                self.sidebar.set_feedback(f"Tự động giải dừng lại: {res.value}", "NOT_PROVABLE")
+                self.sidebar.set_feedback(f"Dừng lại: {res.value}", "NOT_PROVABLE")
 
         step()
 
