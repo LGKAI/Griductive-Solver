@@ -1,0 +1,103 @@
+{
+  "id": "91-3x3-inconsistent",
+  "title": "Failure case: the Forged Testimony",
+  "size": 3,
+  "initial": [
+    "B2"
+  ],
+  "meta": {
+    "expected": "INCONSISTENT",
+    "allow_false_clues": true,
+    "note": "Deliberately broken file: some clues contradict each other. Watch the agent report INCONSISTENT instead of guessing."
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Ada",
+      "profession": "Florist",
+      "status": "innocent",
+      "clue": {
+        "type": "FACT",
+        "cell": "B1",
+        "status": "criminal"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Bruno",
+      "profession": "Sailor",
+      "status": "innocent",
+      "clue": {
+        "type": "SAME",
+        "a": "B1",
+        "b": "C1"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Cyrus",
+      "profession": "Doctor",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 1,
+        "region": {
+          "kind": "all"
+        }
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Dmitri",
+      "profession": "Banker",
+      "status": "criminal",
+      "clue": {
+        "type": "FACT",
+        "cell": "A3",
+        "status": "criminal"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Elio",
+      "profession": "Coder",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "row",
+          "index": 1
+        }
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Faye",
+      "profession": "Singer",
+      "status": "criminal",
+      "clue": null
+    },
+    {
+      "cell": "A3",
+      "name": "Gus",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": null
+    },
+    {
+      "cell": "B3",
+      "name": "Hana",
+      "profession": "Painter",
+      "status": "innocent",
+      "clue": null
+    },
+    {
+      "cell": "C3",
+      "name": "Ivo",
+      "profession": "Farmer",
+      "status": "innocent",
+      "clue": null
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "id": "01-3x3-a",
+  "title": "The Ember Theatre",
+  "size": 3,
+  "initial": [
+    "C3"
+  ],
+  "meta": {
+    "generator_seed": 301,
+    "attempt": 0,
+    "waves": 4
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Dmitri",
+      "profession": "Doctor",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A1",
+        "b": "B1"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Greta",
+      "profession": "Florist",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Jonah",
+      "profession": "Banker",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "C1"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Kofi",
+      "profession": "Coder",
+      "status": "innocent",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "C1",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "C3",
+          "status": "innocent"
+        }
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Lior",
+      "profession": "Butler",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "index": "B"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Odile",
+      "profession": "Pilot",
+      "status": "criminal",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "A1",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "A3",
+          "status": "innocent"
+        }
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Pavel",
+      "profession": "Chemist",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "C2",
+        "b": "A2"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Theo",
+      "profession": "Chef",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "corners"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Zane",
+      "profession": "Doctor",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "corners"
+        },
+        "who": "criminal"
+      }
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "id": "90-3x3-ambiguous",
+  "title": "Failure case: the Twin Alibi",
+  "size": 3,
+  "initial": [
+    "B2"
+  ],
+  "meta": {
+    "expected": "STUCK",
+    "note": "Clues admit several solutions; no forced verdict exists."
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Alma",
+      "profession": "Baker",
+      "status": "criminal",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A1",
+        "b": "C1"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Basil",
+      "profession": "Guard",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "corners"
+        }
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Cleo",
+      "profession": "Judge",
+      "status": "innocent",
+      "clue": {
+        "type": "SAME",
+        "a": "C1",
+        "b": "A3"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Dara",
+      "profession": "Pilot",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "index": "A"
+        }
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Edda",
+      "profession": "Clerk",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "index": 1
+        }
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Felix",
+      "profession": "Chef",
+      "status": "criminal",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 2,
+        "region": {
+          "kind": "row",
+          "index": 2
+        }
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Greta",
+      "profession": "Miner",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "col",
+          "index": "B"
+        }
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Hugo",
+      "profession": "Tailor",
+      "status": "innocent",
+      "clue": {
+        "type": "FACT",
+        "cell": "C3",
+        "status": "criminal"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Ines",
+      "profession": "Writer",
+      "status": "criminal",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "edge"
+        }
+      }
+    }
+  ]
+}

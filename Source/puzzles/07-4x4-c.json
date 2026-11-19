@@ -1,0 +1,241 @@
+{
+  "id": "07-4x4-c",
+  "title": "The Hollow Vault",
+  "size": 4,
+  "initial": [
+    "C1"
+  ],
+  "meta": {
+    "generator_seed": 403,
+    "attempt": 6,
+    "waves": 6
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Abel",
+      "profession": "Tailor",
+      "status": "criminal",
+      "clue": {
+        "type": "SAME",
+        "a": "B4",
+        "b": "D1"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Cyrus",
+      "profession": "Chef",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "C4",
+            "A3",
+            "D3",
+            "A4"
+          ]
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Elio",
+      "profession": "Chemist",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "index": 1
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "D1",
+      "name": "Jade",
+      "profession": "Pilot",
+      "status": "criminal",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "index": "D"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Jonah",
+      "profession": "Chemist",
+      "status": "innocent",
+      "clue": {
+        "type": "PARITY",
+        "parity": "even",
+        "region": {
+          "kind": "neighbors",
+          "of": "A2"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Kira",
+      "profession": "Chemist",
+      "status": "criminal",
+      "clue": {
+        "type": "FACT",
+        "cell": "C4",
+        "status": "criminal"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Nico",
+      "profession": "Mechanic",
+      "status": "innocent",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "C1",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "B1",
+          "status": "innocent"
+        }
+      }
+    },
+    {
+      "cell": "D2",
+      "name": "Pia",
+      "profession": "Judge",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Rosa",
+      "profession": "Baker",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "B1",
+        "b": "B3"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Silas",
+      "profession": "Miner",
+      "status": "innocent",
+      "clue": {
+        "type": "SAME",
+        "a": "A3",
+        "b": "D2"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Tamsin",
+      "profession": "Florist",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 4,
+        "region": {
+          "kind": "neighbors",
+          "of": "C3"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D3",
+      "name": "Theo",
+      "profession": "Singer",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "row",
+          "index": 3
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "A4",
+      "name": "Uma",
+      "profession": "Mechanic",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 4,
+        "region": {
+          "kind": "neighbors",
+          "of": "B4"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B4",
+      "name": "Wren",
+      "profession": "Farmer",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "B4"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C4",
+      "name": "Xavi",
+      "profession": "Doctor",
+      "status": "criminal",
+      "clue": {
+        "type": "CONNECTED",
+        "region": {
+          "kind": "row",
+          "index": 4
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D4",
+      "name": "Yara",
+      "profession": "Singer",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "D3",
+        "b": "C3"
+      }
+    }
+  ]
+}

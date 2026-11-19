@@ -1,0 +1,156 @@
+{
+  "id": "03-3x3-c",
+  "title": "The Copper Orchard",
+  "size": 3,
+  "initial": [
+    "C1"
+  ],
+  "meta": {
+    "generator_seed": 303,
+    "attempt": 0,
+    "waves": 4
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Alma",
+      "profession": "Singer",
+      "status": "criminal",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "C3",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "A3",
+          "status": "innocent"
+        }
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Dmitri",
+      "profession": "Butler",
+      "status": "innocent",
+      "clue": {
+        "type": "COMPARE",
+        "op": "more",
+        "left": {
+          "kind": "neighbors",
+          "of": "B1"
+        },
+        "right": {
+          "kind": "intersect",
+          "regions": [
+            {
+              "kind": "neighbors",
+              "of": "B2"
+            },
+            {
+              "kind": "col",
+              "index": "A"
+            }
+          ]
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Elio",
+      "profession": "Guard",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "col",
+          "index": "B"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Lena",
+      "profession": "Mechanic",
+      "status": "criminal",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A1",
+        "b": "B2"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Omar",
+      "profession": "Banker",
+      "status": "innocent",
+      "clue": {
+        "type": "FACT",
+        "cell": "A3",
+        "status": "innocent"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Pia",
+      "profession": "Coder",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "index": 2
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Rufus",
+      "profession": "Farmer",
+      "status": "innocent",
+      "clue": {
+        "type": "COMPARE",
+        "op": "equal",
+        "left": {
+          "kind": "col",
+          "index": "A"
+        },
+        "right": {
+          "kind": "corners"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Uma",
+      "profession": "Banker",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A2",
+        "b": "B2"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Vera",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "neighbors",
+          "of": "B2"
+        },
+        "who": "criminal"
+      }
+    }
+  ]
+}

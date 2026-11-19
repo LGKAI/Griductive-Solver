@@ -1,5 +1,0 @@
-puzzle,dimensions,primary_variables,auxiliary_variables,initial_clauses,sat_calls,decisions,propagations,backtracks,deduction_steps,total_runtime_ms,status
-Case 3x3 (#00000B),3x3,9,0,5,63,0,306,0,7,0.483,SOLVED
-Case 3x4 (#00000B),3x4,12,0,6,120,0,729,0,10,0.976,SOLVED
-Case 4x4 (#00000F),4x4,16,0,6,224,0,1753,0,14,2.431,SOLVED
-Case 5x5 (#000013),5x5,25,0,6,575,0,6251,0,23,8.718,SOLVED

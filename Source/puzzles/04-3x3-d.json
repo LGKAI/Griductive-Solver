@@ -1,0 +1,152 @@
+{
+  "id": "04-3x3-d",
+  "title": "The Copper Garden",
+  "size": 3,
+  "initial": [
+    "A1"
+  ],
+  "meta": {
+    "generator_seed": 304,
+    "attempt": 0,
+    "waves": 5
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Alma",
+      "profession": "Painter",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Dara",
+      "profession": "Florist",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "row",
+          "index": 1
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Elio",
+      "profession": "Sailor",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "C1"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Hugo",
+      "profession": "Painter",
+      "status": "criminal",
+      "clue": {
+        "type": "SAME",
+        "a": "B1",
+        "b": "B3"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Ines",
+      "profession": "Judge",
+      "status": "criminal",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "A3"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Ivo",
+      "profession": "Pilot",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "corners"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Theo",
+      "profession": "Pilot",
+      "status": "criminal",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "A1",
+          "status": "innocent"
+        },
+        "then": {
+          "cell": "C3",
+          "status": "innocent"
+        }
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Wren",
+      "profession": "Doctor",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "index": "B"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Yara",
+      "profession": "Florist",
+      "status": "innocent",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "A2",
+            "C3",
+            "A1",
+            "B3"
+          ]
+        },
+        "who": "innocent"
+      }
+    }
+  ]
+}

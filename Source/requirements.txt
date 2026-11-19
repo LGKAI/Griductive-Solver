@@ -1,0 +1,2 @@
+# Casebook uses only the Python standard library (Python >= 3.10).
+# No third-party packages are required. The GUI runs in any modern web browser.
