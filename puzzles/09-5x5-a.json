@@ -1,0 +1,389 @@
+{
+  "id": "09-5x5-a",
+  "title": "The Harbor Ledger",
+  "size": 5,
+  "initial": [
+    "B2"
+  ],
+  "meta": {
+    "generator_seed": 501,
+    "attempt": 6,
+    "waves": 7
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Ada",
+      "profession": "Singer",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "corners"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Alma",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "B1"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Cleo",
+      "profession": "Banker",
+      "status": "criminal",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 0,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "C4",
+            "B3"
+          ]
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D1",
+      "name": "Cyrus",
+      "profession": "Florist",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "row",
+          "index": 3
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "E1",
+      "name": "Dara",
+      "profession": "Pilot",
+      "status": "criminal",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "C5",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "B2",
+          "status": "innocent"
+        }
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Dmitri",
+      "profession": "Butler",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "ray",
+          "of": "A2",
+          "dir": "below"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Edda",
+      "profession": "Farmer",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 5,
+        "region": {
+          "kind": "row",
+          "index": 2
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Felix",
+      "profession": "Chef",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 4,
+        "region": {
+          "kind": "neighbors",
+          "of": "C2"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D2",
+      "name": "Gus",
+      "profession": "Banker",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 4,
+        "region": {
+          "kind": "neighbors",
+          "of": "D2"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "E2",
+      "name": "Hana",
+      "profession": "Baker",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "E2",
+        "b": "A4"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Ivo",
+      "profession": "Butler",
+      "status": "innocent",
+      "clue": {
+        "type": "SAME",
+        "a": "C1",
+        "b": "B1"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Jade",
+      "profession": "Baker",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 2,
+        "region": {
+          "kind": "row",
+          "index": 3
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Jonah",
+      "profession": "Mechanic",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "B4",
+            "A3"
+          ]
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D3",
+      "name": "Kofi",
+      "profession": "Clerk",
+      "status": "criminal",
+      "clue": {
+        "type": "SAME",
+        "a": "E3",
+        "b": "B3"
+      }
+    },
+    {
+      "cell": "E3",
+      "name": "Lena",
+      "profession": "Butler",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "E2"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A4",
+      "name": "Milo",
+      "profession": "Chef",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "between",
+          "a": "B5",
+          "b": "B2"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B4",
+      "name": "Nadia",
+      "profession": "Coder",
+      "status": "innocent",
+      "clue": {
+        "type": "COMPARE",
+        "op": "more",
+        "left": {
+          "kind": "neighbors",
+          "of": "B4"
+        },
+        "right": {
+          "kind": "neighbors",
+          "of": "D3"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C4",
+      "name": "Odile",
+      "profession": "Sailor",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "col",
+          "index": "C"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D4",
+      "name": "Pia",
+      "profession": "Baker",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 4,
+        "region": {
+          "kind": "neighbors",
+          "of": "C2"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "E4",
+      "name": "Rosa",
+      "profession": "Florist",
+      "status": "innocent",
+      "clue": {
+        "type": "SAME",
+        "a": "C2",
+        "b": "E5"
+      }
+    },
+    {
+      "cell": "A5",
+      "name": "Sana",
+      "profession": "Chef",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 4,
+        "region": {
+          "kind": "neighbors",
+          "of": "C1"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B5",
+      "name": "Silas",
+      "profession": "Chef",
+      "status": "innocent",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "C1",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "D5",
+          "status": "criminal"
+        }
+      }
+    },
+    {
+      "cell": "C5",
+      "name": "Tamsin",
+      "profession": "Sailor",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "row",
+          "index": 5
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "D5",
+      "name": "Viggo",
+      "profession": "Florist",
+      "status": "criminal",
+      "clue": {
+        "type": "SAME",
+        "a": "D5",
+        "b": "D4"
+      }
+    },
+    {
+      "cell": "E5",
+      "name": "Yara",
+      "profession": "Singer",
+      "status": "innocent",
+      "clue": {
+        "type": "COMPARE",
+        "op": "more",
+        "left": {
+          "kind": "col",
+          "index": "D"
+        },
+        "right": {
+          "kind": "row",
+          "index": 4
+        },
+        "who": "criminal"
+      }
+    }
+  ]
+}

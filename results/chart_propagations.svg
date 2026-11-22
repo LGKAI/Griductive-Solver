@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 360" font-family="Inter,Helvetica,Arial,sans-serif" font-size="11">
+<text x="60" y="22" font-size="15" font-weight="600" fill="#1f2433">Unit propagations (all SAT calls)</text>
+<line x1="60" y1="290" x2="900" y2="290" stroke="#9aa1b2"/>
+<line x1="60" y1="227.5" x2="900" y2="227.5" stroke="#e3e6ee"/>
+<text x="54" y="231.5" text-anchor="end" fill="#6b7285">18</text>
+<line x1="60" y1="165.0" x2="900" y2="165.0" stroke="#e3e6ee"/>
+<text x="54" y="169.0" text-anchor="end" fill="#6b7285">376</text>
+<line x1="60" y1="102.5" x2="900" y2="102.5" stroke="#e3e6ee"/>
+<text x="54" y="106.5" text-anchor="end" fill="#6b7285">7,312</text>
+<line x1="60" y1="40.0" x2="900" y2="40.0" stroke="#e3e6ee"/>
+<text x="54" y="44.0" text-anchor="end" fill="#6b7285">141,952</text>
+<rect x="67.0" y="176.7" width="16.7" height="113.3" rx="2" fill="#4f6bed"><title>01-3x3-a / filter+auto: 215</title></rect>
+<rect x="85.7" y="162.2" width="16.7" height="127.8" rx="2" fill="#e8743b"><title>01-3x3-a / naive+auto: 429</title></rect>
+<rect x="104.3" y="150.0" width="16.7" height="140.0" rx="2" fill="#19a979"><title>01-3x3-a / filter+counter: 767</title></rect>
+<text x="95.0" y="306" text-anchor="middle" fill="#3b4152">01·3x3</text>
+<rect x="137.0" y="177.0" width="16.7" height="113.0" rx="2" fill="#4f6bed"><title>02-3x3-b / filter+auto: 212</title></rect>
+<rect x="155.7" y="162.0" width="16.7" height="128.0" rx="2" fill="#e8743b"><title>02-3x3-b / naive+auto: 434</title></rect>
+<rect x="174.3" y="144.3" width="16.7" height="145.7" rx="2" fill="#19a979"><title>02-3x3-b / filter+counter: 1005</title></rect>
+<text x="165.0" y="306" text-anchor="middle" fill="#3b4152">02·3x3</text>
+<rect x="207.0" y="140.6" width="16.7" height="149.4" rx="2" fill="#4f6bed"><title>03-3x3-c / filter+auto: 1196</title></rect>
+<rect x="225.7" y="125.7" width="16.7" height="164.3" rx="2" fill="#e8743b"><title>03-3x3-c / naive+auto: 2434</title></rect>
+<rect x="244.3" y="137.1" width="16.7" height="152.9" rx="2" fill="#19a979"><title>03-3x3-c / filter+counter: 1418</title></rect>
+<text x="235.0" y="306" text-anchor="middle" fill="#3b4152">03·3x3</text>
+<rect x="277.0" y="173.6" width="16.7" height="116.4" rx="2" fill="#4f6bed"><title>04-3x3-d / filter+auto: 249</title></rect>
+<rect x="295.7" y="159.3" width="16.7" height="130.7" rx="2" fill="#e8743b"><title>04-3x3-d / naive+auto: 493</title></rect>
+<rect x="314.3" y="150.9" width="16.7" height="139.1" rx="2" fill="#19a979"><title>04-3x3-d / filter+counter: 735</title></rect>
+<text x="305.0" y="306" text-anchor="middle" fill="#3b4152">04·3x3</text>
+<rect x="347.0" y="136.4" width="16.7" height="153.6" rx="2" fill="#4f6bed"><title>05-4x4-a / filter+auto: 1460</title></rect>
+<rect x="365.7" y="121.6" width="16.7" height="168.4" rx="2" fill="#e8743b"><title>05-4x4-a / naive+auto: 2948</title></rect>
+<rect x="384.3" y="105.0" width="16.7" height="185.0" rx="2" fill="#19a979"><title>05-4x4-a / filter+counter: 6487</title></rect>
+<text x="375.0" y="306" text-anchor="middle" fill="#3b4152">05·4x4</text>
+<rect x="417.0" y="133.5" width="16.7" height="156.5" rx="2" fill="#4f6bed"><title>06-4x4-b / filter+auto: 1676</title></rect>
+<rect x="435.7" y="116.3" width="16.7" height="173.7" rx="2" fill="#e8743b"><title>06-4x4-b / naive+auto: 3796</title></rect>
+<rect x="454.3" y="103.2" width="16.7" height="186.8" rx="2" fill="#19a979"><title>06-4x4-b / filter+counter: 7080</title></rect>
+<text x="445.0" y="306" text-anchor="middle" fill="#3b4152">06·4x4</text>
+<rect x="487.0" y="140.3" width="16.7" height="149.7" rx="2" fill="#4f6bed"><title>07-4x4-c / filter+auto: 1214</title></rect>
+<rect x="505.7" y="124.3" width="16.7" height="165.7" rx="2" fill="#e8743b"><title>07-4x4-c / naive+auto: 2599</title></rect>
+<rect x="524.3" y="98.3" width="16.7" height="191.7" rx="2" fill="#19a979"><title>07-4x4-c / filter+counter: 8945</title></rect>
+<text x="515.0" y="306" text-anchor="middle" fill="#3b4152">07·4x4</text>
+<rect x="557.0" y="119.1" width="16.7" height="170.9" rx="2" fill="#4f6bed"><title>08-4x4-d / filter+auto: 3333</title></rect>
+<rect x="575.7" y="100.7" width="16.7" height="189.3" rx="2" fill="#e8743b"><title>08-4x4-d / naive+auto: 7958</title></rect>
+<rect x="594.3" y="108.9" width="16.7" height="181.1" rx="2" fill="#19a979"><title>08-4x4-d / filter+counter: 5400</title></rect>
+<text x="585.0" y="306" text-anchor="middle" fill="#3b4152">08·4x4</text>
+<rect x="627.0" y="92.3" width="16.7" height="197.7" rx="2" fill="#4f6bed"><title>09-5x5-a / filter+auto: 11855</title></rect>
+<rect x="645.7" y="74.1" width="16.7" height="215.9" rx="2" fill="#e8743b"><title>09-5x5-a / naive+auto: 28144</title></rect>
+<rect x="664.3" y="59.2" width="16.7" height="230.8" rx="2" fill="#19a979"><title>09-5x5-a / filter+counter: 57034</title></rect>
+<text x="655.0" y="306" text-anchor="middle" fill="#3b4152">09·5x5</text>
+<rect x="697.0" y="56.6" width="16.7" height="233.4" rx="2" fill="#4f6bed"><title>10-5x5-b / filter+auto: 64527</title></rect>
+<rect x="715.7" y="40.0" width="16.7" height="250.0" rx="2" fill="#e8743b"><title>10-5x5-b / naive+auto: 141952</title></rect>
+<rect x="734.3" y="55.5" width="16.7" height="234.5" rx="2" fill="#19a979"><title>10-5x5-b / filter+counter: 67941</title></rect>
+<text x="725.0" y="306" text-anchor="middle" fill="#3b4152">10·5x5</text>
+<rect x="767.0" y="223.0" width="16.7" height="67.0" rx="2" fill="#4f6bed"><title>90-3x3-ambiguous / filter+auto: 23</title></rect>
+<rect x="785.7" y="208.0" width="16.7" height="82.0" rx="2" fill="#e8743b"><title>90-3x3-ambiguous / naive+auto: 48</title></rect>
+<rect x="804.3" y="197.7" width="16.7" height="92.3" rx="2" fill="#19a979"><title>90-3x3-ambiguous / filter+counter: 79</title></rect>
+<text x="795.0" y="306" text-anchor="middle" fill="#3b4152">90·3x3</text>
+<rect x="837.0" y="218.3" width="16.7" height="71.7" rx="2" fill="#4f6bed"><title>91-3x3-inconsistent / filter+auto: 29</title></rect>
+<rect x="855.7" y="204.1" width="16.7" height="85.9" rx="2" fill="#e8743b"><title>91-3x3-inconsistent / naive+auto: 58</title></rect>
+<rect x="874.3" y="207.6" width="16.7" height="82.4" rx="2" fill="#19a979"><title>91-3x3-inconsistent / filter+counter: 49</title></rect>
+<text x="865.0" y="306" text-anchor="middle" fill="#3b4152">91·3x3</text>
+<rect x="60" y="338" width="12" height="12" rx="2" fill="#4f6bed"/>
+<text x="78" y="348" fill="#3b4152">filter+auto</text>
+<rect x="210" y="338" width="12" height="12" rx="2" fill="#e8743b"/>
+<text x="228" y="348" fill="#3b4152">naive+auto</text>
+<rect x="360" y="338" width="12" height="12" rx="2" fill="#19a979"/>
+<text x="378" y="348" fill="#3b4152">filter+counter</text>
+<text x="900" y="348" text-anchor="end" fill="#6b7285">log scale</text>
+</svg>

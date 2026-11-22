@@ -1,5 +1,2 @@
-# Griductive Solver Requirements
-# All essential components use the Python Standard Library (Tkinter, itertools, json, csv, unittest).
-# Python 3.10 or higher is recommended.
-# No external third-party dependencies are strictly required.
-
+# Casebook uses only the Python standard library (Python >= 3.10).
+# No third-party packages are required. The GUI runs in any modern web browser.

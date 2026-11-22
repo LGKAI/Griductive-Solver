@@ -1,0 +1,409 @@
+{
+  "id": "10-5x5-b",
+  "title": "The Lantern Ledger",
+  "size": 5,
+  "initial": [
+    "E3"
+  ],
+  "meta": {
+    "generator_seed": 502,
+    "attempt": 32,
+    "waves": 12
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Basil",
+      "profession": "Tailor",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A1",
+        "b": "C4"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Bea",
+      "profession": "Singer",
+      "status": "criminal",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "B1",
+        "b": "C2"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Bruno",
+      "profession": "Pilot",
+      "status": "criminal",
+      "clue": {
+        "type": "SAME",
+        "a": "D5",
+        "b": "E5"
+      }
+    },
+    {
+      "cell": "D1",
+      "name": "Cyrus",
+      "profession": "Baker",
+      "status": "criminal",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "D2",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "E2",
+          "status": "criminal"
+        }
+      }
+    },
+    {
+      "cell": "E1",
+      "name": "Elio",
+      "profession": "Mechanic",
+      "status": "innocent",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "row",
+          "index": 1
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Felix",
+      "profession": "Chemist",
+      "status": "innocent",
+      "clue": {
+        "type": "SAME",
+        "a": "A2",
+        "b": "A3"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Greta",
+      "profession": "Coder",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 10,
+        "region": {
+          "kind": "edge"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Gus",
+      "profession": "Judge",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "intersect",
+          "regions": [
+            {
+              "kind": "neighbors",
+              "of": "C2"
+            },
+            {
+              "kind": "col",
+              "index": "D"
+            }
+          ]
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D2",
+      "name": "Hugo",
+      "profession": "Singer",
+      "status": "innocent",
+      "clue": {
+        "type": "COMPARE",
+        "op": "fewer",
+        "left": {
+          "kind": "cells",
+          "cells": [
+            "A3",
+            "D3",
+            "C4"
+          ]
+        },
+        "right": {
+          "kind": "row",
+          "index": 3
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "E2",
+      "name": "Ines",
+      "profession": "Baker",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "row",
+          "index": 2
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Jade",
+      "profession": "Coder",
+      "status": "innocent",
+      "clue": {
+        "type": "COMPARE",
+        "op": "fewer",
+        "left": {
+          "kind": "intersect",
+          "regions": [
+            {
+              "kind": "neighbors",
+              "of": "A3"
+            },
+            {
+              "kind": "col",
+              "index": "A"
+            }
+          ]
+        },
+        "right": {
+          "kind": "common_neighbors",
+          "a": "C5",
+          "b": "D4"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Kofi",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "C4",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "B4",
+          "status": "criminal"
+        }
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Mila",
+      "profession": "Singer",
+      "status": "criminal",
+      "clue": {
+        "type": "FACT",
+        "cell": "A2",
+        "status": "innocent"
+      }
+    },
+    {
+      "cell": "D3",
+      "name": "Nadia",
+      "profession": "Doctor",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "row",
+          "index": 3
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "E3",
+      "name": "Nico",
+      "profession": "Singer",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "ray",
+          "of": "E3",
+          "dir": "below"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A4",
+      "name": "Omar",
+      "profession": "Pilot",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "ray",
+          "of": "A4",
+          "dir": "above"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B4",
+      "name": "Pia",
+      "profession": "Guard",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "row",
+          "index": 4
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C4",
+      "name": "Quinn",
+      "profession": "Miner",
+      "status": "criminal",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "C4",
+        "b": "B2"
+      }
+    },
+    {
+      "cell": "D4",
+      "name": "Rosa",
+      "profession": "Banker",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 6,
+        "region": {
+          "kind": "neighbors",
+          "of": "D4"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "E4",
+      "name": "Silas",
+      "profession": "Mechanic",
+      "status": "criminal",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "E4",
+          "status": "criminal"
+        },
+        "then": {
+          "cell": "A4",
+          "status": "criminal"
+        }
+      }
+    },
+    {
+      "cell": "A5",
+      "name": "Uma",
+      "profession": "Pilot",
+      "status": "innocent",
+      "clue": {
+        "type": "PARITY",
+        "parity": "even",
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B5",
+      "name": "Wren",
+      "profession": "Judge",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "corners"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C5",
+      "name": "Xavi",
+      "profession": "Florist",
+      "status": "criminal",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 4,
+        "region": {
+          "kind": "row",
+          "index": 1
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D5",
+      "name": "Yara",
+      "profession": "Painter",
+      "status": "criminal",
+      "clue": {
+        "type": "COMPARE",
+        "op": "fewer",
+        "left": {
+          "kind": "ray",
+          "of": "A4",
+          "dir": "below"
+        },
+        "right": {
+          "kind": "row",
+          "index": 1
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "E5",
+      "name": "Zane",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "ray",
+          "of": "A1",
+          "dir": "below"
+        },
+        "who": "criminal"
+      }
+    }
+  ]
+}

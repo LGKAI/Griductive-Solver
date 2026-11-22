@@ -1,20 +1,28 @@
-# Python cache
+# Bộ nhớ đệm biên dịch Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# Environments
+# Môi trường ảo & biến môi trường
 .env
 .venv/
-env/
 venv/
+env/
 ENV/
 
-# IDE & OS
-.vscode/
-.idea/
+# Kết quả chạy nhanh cục bộ (tránh làm xáo trộn kết quả thực nghiệm chính)
+results/quick/
+
+# Hệ điều hành & trình soạn thảo (IDE)
 .DS_Store
 Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
 *.tmp

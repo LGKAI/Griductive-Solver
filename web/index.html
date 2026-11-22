@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Casebook · No-Guess Deduction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Cpath d='M18 20h28v28H18z' fill='none' stroke='white' stroke-width='4'/%3E%3Cpath d='M18 34h28M32 20v28' stroke='white' stroke-width='4'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><rect x="3" y="3" width="34" height="34" rx="9" fill="currentColor"/><path d="M11 11h18v18H11z" fill="none" stroke="#fff" stroke-width="2.6"/><path d="M11 20h18M20 11v18" stroke="#fff" stroke-width="2.6"/><circle cx="25" cy="25" r="5.4" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M29 29l4 4" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">Casebook</div>
+        <div class="brand-sub">No-guess deduction · DPLL</div>
+      </div>
+    </div>
+
+    <div class="case-head">
+      <div class="case-title" id="caseTitle">No case loaded</div>
+      <div class="case-meta" id="caseMeta"></div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric metric-progress" title="Characters identified">
+        <div class="metric-label">Identified</div>
+        <div class="metric-value"><span id="mSolved">0</span><span class="of">/<span id="mTotal">0</span></span></div>
+        <div class="progress"><div class="progress-bar" id="mBar"></div></div>
+      </div>
+      <div class="metric" title="Rejected verdicts">
+        <div class="metric-label">Mistakes</div>
+        <div class="metric-value" id="mMistakes">0</div>
+      </div>
+      <div class="metric" title="SAT calls used to judge your verdicts and by agent steps in this game">
+        <div class="metric-label">SAT calls</div>
+        <div class="metric-value" id="mSat">0</div>
+      </div>
+      <button class="icon-btn" id="btnTheme" title="Toggle light / dark theme" aria-label="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <aside class="side side-left">
+    <section class="panel">
+      <div class="panel-head"><h2>Case files</h2><span class="hint-text" id="puzzleCount"></span></div>
+      <div class="puzzle-list" id="puzzleList" role="listbox" aria-label="Bundled puzzles"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btnLoad"><svg viewBox="0 0 24 24"><path d="M4 7h6l2 2h8v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>Load</button>
+        <button class="btn" id="btnUpload" title="Open a puzzle JSON file"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>Open file</button>
+        <input type="file" id="fileInput" accept=".json,application/json" hidden>
+      </div>
+      <div class="gen-row">
+        <div class="segmented" id="genSize" role="radiogroup" aria-label="Generated puzzle size">
+          <button data-size="3" role="radio" aria-checked="false">3×3</button><button data-size="4" class="active" role="radio" aria-checked="true">4×4</button><button data-size="5" role="radio" aria-checked="false">5×5</button>
+        </div>
+        <button class="btn" id="btnGenerate" title="Generate a fresh no-guess puzzle"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg>New</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Play</h2></div>
+      <div class="btn-grid">
+        <button class="btn" id="btnRestart" title="Restart (R)"><svg viewBox="0 0 24 24"><path d="M4 4v6h6M4.5 15a8 8 0 1 0 1.9-8.3L4 10"/></svg>Restart</button>
+        <button class="btn btn-hint" id="btnHint" title="Hint (H)"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>Hint</button>
+      </div>
+      <p class="help">Click a face-down card to accuse. Only verdicts that <em>follow logically</em> from the face-up clues are accepted.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Logic agent</h2><span class="chip chip-soft" id="agentState">idle</span></div>
+      <div class="btn-grid">
+        <button class="btn" id="btnStep" title="One deduction step (N)"><svg viewBox="0 0 24 24"><path d="M6 5l8 7-8 7zM17 5v14"/></svg>Step</button>
+        <button class="btn btn-primary" id="btnAuto" title="Auto solve (A)"><svg class="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg><span>Auto solve</span></button>
+      </div>
+      <label class="slider-row">
+        <span>Speed</span>
+        <input type="range" id="speed" min="0" max="100" value="60">
+        <span class="slider-val" id="speedVal"></span>
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="showDeductions">
+        <span class="toggle" aria-hidden="true"></span>
+        <span>Show solver deductions on cards</span>
+      </label>
+    </section>
+
+    <section class="panel legend">
+      <div class="panel-head"><h2>Legend</h2></div>
+      <ul>
+        <li><span class="sw sw-crim"></span><span id="legCrim">Criminal</span></li>
+        <li><span class="sw sw-inn"></span><span id="legInn">Innocent</span></li>
+        <li><span class="sw sw-counted"></span>Counted by selected clue</li>
+        <li><span class="sw sw-named"></span>Named by selected clue</li>
+      </ul>
+      <p class="help cast-note">Player photos: Wikimedia Commons (see <code>web/portraits/CREDITS.md</code>). Red card / fair play are random game statuses, not statements about real people.</p>
+      <div class="kbd-row"><kbd>H</kbd> hint <kbd>N</kbd> step <kbd>A</kbd> auto <kbd>R</kbd> restart <kbd>Esc</kbd> clear</div>
+    </section>
+  </aside>
+
+  <main class="stage" id="stage">
+    <div class="banner" id="banner" role="status" aria-live="polite" hidden>
+      <div class="banner-icon" id="bannerIcon"></div>
+      <div class="banner-body" id="bannerBody"></div>
+      <button class="banner-close" id="bannerClose" aria-label="Dismiss">×</button>
+    </div>
+    <div class="board-shell">
+      <div class="board" id="board" role="group" aria-label="Puzzle board"></div>
+    </div>
+    <div class="empty" id="empty">
+      <div class="empty-art" aria-hidden="true">🗂️</div>
+      <h3>Open a case file</h3>
+      <p>Pick a puzzle on the left and press <b>Load</b>, or generate a new one.</p>
+    </div>
+  </main>
+
+  <aside class="side side-right">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="clues" role="tab" aria-selected="true">Clues <span class="count" id="clueCount">0</span></button>
+      <button class="tab" data-tab="trace" role="tab" aria-selected="false">Trace <span class="count" id="traceCount">0</span></button>
+      <button class="tab" data-tab="solver" role="tab" aria-selected="false">Solver</button>
+    </div>
+    <div class="tab-body" data-body="clues">
+      <p class="help">Select a clue to highlight the people it talks about.</p>
+      <ol class="clue-list" id="clueList"></ol>
+    </div>
+    <div class="tab-body" data-body="trace" hidden>
+      <div class="trace-tools"><span class="help">Every verdict, with the SAT queries behind it.</span></div>
+      <ol class="trace" id="trace"></ol>
+    </div>
+    <div class="tab-body" data-body="solver" hidden>
+      <h3 class="sub">Current knowledge base</h3>
+      <div class="tiles">
+        <div class="tile"><div class="tile-v" id="kbPrimary">–</div><div class="tile-l">primary vars</div></div>
+        <div class="tile"><div class="tile-v" id="kbAux">–</div><div class="tile-l">auxiliary vars</div></div>
+        <div class="tile"><div class="tile-v" id="kbClauses">–</div><div class="tile-l">CNF clauses</div></div>
+      </div>
+      <h3 class="sub">Entailment analysis <button class="link-btn" id="btnAnalyze">refresh</button></h3>
+      <div id="analysisBox" class="analysis"><p class="help">Run an analysis to see which characters are forced.</p></div>
+      <h3 class="sub">Configuration</h3>
+      <label class="field"><span>Query strategy</span>
+        <select id="cfgStrategy">
+          <option value="filter">Model filtering (fewer SAT calls)</option>
+          <option value="naive">Naive: two queries per character</option>
+        </select>
+      </label>
+      <label class="field"><span>Cardinality encoding</span>
+        <select id="cfgCard">
+          <option value="auto">Auto (direct, counter if large)</option>
+          <option value="direct">Direct combinatorial</option>
+          <option value="counter">Unary counter (aux vars)</option>
+        </select>
+      </label>
+      <h3 class="sub">Puzzle validity (author check)</h3>
+      <p class="help">Uses the <b>complete</b> clue set, including clues that are still face-down. The solutions found are never sent to the browser.</p>
+      <button class="btn btn-block" id="btnUnique"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Check uniqueness of full clue set</button>
+      <div id="uniqueBox" class="unique-box"></div>
+    </div>
+  </aside>
+</div>
+
+<div class="popover" id="popover" role="dialog" aria-modal="false" aria-labelledby="popTitle" hidden>
+  <div class="pop-head"><div class="pop-avatar" id="popAvatar"></div><div><div class="pop-title" id="popTitle"></div><div class="pop-sub" id="popSub"></div></div></div>
+  <div class="pop-actions">
+    <button class="btn-verdict crim" id="popCrim"><span>Criminal</span><kbd>C</kbd></button>
+    <button class="btn-verdict inn" id="popInn"><span>Innocent</span><kbd>I</kbd></button>
+  </div>
+  <div class="pop-foot">No guessing: the verdict must be provable.</div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<div class="modal-back" id="modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-art" id="modalArt">🔎</div>
+    <h2 id="modalTitle">Case closed</h2>
+    <p id="modalText"></p>
+    <div class="modal-stats" id="modalStats"></div>
+    <div class="btn-row center">
+      <button class="btn" id="modalClose">Admire the board</button>
+      <button class="btn btn-primary" id="modalNext">Next case</button>
+    </div>
+  </div>
+</div>
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+<div class="loading" id="loading" hidden><div class="spinner"></div><div id="loadingText">Working…</div></div>
+
+<script src="app.js"></script>
+</body>
+</html>

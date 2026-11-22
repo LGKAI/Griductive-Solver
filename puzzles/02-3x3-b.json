@@ -1,0 +1,148 @@
+{
+  "id": "02-3x3-b",
+  "title": "The Velvet Ledger",
+  "size": 3,
+  "initial": [
+    "B2"
+  ],
+  "meta": {
+    "generator_seed": 302,
+    "attempt": 0,
+    "waves": 4
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Basil",
+      "profession": "Writer",
+      "status": "criminal",
+      "clue": {
+        "type": "CONNECTED",
+        "region": {
+          "kind": "row",
+          "index": 1
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Cleo",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "index": "B"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Cyrus",
+      "profession": "Chef",
+      "status": "innocent",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "ray",
+          "of": "C1",
+          "dir": "below"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Lena",
+      "profession": "Tailor",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "index": 2
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Milo",
+      "profession": "Chef",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Nico",
+      "profession": "Florist",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "C2"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Vera",
+      "profession": "Baker",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "index": 3
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Viggo",
+      "profession": "Painter",
+      "status": "innocent",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "A3",
+          "status": "innocent"
+        },
+        "then": {
+          "cell": "C1",
+          "status": "innocent"
+        }
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Wren",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A2",
+        "b": "C2"
+      }
+    }
+  ]
+}

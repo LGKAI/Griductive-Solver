@@ -1,0 +1,267 @@
+{
+  "id": "08-4x4-d",
+  "title": "The Silent Ledger",
+  "size": 4,
+  "initial": [
+    "A1"
+  ],
+  "meta": {
+    "generator_seed": 404,
+    "attempt": 1,
+    "waves": 6
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Alma",
+      "profession": "Butler",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 4,
+        "region": {
+          "kind": "row",
+          "index": 4
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Basil",
+      "profession": "Pilot",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "B1",
+        "b": "A2"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Bruno",
+      "profession": "Singer",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "ray",
+          "of": "C1",
+          "dir": "left"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D1",
+      "name": "Hugo",
+      "profession": "Chef",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "index": "D"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Jonah",
+      "profession": "Miner",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Kira",
+      "profession": "Coder",
+      "status": "innocent",
+      "clue": {
+        "type": "SAME",
+        "a": "A3",
+        "b": "C4"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Mila",
+      "profession": "Farmer",
+      "status": "innocent",
+      "clue": {
+        "type": "COMPARE",
+        "op": "fewer",
+        "left": {
+          "kind": "neighbors",
+          "of": "C2"
+        },
+        "right": {
+          "kind": "neighbors",
+          "of": "B3"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D2",
+      "name": "Nico",
+      "profession": "Chemist",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "B4"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Omar",
+      "profession": "Miner",
+      "status": "criminal",
+      "clue": {
+        "type": "COMPARE",
+        "op": "fewer",
+        "left": {
+          "kind": "row",
+          "index": 2
+        },
+        "right": {
+          "kind": "neighbors",
+          "of": "B4"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Pavel",
+      "profession": "Farmer",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "common_neighbors",
+          "a": "B3",
+          "b": "A1"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Pia",
+      "profession": "Florist",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "index": "C"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D3",
+      "name": "Silas",
+      "profession": "Coder",
+      "status": "criminal",
+      "clue": {
+        "type": "COMPARE",
+        "op": "equal",
+        "left": {
+          "kind": "col",
+          "index": "D"
+        },
+        "right": {
+          "kind": "common_neighbors",
+          "a": "B1",
+          "b": "B2"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A4",
+      "name": "Theo",
+      "profession": "Florist",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "intersect",
+          "regions": [
+            {
+              "kind": "neighbors",
+              "of": "A4"
+            },
+            {
+              "kind": "col",
+              "index": "B"
+            }
+          ]
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B4",
+      "name": "Vera",
+      "profession": "Coder",
+      "status": "criminal",
+      "clue": {
+        "type": "SAME",
+        "a": "D3",
+        "b": "A4"
+      }
+    },
+    {
+      "cell": "C4",
+      "name": "Wren",
+      "profession": "Mechanic",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "even",
+        "region": {
+          "kind": "neighbors",
+          "of": "C3"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D4",
+      "name": "Yara",
+      "profession": "Writer",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "even",
+        "region": {
+          "kind": "col",
+          "index": "D"
+        },
+        "who": "criminal"
+      }
+    }
+  ]
+}

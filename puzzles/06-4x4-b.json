@@ -1,0 +1,251 @@
+{
+  "id": "06-4x4-b",
+  "title": "The Ivory Masquerade",
+  "size": 4,
+  "initial": [
+    "C1"
+  ],
+  "meta": {
+    "generator_seed": 402,
+    "attempt": 1,
+    "waves": 6
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Abel",
+      "profession": "Miner",
+      "status": "criminal",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A4",
+        "b": "A2"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Ada",
+      "profession": "Banker",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "index": "B"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Basil",
+      "profession": "Clerk",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 0,
+        "region": {
+          "kind": "neighbors",
+          "of": "C1"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D1",
+      "name": "Dara",
+      "profession": "Banker",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 3,
+        "region": {
+          "kind": "neighbors",
+          "of": "D1"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Dmitri",
+      "profession": "Banker",
+      "status": "criminal",
+      "clue": {
+        "type": "IMPLIES",
+        "if": {
+          "cell": "C1",
+          "status": "innocent"
+        },
+        "then": {
+          "cell": "A1",
+          "status": "criminal"
+        }
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Elio",
+      "profession": "Mechanic",
+      "status": "innocent",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "neighbors",
+          "of": "B2"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Gus",
+      "profession": "Pilot",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "row",
+          "index": 2
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "D2",
+      "name": "Ivo",
+      "profession": "Painter",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "neighbors",
+          "of": "D2"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Kira",
+      "profession": "Chemist",
+      "status": "innocent",
+      "clue": {
+        "type": "CONNECTED",
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Lena",
+      "profession": "Doctor",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "neighbors",
+          "of": "B3"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Odile",
+      "profession": "Pilot",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "corners"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D3",
+      "name": "Pia",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "row",
+          "index": 3
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "A4",
+      "name": "Tamsin",
+      "profession": "Butler",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B4",
+      "name": "Theo",
+      "profession": "Mechanic",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "col",
+          "index": "B"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C4",
+      "name": "Viggo",
+      "profession": "Coder",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "index": "C"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D4",
+      "name": "Zane",
+      "profession": "Clerk",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_MOST",
+        "k": 1,
+        "region": {
+          "kind": "col",
+          "index": "D"
+        },
+        "who": "criminal"
+      }
+    }
+  ]
+}

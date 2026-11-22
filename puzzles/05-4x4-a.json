@@ -1,0 +1,249 @@
+{
+  "id": "05-4x4-a",
+  "title": "The Ember Gallery",
+  "size": 4,
+  "initial": [
+    "A1"
+  ],
+  "meta": {
+    "generator_seed": 401,
+    "attempt": 7,
+    "waves": 8
+  },
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Ada",
+      "profession": "Doctor",
+      "status": "innocent",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 4,
+        "region": {
+          "kind": "corners"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "B1",
+      "name": "Basil",
+      "profession": "Writer",
+      "status": "criminal",
+      "clue": {
+        "type": "AT_LEAST",
+        "k": 1,
+        "region": {
+          "kind": "row",
+          "index": 1
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C1",
+      "name": "Edda",
+      "profession": "Singer",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 3,
+        "region": {
+          "kind": "row",
+          "index": 2
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "D1",
+      "name": "Elio",
+      "profession": "Pilot",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 0,
+        "region": {
+          "kind": "corners"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "A2",
+      "name": "Felix",
+      "profession": "Pilot",
+      "status": "innocent",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "A2",
+        "b": "B4"
+      }
+    },
+    {
+      "cell": "B2",
+      "name": "Greta",
+      "profession": "Judge",
+      "status": "innocent",
+      "clue": {
+        "type": "SAME",
+        "a": "B2",
+        "b": "A2"
+      }
+    },
+    {
+      "cell": "C2",
+      "name": "Gus",
+      "profession": "Clerk",
+      "status": "criminal",
+      "clue": {
+        "type": "COMPARE",
+        "op": "fewer",
+        "left": {
+          "kind": "intersect",
+          "regions": [
+            {
+              "kind": "neighbors",
+              "of": "C2"
+            },
+            {
+              "kind": "col",
+              "index": "C"
+            }
+          ]
+        },
+        "right": {
+          "kind": "row",
+          "index": 4
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "D2",
+      "name": "Hana",
+      "profession": "Mechanic",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "D2"
+        },
+        "who": "innocent"
+      }
+    },
+    {
+      "cell": "A3",
+      "name": "Hugo",
+      "profession": "Judge",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "neighbors",
+          "of": "A3"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B3",
+      "name": "Jade",
+      "profession": "Baker",
+      "status": "criminal",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 4,
+        "region": {
+          "kind": "neighbors",
+          "of": "B3"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "C3",
+      "name": "Kofi",
+      "profession": "Farmer",
+      "status": "innocent",
+      "clue": {
+        "type": "FACT",
+        "cell": "B2",
+        "status": "innocent"
+      }
+    },
+    {
+      "cell": "D3",
+      "name": "Milo",
+      "profession": "Butler",
+      "status": "criminal",
+      "clue": {
+        "type": "DIFFERENT",
+        "a": "B4",
+        "b": "C3"
+      }
+    },
+    {
+      "cell": "A4",
+      "name": "Pavel",
+      "profession": "Judge",
+      "status": "innocent",
+      "clue": {
+        "type": "PARITY",
+        "parity": "odd",
+        "region": {
+          "kind": "col",
+          "index": "A"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "B4",
+      "name": "Uma",
+      "profession": "Singer",
+      "status": "criminal",
+      "clue": {
+        "type": "SAME",
+        "a": "D2",
+        "b": "B2"
+      }
+    },
+    {
+      "cell": "C4",
+      "name": "Vera",
+      "profession": "Tailor",
+      "status": "criminal",
+      "clue": {
+        "type": "PARITY",
+        "parity": "even",
+        "region": {
+          "kind": "neighbors",
+          "of": "C2"
+        },
+        "who": "criminal"
+      }
+    },
+    {
+      "cell": "D4",
+      "name": "Zane",
+      "profession": "Sailor",
+      "status": "innocent",
+      "clue": {
+        "type": "EXACTLY",
+        "k": 2,
+        "region": {
+          "kind": "cells",
+          "cells": [
+            "D3",
+            "B4"
+          ]
+        },
+        "who": "criminal"
+      }
+    }
+  ]
+}

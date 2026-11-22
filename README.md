@@ -1,124 +1,147 @@
-# Griductive Solver
+# Casebook — Bộ Giải Trò Chơi Suy Luận Griductive (CSC14003 Project 2)
 
-Đồ án Cơ sở AI
+Casebook cài đặt hoàn chỉnh trò chơi suy luận **Griductive** kết hợp tác tử logic **không đoán mò** (*no-guess*), sử dụng logic mệnh đề, bộ mã hóa CNF tự động và bộ giải SAT **DPLL** tự viết từ đầu.
 
----
+## Yêu cầu hệ thống
 
-## 1. Giới thiệu tổng quan
-**Griductive** là trò chơi suy luận dạng lưới (grid-deduction game) trên bảng kích thước $N \times N$ (với $N \in \{3, 4, 5\}$). Mỗi ô trên bảng chứa một nhân vật có trạng thái bí mật là **Criminal** hoặc **Innocent**, kèm theo một manh mối logic có cấu trúc.
+- **Python 3.10 trở lên** (phát triển và kiểm thử trên Python 3.12 / 3.14).
+- **Không cần thư viện bên thứ ba**: toàn bộ mã nguồn chỉ dùng thư viện chuẩn Python (xem `requirements.txt`).
+- Trình duyệt web hiện đại bất kỳ (Chrome, Edge, Firefox hoặc Safari) để chạy giao diện.
 
-Quy tắc cốt lõi: **TUYỆT ĐỐI KHÔNG ĐƯỢC ĐOÁN (NO GUESS)**. Một phán đoán chỉ được chấp nhận khi nó là hệ quả logic bắt buộc ($\models$) từ Knowledge Base hiện tại ($KB_t$).
+## Hướng dẫn chạy chương trình
 
-Hệ thống được xây dựng hoàn toàn bằng **Python thuần** (sử dụng thư viện đồ họa chuẩn `tkinter`), tự triển khai thuật toán giải SAT **DPLL**, bộ mã hóa logic mệnh đề sang dạng chuẩn **CNF**, và tác tử suy luận diễn dịch **Logic Agent** đảm bảo nguyên tắc bảo mật thông tin.
+Mở terminal tại thư mục `Source`:
 
----
+```bash
+# Chạy giao diện web cục bộ (tự mở http://127.0.0.1:8765)
+python main.py
 
-## 2. Cấu trúc thư mục `Source`
-Mã nguồn được tái cấu trúc thành kiến trúc phân lớp chuyên nghiệp, rõ ràng và có tính module hóa cao:
+# Tùy chọn cổng khác và không tự mở trình duyệt
+python main.py --port 9000 --no-browser
+```
+
+*(Lưu ý: trên macOS/Linux có thể dùng `python3` thay cho `python`.)* Nếu cổng `8765` đang bận, chương trình tự động chọn cổng trống kế tiếp. Nhấn `Ctrl+C` để dừng máy chủ.
+
+Các công cụ dòng lệnh (CLI):
+
+```bash
+# Tác tử giải trực tiếp trên terminal và in toàn bộ nhật ký suy luận (trace)
+python main.py --solve puzzles/05-4x4-a.json -v
+
+# Giải với chiến lược 'naive' và bộ mã hóa đếm 'counter'
+python main.py --solve puzzles/05-4x4-a.json --strategy naive --cardinality counter
+
+# Kiểm tra tính duy nhất của nghiệm trên toàn bộ manh mối
+python main.py --check puzzles/05-4x4-a.json
+
+# Chạy toàn bộ thực nghiệm benchmark -> lưu vào results/ (CSV, JSON, Markdown, biểu đồ SVG)
+python experiments.py
+
+# Chạy nhanh với cấu hình mặc định -> lưu vào results/quick/
+python experiments.py --quick
+
+# Chạy toàn bộ bộ kiểm thử tự động (41 unit & integration tests)
+python -m unittest discover -s tests -v
+
+# Tạo lại bộ câu đố mẫu trong puzzles/ (seed cố định)
+python tools/build_puzzles.py
+```
+
+## Hướng dẫn sử dụng giao diện Web (Casebook)
+
+| Thành phần | Chức năng |
+|---|---|
+| **Case files / Load** | Chọn một vụ án có sẵn trong danh sách và nạp vào bàn chơi (hỗ trợ nhấp đúp chuột). |
+| **Open file** | Tải tệp câu đố định dạng JSON từ máy tính (xem cấu trúc bên dưới). |
+| **New (3×3 / 4×4 / 5×5)** | Sinh ngẫu nhiên một màn chơi mới bảo đảm giải được hoàn toàn bằng suy luận, không cần đoán. |
+| **Bộ nhân vật cầu thủ** | Mặc định hiển thị 30 ngôi sao bóng đá trong màu áo đội tuyển (gồm cả các tuyển thủ Việt Nam), ảnh từ Wikimedia Commons (`web/portraits/CREDITS.md`). Hai trạng thái hiển thị là **Red card** (tương ứng *Criminal*) và **Fair play** (tương ứng *Innocent*). Đây chỉ là lớp hiển thị: bàn chơi lớn hơn 30 ô sẽ giữ nguyên tên trong tệp JSON. |
+| **Nhấp thẻ đang úp** | Đưa ra phán đoán cho nhân vật: **Criminal / Red card** (`C`) hoặc **Innocent / Fair play** (`I`). |
+| **Restart** (`R`) | Đặt lại màn chơi về trạng thái ban đầu (phím `R` sẽ hỏi xác nhận nếu đang có tiến trình). |
+| **Hint** (`H`) | Chỉ ra một nhân vật có thể chứng minh ngay lúc này và làm nổi bật tập manh mối tối thiểu dùng để suy luận (chỉ hiện đáp án khi bạn bấm xem). |
+| **Step** (`N`) / **Auto solve** (`A`) | Cho tác tử logic đi từng bước hoặc tự động giải đến khi hoàn tất / bế tắc. Thanh trượt điều chỉnh tốc độ giải. |
+| **Nhấp manh mối đã mở** | Chiếu sáng các ô được đếm (viền nét liền) và các nhân vật được nhắc tên (viền nét đứt). Nhấn `Esc` để tắt. |
+| **Show solver deductions** | Hiển thị lớp phủ kết quả phân tích kéo theo hiện tại (bắt buộc tội phạm / vô tội / chưa xác định) lên các thẻ chưa lật. |
+| **Tab Trace** | Liệt kê từng bước đi của người chơi và tác tử cùng các truy vấn SAT (ví dụ `KB ∧ ¬C(B2) -> UNSAT`), manh mối đang kích hoạt và manh mối mới mở. |
+| **Tab Solver** | Theo dõi kích thước Cơ sở tri thức (biến chính, biến phụ, số mệnh đề), thống kê DPLL, đổi chiến lược truy vấn / chế độ mã hóa đếm và chạy kiểm tra nghiệm duy nhất. |
+
+Nếu phán đoán không hợp lệ, Engine từ chối và trả về `NOT_PROVABLE` (chưa đủ dữ kiện ép buộc) hoặc `CONTRADICTED` (logic chứng minh điều ngược lại) mà không làm lộ bất kỳ thông tin ẩn nào.
+
+## Thêm hoặc thay ảnh chân dung cầu thủ
+
+Mỗi cầu thủ hiển thị ảnh tại `web/portraits/football/<slug>.jpg` (ví dụ `Văn Hậu` -> `van-hau.jpg`), hoặc tự vẽ avatar SVG áo đấu nếu thiếu ảnh. Trên macOS (`sips`), có thể cắt và cài đặt ảnh mới bằng lệnh:
+
+```bash
+python tools/add_portrait.py football Messi ~/Downloads/messi.jpg --center 0.5 0.25 --size 0.7 --source https://...
+```
+
+Trong đó `--center X Y` là tâm vùng cắt theo tỉ lệ ảnh (mặc định `0.5 0.3`), `--size` là độ dài cạnh hình vuông cắt theo cạnh ngắn của ảnh. Khởi động lại `main.py` sau khi cập nhật ảnh.
+
+## Kiến trúc mã nguồn
 
 ```text
 Source/
-├── main.py                     # Điểm khởi chạy ứng dụng GUI
-├── experiments.py              # Script chạy đánh giá thực nghiệm (xuất CSV)
-├── experiment_results.csv      # Bảng kết quả thực nghiệm chi tiết
-├── requirements.txt            # Thông tin môi trường thực thi (Python 3.10+)
-├── README.md                   # Tài liệu hướng dẫn sử dụng và báo cáo kỹ thuật
-├── assets/                     # Tài nguyên đồ họa (tranh chân dung 25 nhân vật)
-│   └── suspect_portraits.png
-├── core/                       # Package chứa toàn bộ logic toán học & thuật toán
-│   ├── __init__.py
-│   ├── models.py               # Định nghĩa các Data Model (Character, Clue, Puzzle,...)
-│   ├── regions.py              # Xử lý các vùng (Row, Column, Neighbors, Explicit,...)
-│   ├── clues.py                # Định nghĩa ngữ nghĩa, validation, mô tả và Direct Semantic Evaluator
-│   ├── cnf.py                  # Bộ mã hóa mệnh đề sang CNF (hỗ trợ biến chính & phụ)
-│   ├── dpll.py                 # Bộ giải SAT DPLL tự cài đặt (đầy đủ các bước chuẩn)
-│   ├── agent.py                # Tác tử suy luận LogicAgent (chỉ truy cập PublicState)
-│   ├── engine.py               # GameEngine quản lý game, kiểm tra nghiệm duy nhất
-│   ├── puzzle_generator.py     # Trình tạo màn chơi ngẫu nhiên, giải tuần tự không đoán
-│   └── puzzle_io.py            # Chức năng Lưu/Đọc màn chơi từ file JSON (phục vụ Load)
-├── gui/                        # Package giao diện người dùng Desktop (Tkinter)
-│   ├── __init__.py
-│   ├── theme.py                # Bảng màu thẩm mỹ, typography và styling
-│   ├── board_view.py           # Component hiển thị lưới thẻ nhân vật, chân dung, highlight
-│   ├── sidebar_view.py         # Component thanh điều khiển, verdict buttons, metrics, trace
-│   └── app.py                  # Window Controller điều phối Board, Sidebar, Engine và Agent
-├── puzzles/                    # Bộ puzzle mẫu chuẩn JSON để kiểm tra tính năng Load
-│   ├── sample_3x3.json
-│   ├── sample_3x4.json
-│   ├── sample_4x4.json
-│   └── sample_5x5.json
-└── tests/                      # Bộ kiểm thử tự động toàn diện (Unit Tests)
-    ├── __init__.py
-    ├── test_dpll.py            # Kiểm thử DPLL solver trên SAT, UNSAT, unit propagation
-    ├── test_cnf_semantics.py   # Kiểm thử đối chiếu 100% giữa CNF và Direct Semantic Evaluator
-    ├── test_agent_engine.py    # Kiểm thử tính bảo mật của state, submit feedback, auto-step
-    └── test_puzzles.py         # Kiểm thử tính duy nhất (uniqueness) và round-trip JSON
+├── main.py                  Điểm khởi chạy chính: máy chủ GUI web và CLI (--solve, --check)
+├── experiments.py           Chạy thực nghiệm benchmark toàn bộ cấu hình -> xuất ra results/
+├── requirements.txt         Ghi chú phiên bản Python & thông tin không dùng gói ngoài
+├── griductive/
+│   ├── board.py             Hình học lưới và phân giải biểu thức vùng (hàng, cột, lân cận + mở rộng)
+│   ├── clues.py             Ngôn ngữ manh mối: kiểm tra hợp lệ, đánh giá ngữ nghĩa trực tiếp, mô tả văn bản
+│   ├── cnf.py               Ánh xạ biến, bộ dựng CNF, cổng Tseitin, mã hóa đếm và ClueEncoder
+│   ├── dpll.py              Bộ giải SAT DPLL tự cài đặt (lan truyền đơn vị, quay lui, thống kê)
+│   ├── knowledge.py         PublicState (tri thức công khai cho Agent) và dựng cơ sở tri thức KB_t
+│   ├── entailment.py        Phân loại CRIMINAL / INNOCENT / UNKNOWN / INCONSISTENT, Hint tối thiểu, kiểm tra duy nhất
+│   ├── engine.py            GameEngine: nắm giữ lời giải ẩn, thẩm định phán đoán, lật thẻ
+│   ├── agent.py             LogicAgent: vòng lặp suy diễn tự động và ghi nhật ký trace
+│   ├── generator.py         Bộ sinh câu đố ngẫu nhiên bảo đảm giải được không đoán mò
+│   ├── puzzle.py            Định dạng tệp câu đố JSON và kiểm tra tính toàn vẹn dữ liệu
+│   ├── themes.py            Chủ đề nhân vật cầu thủ (tên, ảnh, áo đấu) và nhãn trạng thái hiển thị
+│   └── server.py            Máy chủ HTTP JSON cục bộ cho giao diện web (chỉ dùng thư viện chuẩn)
+├── web/                     Giao diện frontend HTML, CSS, JavaScript thuần (không cần build)
+├── puzzles/                 Bộ 12 câu đố mẫu (3×3, 4×4, 5×5 cùng 2 ca lỗi mơ hồ / mâu thuẫn)
+├── results/                 Kết quả thực nghiệm (CSV, JSON, Markdown và biểu đồ SVG)
+├── tests/
+│   ├── test_solver.py       Unit test lõi logic (mã hóa vs đánh giá, DPLL vs vét cạn, Agent, Theme)
+│   └── test_server.py       Kiểm thử API HTTP (kiểm tra lỗi đầu vào và chống rò rỉ thông tin ẩn)
+└── tools/
+    ├── build_puzzles.py     Sinh lại bộ câu đố mẫu puzzles/ theo seed cố định
+    └── add_portrait.py      Công cụ cắt ảnh chân dung cầu thủ và ghi nguồn vào CREDITS.md
 ```
 
----
+**Tách biệt Engine và Agent:** `GameEngine` quản lý toàn bộ đề bài và đáp án ẩn. `LogicAgent` chỉ nhận đối tượng `PlayerView` (`engine.player_view()`) với đúng hai phương thức: `public_state()` (chỉ trả về các manh mối đã mở và kết luận đã chứng minh) và `submit(cell, verdict)`. Trình duyệt web cũng được đối xử tương tự, hoàn toàn không nhận dữ liệu ẩn từ máy chủ.
 
-## 3. Hướng dẫn cài đặt và sử dụng
+## Ngôn ngữ manh mối (Clue Language)
 
-### 3.1 Yêu cầu hệ thống
-- **Python 3.10** trở lên.
-- Đã cài đặt `tkinter` (mặc định có sẵn trong bộ cài Python trên Windows/macOS).
-- Không yêu cầu cài đặt thêm bất kỳ thư viện bên ngoài (external packages) nào!
+- **6 mẫu cốt lõi:** `FACT`, `SAME`, `DIFFERENT`, `EXACTLY`, `AT_LEAST`, `AT_MOST` (các mẫu đếm hỗ trợ `"who": "innocent"` để đếm người vô tội).
+- **Các phần mở rộng:**
 
-### 3.2 Khởi chạy giao diện trò chơi (GUI)
-Từ thư mục `Source`, chạy lệnh:
-```bash
-python main.py
+| Mở rộng | Ví dụ JSON |
+|---|---|
+| `PARITY` | `{"type":"PARITY","parity":"odd","region":{"kind":"col","index":"A"}}` |
+| `COMPARE` | `{"type":"COMPARE","op":"more","left":{"kind":"row","index":1},"right":{"kind":"row","index":2}}` |
+| `CONNECTED` | `{"type":"CONNECTED","region":{"kind":"row","index":3},"who":"innocent"}` |
+| `IMPLIES` | `{"type":"IMPLIES","if":{"cell":"A1","status":"criminal"},"then":{"cell":"B2","status":"innocent"}}` |
+| Vùng nâng cao | `all`, `corners`, `edge`, `ray` (`left`/`right`/`above`/`below`), `between`, `common_neighbors`, `intersect`, `union`, `minus` |
+
+## Định dạng tệp câu đố (JSON)
+
+```json
+{
+  "id": "my-case",
+  "title": "My Case",
+  "size": 3,
+  "initial": ["B2"],
+  "characters": [
+    {
+      "cell": "A1",
+      "name": "Abel",
+      "profession": "Cook",
+      "status": "criminal",
+      "clue": {"type": "EXACTLY", "k": 1, "region": {"kind": "neighbors", "of": "B2"}}
+    }
+  ]
+}
 ```
-*(Nếu trên Linux/macOS dùng `python3 main.py`)*
 
-### 3.3 Hướng dẫn thao tác trên GUI
-1. **Khám phá bảng chơi:** Các thẻ mở sẵn ban đầu sẽ hiển thị trạng thái `CRIMINAL` (nền đỏ) hoặc `INNOCENT` (nền xanh) kèm theo manh mối logic được mở.
-2. **Highlight Manh mối (Spotlight):** Nhấp chuột vào một thẻ **đã giải** bất kỳ để kích hoạt hiệu ứng:
-   - Viền vàng: Thẻ chủ sở hữu manh mối.
-   - Viền xanh dương: Các ô/nhân vật được manh mối đó nhắc tới hoặc đếm trong vùng.
-3. **Phán đoán nhân vật (Submit Verdict):**
-   - Nhấp chuột vào một thẻ **chưa giải** (úp mặt). Ô sẽ sáng viền xanh đậm.
-   - Bấm nút **CRIMINAL** hoặc **INNOCENT** trên thanh Sidebar.
-   - Nếu kết luận đã được chứng minh: Trạng thái hiển thị `ACCEPTED`, thẻ lập tức lật lên và hé lộ manh mối mới!
-   - Nếu kết luận chưa thể chứng minh: Hệ thống báo `NOT_PROVABLE` và giữ nguyên trạng thái.
-   - Nếu chọn ngược với kết luận bắt buộc: Hệ thống báo `CONTRADICTED`.
-4. **Các nút điều khiển:**
-   - **Load...:** Mở hộp thoại tải màn chơi từ file JSON (trong thư mục `puzzles/` hoặc bất kỳ file nào).
-   - **New Random:** Mở hộp thoại chọn kích thước (3x3, 3x4, 4x4, 5x5) và sinh ván chơi ngẫu nhiên mới.
-   - **Restart:** Bắt đầu lại ván chơi hiện tại về 2 thẻ ban đầu.
-   - **Hint:** Tự động tìm kiếm và chỉ ra thẻ có thể chứng minh tiếp theo mà hoàn toàn không xem trộm đáp án ẩn.
-   - **Auto Step:** Yêu cầu Logic Agent tự động chứng minh 1 bước tiếp theo.
-   - **Auto Solve:** Kích hoạt chế độ giải tự động tuần tự với hiệu ứng hoạt họa lật thẻ trực quan.
-5. **Deduction Trace & Metrics:**
-   - Bảng bên phải hiển thị chi tiết số biến chính ($C_i$), số biến phụ, số mệnh đề CNF, số lần gọi SAT, decisions, propagations, backtracks, và runtime.
-   - Khung nhật ký ghi lại từng bước suy luận theo đúng định dạng yêu cầu của đề bài.
-
----
-
-## 4. Chạy kiểm thử tự động (Unit Tests)
-Từ thư mục `Source`, thực hiện lệnh kiểm thử toàn diện:
-```bash
-python -m unittest discover -s tests -t . -v
-```
-Toàn bộ 18 test cases kiểm tra:
-- Thuật toán giải SAT DPLL (SAT, UNSAT, Assumptions, Conflict detection, Unit propagation chain).
-- Sự tương đồng ngữ nghĩa giữa CNF Encoding và Direct Semantic Evaluator trên tất cả các mẫu manh mối.
-- Bảo mật thông tin của Logic Agent (không chứa `solution` hoặc manh mối chưa mở).
-- Tính duy nhất của nghiệm (Uniqueness check) trên các kích thước 3x3 đến 5x5.
-- Đọc/ghi JSON của Puzzle.
-
----
-
-## 5. Chạy đánh giá thực nghiệm (Benchmark Experiments)
-Từ thư mục `Source`, thực hiện:
-```bash
-python experiments.py
-```
-Kết quả thực nghiệm sẽ được ghi tự động vào file `experiment_results.csv` với đầy đủ các trường thông tin:
-- Tên ván chơi & Kích thước bảng ($3\times 3, 3\times 4, 4\times 4, 5\times 5$).
-- Số biến chính (`primary_variables`) và biến phụ (`auxiliary_variables`).
-- Số mệnh đề CNF khởi tạo (`initial_clauses`).
-- Tổng số lần gọi SAT Solver (`sat_calls`).
-- Số quyết định (`decisions`), lan truyền đơn vị (`propagations`), quay lui (`backtracks`).
-- Số bước suy luận diễn dịch (`deduction_steps`).
-- Tổng thời gian thực thi (`total_runtime_ms`).
+- `characters` phải bao phủ toàn bộ ô trên lưới; tên nhân vật phải duy nhất và xếp theo thứ tự bảng chữ cái theo từng hàng (`A1, B1, ..., A2, ...`).
+- `status` là đáp án ẩn mà chỉ `GameEngine` được phép đọc.
+- `initial` là danh sách các thẻ được mở sẵn lúc bắt đầu. Hệ thống sẽ từ chối tệp nếu có bất kỳ manh mối nào sai trên chính đáp án của nó (trừ khi gắn cờ `allow_false_clues` cho ca thử nghiệm mâu thuẫn).
