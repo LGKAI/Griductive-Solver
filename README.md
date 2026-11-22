@@ -1,14 +1,16 @@
-# Casebook — Bộ Giải Trò Chơi Suy Luận Griductive (CSC14003 Project 2)
+# Griductive Solver
+
+Đồ án Cơ sở AI
 
 Casebook cài đặt hoàn chỉnh trò chơi suy luận **Griductive** kết hợp tác tử logic **không đoán mò** (*no-guess*), sử dụng logic mệnh đề, bộ mã hóa CNF tự động và bộ giải SAT **DPLL** tự viết từ đầu.
 
-## Yêu cầu hệ thống
+## 1. Yêu cầu hệ thống
 
 - **Python 3.10 trở lên** (phát triển và kiểm thử trên Python 3.12 / 3.14).
 - **Không cần thư viện bên thứ ba**: toàn bộ mã nguồn chỉ dùng thư viện chuẩn Python (xem `requirements.txt`).
 - Trình duyệt web hiện đại bất kỳ (Chrome, Edge, Firefox hoặc Safari) để chạy giao diện.
 
-## Hướng dẫn chạy chương trình
+## 2. Hướng dẫn chạy chương trình
 
 Mở terminal tại thư mục `Source`:
 
@@ -47,7 +49,7 @@ python -m unittest discover -s tests -v
 python tools/build_puzzles.py
 ```
 
-## Hướng dẫn sử dụng giao diện Web (Casebook)
+## 3. Hướng dẫn sử dụng giao diện Web (Casebook)
 
 | Thành phần | Chức năng |
 |---|---|
@@ -66,7 +68,7 @@ python tools/build_puzzles.py
 
 Nếu phán đoán không hợp lệ, Engine từ chối và trả về `NOT_PROVABLE` (chưa đủ dữ kiện ép buộc) hoặc `CONTRADICTED` (logic chứng minh điều ngược lại) mà không làm lộ bất kỳ thông tin ẩn nào.
 
-## Thêm hoặc thay ảnh chân dung cầu thủ
+## 4. Thêm hoặc thay ảnh chân dung cầu thủ
 
 Mỗi cầu thủ hiển thị ảnh tại `web/portraits/football/<slug>.jpg` (ví dụ `Văn Hậu` -> `van-hau.jpg`), hoặc tự vẽ avatar SVG áo đấu nếu thiếu ảnh. Trên macOS (`sips`), có thể cắt và cài đặt ảnh mới bằng lệnh:
 
@@ -76,7 +78,7 @@ python tools/add_portrait.py football Messi ~/Downloads/messi.jpg --center 0.5 0
 
 Trong đó `--center X Y` là tâm vùng cắt theo tỉ lệ ảnh (mặc định `0.5 0.3`), `--size` là độ dài cạnh hình vuông cắt theo cạnh ngắn của ảnh. Khởi động lại `main.py` sau khi cập nhật ảnh.
 
-## Kiến trúc mã nguồn
+## 5. Kiến trúc mã nguồn
 
 ```text
 Source/
@@ -109,7 +111,7 @@ Source/
 
 **Tách biệt Engine và Agent:** `GameEngine` quản lý toàn bộ đề bài và đáp án ẩn. `LogicAgent` chỉ nhận đối tượng `PlayerView` (`engine.player_view()`) với đúng hai phương thức: `public_state()` (chỉ trả về các manh mối đã mở và kết luận đã chứng minh) và `submit(cell, verdict)`. Trình duyệt web cũng được đối xử tương tự, hoàn toàn không nhận dữ liệu ẩn từ máy chủ.
 
-## Ngôn ngữ manh mối (Clue Language)
+## 6. Ngôn ngữ manh mối (Clue Language)
 
 - **6 mẫu cốt lõi:** `FACT`, `SAME`, `DIFFERENT`, `EXACTLY`, `AT_LEAST`, `AT_MOST` (các mẫu đếm hỗ trợ `"who": "innocent"` để đếm người vô tội).
 - **Các phần mở rộng:**
@@ -122,7 +124,7 @@ Source/
 | `IMPLIES` | `{"type":"IMPLIES","if":{"cell":"A1","status":"criminal"},"then":{"cell":"B2","status":"innocent"}}` |
 | Vùng nâng cao | `all`, `corners`, `edge`, `ray` (`left`/`right`/`above`/`below`), `between`, `common_neighbors`, `intersect`, `union`, `minus` |
 
-## Định dạng tệp câu đố (JSON)
+## 7. Định dạng tệp câu đố (JSON)
 
 ```json
 {
