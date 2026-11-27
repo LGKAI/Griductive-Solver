@@ -26,7 +26,7 @@ GAME_OVER = "GAME_OVER"
 
 PLAYING = "PLAYING"
 SOLVED = "SOLVED"
-LOST = "LOST"  # a CONTRADICTED verdict ended the game (sudden death)
+LOST = "LOST"  # Phán đoán CONTRADICTED đã kết thúc ván chơi (sudden death)
 
 
 class PuzzleIntegrityError(RuntimeError):
@@ -57,8 +57,8 @@ class GameEngine:
     cardinality: str = "auto"
     verdicts: dict[str, bool] = field(default_factory=dict)
     revealed: list[str] = field(default_factory=list)  # Danh sách ô đã mở thẻ/manh mối
-    sudden_death: bool = True  # a CONTRADICTED verdict ends the game
-    lost: Optional[tuple[str, str]] = None  # (cell, verdict) of the verdict that ended the game
+    sudden_death: bool = True  # Phán đoán CONTRADICTED sẽ kết thúc ván ngay lập tức
+    lost: Optional[tuple[str, str]] = None  # Cặp (cell, verdict) đã làm kết thúc ván chơi
     version: int = 0
     sat_calls: int = 0  # Số lần gọi SAT mà chính Engine dùng để thẩm định phán đoán
     _cache: Optional[tuple[int, Analysis]] = field(default=None, repr=False)
@@ -136,8 +136,8 @@ class GameEngine:
                                 self.puzzle.clues[cell])
 
         if forced in (CRIMINAL_V, INNOCENT_V):
-            # The knowledge base is untouched (nothing is revealed); with sudden death the
-            # game simply stops accepting verdicts until it is restarted.
+            # Giữ nguyên cơ sở tri thức (không lộ thẻ hay manh mối ẩn); ở chế độ sudden death,
+            # Engine ngừng nhận phán đoán mới cho đến khi trò chơi được Restart.
             if self.sudden_death:
                 self.lost = (cell, verdict)
             return SubmitResult(CONTRADICTED, cell, verdict,

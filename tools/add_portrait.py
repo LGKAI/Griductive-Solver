@@ -26,6 +26,7 @@ ROSTERS = {"football": [row[0] for row in themes._FOOTBALLERS]}
 
 
 def image_size(path: Path) -> tuple[int, int]:
+    """Đọc kích thước chiều rộng và chiều cao (pixel) của ảnh gốc bằng ``sips``."""
     out = subprocess.run(["sips", "-g", "pixelWidth", "-g", "pixelHeight", str(path)],
                          capture_output=True, text=True, check=True).stdout
     values = [int(line.split(":")[1]) for line in out.splitlines() if "pixel" in line]
@@ -33,6 +34,7 @@ def image_size(path: Path) -> tuple[int, int]:
 
 
 def main(argv=None) -> int:
+    """Cắt vuông, chuẩn hóa kích thước 320x320 và lưu chân dung cầu thủ vào chủ đề."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("theme", choices=sorted(ROSTERS))
     ap.add_argument("name", help="player name exactly as in themes.py, e.g. Messi or 'Van Dijk'")

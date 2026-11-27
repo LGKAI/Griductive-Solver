@@ -42,7 +42,7 @@ python experiments.py
 # Chạy nhanh với cấu hình mặc định -> lưu vào results/quick/
 python experiments.py --quick
 
-# Chạy toàn bộ bộ kiểm thử tự động (41 unit & integration tests)
+# Chạy toàn bộ bộ kiểm thử tự động (43 unit & integration tests)
 python -m unittest discover -s tests -v
 
 # Tạo lại bộ câu đố mẫu trong puzzles/ (seed cố định)

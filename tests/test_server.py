@@ -19,6 +19,8 @@ from griductive.puzzle import name_key  # noqa: E402
 
 
 class ServerTests(unittest.TestCase):
+    """Kiểm thử toàn bộ API HTTP của máy chủ web và cơ chế chống rò rỉ dữ kiện ẩn."""
+
     @classmethod
     def setUpClass(cls):
         cls.server = make_server("127.0.0.1", 0)
@@ -92,7 +94,7 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(res["result"]["status"], "NOT_PROVABLE")
             totals.append(res["state"]["sat_calls_total"])
         self.assertEqual(len(set(totals)), 1, totals)
-        self.assertEqual(res["state"]["status"], "PLAYING")  # a guess is only a warning
+        self.assertEqual(res["state"]["status"], "PLAYING")  # Đoán bừa chỉ cảnh báo, không kết thúc ván
 
     def test_agent_step_and_restart(self):
         game = self.load("01-3x3-a")["game"]
@@ -106,7 +108,7 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(data["state"]["log"], [])
 
     def test_integrity_error_is_not_leaked(self):
-        # A corrupt upload: the clue says A1 is criminal but the stored solution says innocent.
+        # Ca lỗi cố ý: manh mối chứng minh A1 là criminal nhưng đáp án lưu lại ghi innocent.
         chars = [{"cell": c, "name": n, "profession": "x", "status": "innocent", "clue": None}
                  for c, n in zip(["A1", "B1", "A2", "B2"], ["Ann", "Bob", "Cy", "Di"])]
         chars[3]["clue"] = {"type": "FACT", "cell": "A1", "status": "criminal"}
@@ -114,12 +116,12 @@ class ServerTests(unittest.TestCase):
         status, res = self.post("/api/load", {"data": data})
         self.assertEqual(status, 200)
         game = res["state"]["game"]
-        # The agent stops with ERROR; the card is not revealed and nothing hidden is echoed.
+        # Tác tử phải dừng với ERROR; thẻ A1 vẫn úp và không rò rỉ đáp án ẩn.
         status, res = self.post("/api/step", {"game": game})
         self.assertEqual(status, 200)
         self.assertEqual(res["entry"]["result"], "ERROR")
         self.assertFalse(next(c for c in res["state"]["cells"] if c["cell"] == "A1")["known"])
-        # A player submitting the same (provable) verdict gets a generic 409.
+        # Người chơi gửi cùng phán đoán đó cũng nhận mã lỗi 409 chung, không lộ thông tin ẩn.
         status, res = self.post("/api/verdict", {"game": game, "cell": "A1", "verdict": "CRIMINAL"})
         self.assertEqual(status, 409)
         self.assertNotIn("A1", res["error"])
@@ -136,7 +138,7 @@ class ServerTests(unittest.TestCase):
     def test_bad_cells_and_regions_are_client_errors(self):
         game = self.load("01-3x3-a")["game"]
         status, _ = self.post("/api/verdict", {"game": game, "cell": "A2\n", "verdict": "CRIMINAL"})
-        self.assertEqual(status, 200)  # INVALID result, not a crash
+        self.assertEqual(status, 200)  # Trả về kết quả INVALID hợp lệ thay vì crash server
         base = json.loads((ROOT / "puzzles" / "01-3x3-a.json").read_text(encoding="utf-8"))
         for mutate in (lambda d: d.update(initial=["B2\n"]),
                        lambda d: d["characters"][0].update(clue={"type": "EXACTLY", "k": 1, "region": {
@@ -174,11 +176,11 @@ class ServerTests(unittest.TestCase):
         status, _ = self.post("/api/step", {"game": game, "round": True})
         self.assertEqual(status, 409)
         status, _ = self.post("/api/theme", {"game": game, "theme": "football"})
-        self.assertEqual(status, 404)  # the cast cannot be switched any more
+        self.assertEqual(status, 404)  # API đổi chủ đề đã bỏ (cố định dàn cầu thủ mặc định)
         status, _ = self.post("/api/load", {"file": "05-4x4-a", "theme": "nope"})
         self.assertEqual(status, 400)
         status, data = self.post("/api/load", {"file": "09-5x5-a"})
-        self.assertEqual(data["state"]["theme"], "football")  # 25 cells <= 30 players
+        self.assertEqual(data["state"]["theme"], "football")  # Bàn 5x5 (25 ô) <= 30 cầu thủ
 
     def test_board_larger_than_the_cast_keeps_file_names(self):
         chars = [{"cell": f"{col}{row}", "name": f"P{row:02d}{col}", "profession": "", "status": "innocent", "clue": None}
@@ -188,6 +190,7 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(status, 200, res)
         self.assertEqual(res["state"]["theme"], "classic")
         self.assertEqual(res["state"]["cells"][0]["name"], "P01A")
+
     def test_contradicted_verdict_is_game_over(self):
         state = self.load("01-3x3-a")
         game = state["game"]
@@ -206,6 +209,7 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(data["result"]["status"], "GAME_OVER")
         _, data = self.post("/api/restart", {"game": game})
         self.assertEqual((data["state"]["status"], data["state"]["lost"]), ("PLAYING", None))
+
 
 if __name__ == "__main__":
     unittest.main()

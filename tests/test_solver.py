@@ -28,6 +28,7 @@ PUZZLE_DIR = ROOT / "puzzles"
 
 
 def brute_sat(num_vars, clauses):
+    """Kiểm tra tính thỏa được của công thức CNF bằng vét cạn (chỉ dùng cho số biến nhỏ)."""
     for values in itertools.product((False, True), repeat=num_vars):
         if all(any((l > 0) == values[abs(l) - 1] for l in c) for c in clauses):
             return True
@@ -35,10 +36,12 @@ def brute_sat(num_vars, clauses):
 
 
 def satisfies(model, clauses):
+    """Kiểm tra phép gán ``model`` có thỏa mãn toàn bộ tập mệnh đề hay không."""
     return all(any(model[abs(l)] == (l > 0) for l in c) for c in clauses)
 
 
 class BoardTests(unittest.TestCase):
+    """Kiểm thử hình học bàn cờ và phân giải các vùng cốt lõi/mở rộng."""
     def test_neighbors_counts(self):
         b = Board(4)
         self.assertEqual(len(b.neighbors("A1")), 3)
@@ -63,8 +66,11 @@ class BoardTests(unittest.TestCase):
         self.assertEqual(resolve_region(b, {"kind": "common_neighbors", "a": "A1", "b": "C1"}), ("B1", "B2"))
         inter = {"kind": "intersect", "regions": [{"kind": "neighbors", "of": "B2"}, {"kind": "col", "index": "A"}]}
         self.assertEqual(resolve_region(b, inter), ("A1", "A2", "A3"))
+        union = {"kind": "union", "regions": [{"kind": "corners"}, {"kind": "cells", "cells": ["B2"]}]}
+        self.assertEqual(resolve_region(b, union), ("A1", "D1", "B2", "A4", "D4"))
         minus = {"kind": "minus", "base": {"kind": "row", "index": 1}, "remove": {"kind": "corners"}}
         self.assertEqual(resolve_region(b, minus), ("B1", "C1"))
+        self.assertEqual(resolve_region(b, {"kind": "all"}), b.cells)
 
     def test_invalid_regions(self):
         b = Board(3)
@@ -76,6 +82,8 @@ class BoardTests(unittest.TestCase):
 
 
 class ClueValidationTests(unittest.TestCase):
+    """Kiểm thử kiểm tra hợp lệ tham số manh mối và sinh mô tả văn bản."""
+
     def test_rejects_bad_clues(self):
         b = Board(3)
         bad = [
@@ -101,8 +109,8 @@ class ClueValidationTests(unittest.TestCase):
 
 
 class EncoderTests(unittest.TestCase):
-    """The CNF of a clue, restricted to primary variables, must agree with the
-    direct semantic evaluator on every complete assignment."""
+    """Biểu thức CNF sau khi chiếu lên các biến chính phải khớp với bộ đánh giá ngữ nghĩa
+    trực tiếp trên mọi phép gán đầy đủ."""
 
     def _check(self, board, clue, assignments, modes=("direct", "counter", "auto")):
         varmap = VarMap(board)
@@ -169,7 +177,7 @@ class EncoderTests(unittest.TestCase):
         self._check(b, clue, samples, modes=("auto",))
 
     def test_direct_encoding_clause_counts(self):
-        # AT_MOST 1 of 3 -> C(3,2) = 3 binary clauses; AT_LEAST 1 of 3 -> one clause
+        # AT_MOST 1 trong 3 -> C(3, 2) = 3 mệnh đề nhị phân; AT_LEAST 1 trong 3 -> 1 mệnh đề duy nhất
         cnf = CNF(3)
         encode_at_most(cnf, [1, 2, 3], 1, "direct")
         self.assertEqual(sorted(map(sorted, cnf.clauses)), [[-3, -2], [-3, -1], [-2, -1]])
@@ -179,6 +187,8 @@ class EncoderTests(unittest.TestCase):
 
 
 class DPLLTests(unittest.TestCase):
+    """Kiểm thử đối chứng bộ giải SAT DPLL với vét cạn, thống kê và tính tất định."""
+
     def test_against_brute_force(self):
         rng = random.Random(11)
         for trial in range(400):
@@ -214,7 +224,7 @@ class DPLLTests(unittest.TestCase):
         self.assertEqual(a.stats.decisions, b.stats.decisions)
 
     def test_assignment_example_from_spec(self):
-        # KB = (A v B) & (-A v B): B is entailed, A is unknown.
+        # KB = (A v B) & (-A v B): B được kéo theo, A vẫn là UNKNOWN.
         solver = DPLLSolver(2, [[1, 2], [-1, 2]])
         self.assertTrue(solver.solve().sat)
         self.assertFalse(solver.solve([-2]).sat)
@@ -222,17 +232,20 @@ class DPLLTests(unittest.TestCase):
 
 
 def bundled_puzzles():
+    """Đọc toàn bộ bộ câu đố mẫu trong thư mục ``puzzles/``."""
     return [Puzzle.load(p) for p in sorted(PUZZLE_DIR.glob("*.json"))]
 
 
 class AgentTests(unittest.TestCase):
+    """Kiểm thử LogicAgent, GameEngine, gợi ý tối thiểu và luật game over."""
+
     def test_strategies_agree(self):
         rng = random.Random(5)
         for size in (3, 4):
             for seed in range(4):
                 puzzle = generate(size, seed=100 + seed)
                 engine = GameEngine(puzzle)
-                # random public states along a correct play
+                # Lấy mẫu các trạng thái công khai ngẫu nhiên dọc theo một ván chơi đúng
                 order = [c for c in puzzle.board.cells if c not in puzzle.initial]
                 rng.shuffle(order)
                 for cut in range(0, len(order), 2):
@@ -288,7 +301,7 @@ class AgentTests(unittest.TestCase):
         engine = GameEngine(puzzle)
         analysis = engine.analysis()
         unknown = [c for c, v in analysis.classification.items() if v == "UNKNOWN"]
-        if unknown:  # a guess is only a warning
+        if unknown:  # Đoán khi chưa đủ dữ kiện chỉ cảnh báo NOT_PROVABLE
             self.assertEqual(engine.submit(unknown[0], "CRIMINAL").status, NOT_PROVABLE)
             self.assertEqual(engine.status, "PLAYING")
         cell, verdict = analysis.forced[0]
@@ -296,7 +309,7 @@ class AgentTests(unittest.TestCase):
         wrong = "INNOCENT" if verdict == "CRIMINAL" else "CRIMINAL"
         self.assertEqual(engine.submit(cell, wrong).status, CONTRADICTED)
         self.assertEqual(engine.status, "LOST")
-        self.assertEqual((engine.verdicts, engine.revealed), before)  # nothing revealed
+        self.assertEqual((engine.verdicts, engine.revealed), before)  # Không mở thẻ hay tiết lộ manh mối ẩn
         self.assertEqual(engine.submit(cell, verdict).status, "GAME_OVER")
         engine.reset()
         self.assertEqual(engine.status, "PLAYING")
@@ -347,7 +360,7 @@ class AgentTests(unittest.TestCase):
         broken = json.loads(json.dumps(good))
         broken["characters"][0]["status"] = "innocent" if broken["characters"][0]["status"] == "criminal" else "criminal"
         try:
-            Puzzle.from_dict(broken)  # may still be consistent if the flip does not falsify any clue
+            Puzzle.from_dict(broken)  # Có thể vẫn hợp lệ nếu việc đảo nhãn không làm manh mối nào sai
         except PuzzleError:
             pass
         missing = json.loads(json.dumps(good))
@@ -361,6 +374,8 @@ class AgentTests(unittest.TestCase):
 
 
 class RobustnessTests(unittest.TestCase):
+    """Kiểm thử tính chặt chẽ khi xử lý dữ liệu biên, tên có dấu và tính phí SAT."""
+
     def test_cell_ids_must_match_exactly(self):
         board = Board(3)
         for bad in ("A1\n", " A1", "A01", "a1", "D1", "A4"):
@@ -404,7 +419,7 @@ class RobustnessTests(unittest.TestCase):
         engine.submit(unknown, "CRIMINAL")
         before = engine.sat_calls
         engine.submit(unknown, "CRIMINAL")
-        self.assertEqual(engine.sat_calls, before)  # same KB version: not charged twice
+        self.assertEqual(engine.sat_calls, before)  # Cùng KB version: không cộng trùng chi phí SAT
         engine.cardinality = "counter"
         engine.invalidate()
         engine.submit(unknown, "CRIMINAL")
@@ -419,12 +434,14 @@ class RobustnessTests(unittest.TestCase):
 
 
 class ThemeTests(unittest.TestCase):
+    """Kiểm thử lớp hiển thị chủ đề (Theme) tách biệt hoàn toàn khỏi logic suy diễn."""
+
     def test_casts_are_complete_and_distinct(self):
         for theme in THEMES.values():
             if not theme.cast:
                 continue
             names = [p.name for p in theme.cast]
-            self.assertGreaterEqual(len(names), 16, theme.theme_id)  # at least a 4x4 board
+            self.assertGreaterEqual(len(names), 16, theme.theme_id)  # Tối thiểu đủ cho bàn cờ 4x4
             self.assertEqual(len(set(names)), len(names))
             specs = {json.dumps(p.avatar, sort_keys=True) for p in theme.cast}
             self.assertEqual(len(specs), len(names), "every character has its own avatar")
@@ -436,7 +453,7 @@ class ThemeTests(unittest.TestCase):
             plain = LogicAgent().solve(base.player_view())
             for theme_id in THEMES:
                 if 0 < len(THEMES[theme_id].cast) < puzzle.board.size ** 2:
-                    continue  # board larger than the cast: the server keeps the file's own names
+                    continue  # Bàn cờ lớn hơn dàn nhân vật: server giữ nguyên tên trong tệp JSON
                 skinned = Puzzle.load(path)
                 skinned.characters = themed_characters(skinned, skinned.characters, theme_id)
                 names = [skinned.characters[c].name for c in skinned.board.cells]

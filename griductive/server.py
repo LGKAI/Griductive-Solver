@@ -110,6 +110,7 @@ STORE = GameStore()
 
 # ------------------------------------------------------------ Chuẩn hóa JSON công khai
 def clue_json(clue: Optional[Clue]) -> Optional[dict]:
+    """Chuyển đối tượng :class:`Clue` sang từ điển JSON công khai gửi về trình duyệt."""
     if clue is None:
         return None
     return {"id": clue.clue_id, "type": clue.type, "text": clue_text(clue), "refs": clue_references(clue),
@@ -164,6 +165,7 @@ def public_state_json(game_id: str, session: Session) -> dict:
 
 
 def analysis_json(session: Session) -> dict:
+    """Đóng gói kết quả phân tích tính kéo theo hiện tại thành đối tượng JSON."""
     analysis = session.engine.analysis()
     return {
         "consistent": analysis.consistent,
@@ -304,6 +306,7 @@ def api_verdict(body: dict) -> dict:
 
 
 def _check_playing(session: Session) -> None:
+    """Từ chối thao tác suy luận mới khi ván chơi đã kết thúc do phạm luật CONTRADICTED."""
     if session.engine.status == "LOST":
         raise ApiError("Game over: a contradicted verdict ended this case. Restart to play again.", 409)
 
@@ -338,6 +341,7 @@ def api_step(body: dict) -> dict:
 
 
 def api_analysis(body: dict) -> dict:
+    """Trả về bảng phân loại kéo theo hiện thời của toàn bộ nhân vật trên bàn cờ."""
     session = STORE.get(body.get("game"))
     with session.lock:
         return {"analysis": analysis_json(session)}

@@ -21,7 +21,7 @@ from griductive.themes import DEFAULT_THEME, themed_characters  # noqa: E402
 OUT = ROOT / "puzzles"
 
 SPECS = [
-    # (file id, size, seed, min_waves)
+    # (mã tệp, kích thước, seed, số đợt suy luận tối thiểu)
     ("01-3x3-a", 3, 301, 3),
     ("02-3x3-b", 3, 302, 3),
     ("03-3x3-c", 3, 303, 4),
@@ -40,7 +40,7 @@ def _character(cell, name, profession, status, clue):
 
 
 def ambiguous_case() -> Puzzle:
-    """Valid clues, but two solutions: the agent must stop with STUCK, not guess."""
+    """Câu đố hợp lệ nhưng có nhiều nghiệm: tác tử phải dừng ở STUCK và không đoán mò."""
     c, i = "criminal", "innocent"
     row1 = {"kind": "row", "index": 1}
     data = {
@@ -62,7 +62,7 @@ def ambiguous_case() -> Puzzle:
 
 
 def inconsistent_case() -> Puzzle:
-    """A deliberately broken file: the second revealed clue contradicts the first."""
+    """Ca thử nghiệm cố tình mâu thuẫn: manh mối thứ hai phủ định manh mối đầu tiên."""
     c, i = "criminal", "innocent"
     data = {
         "id": "91-3x3-inconsistent", "title": "Failure case: the Forged Testimony", "size": 3, "initial": ["B2"],
@@ -108,6 +108,7 @@ def with_cast(puzzle: Puzzle) -> Puzzle:
 
 
 def main() -> None:
+    """Tạo mới toàn bộ 12 tệp JSON trong thư mục ``puzzles/`` từ seed cố định."""
     OUT.mkdir(exist_ok=True)
     for old in OUT.glob("*.json"):
         old.unlink()

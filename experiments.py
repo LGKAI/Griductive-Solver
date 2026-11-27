@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 import platform
 import sys
 import time
@@ -93,7 +94,6 @@ def bar_chart(title: str, rows: list[dict], metric: str, configs: list[str], log
     puzzles = list(dict.fromkeys(r["puzzle"] for r in rows))
     values = {(r["puzzle"], r["config"]): float(r.get(metric) or 0) for r in rows}
     vmax = max(values.values() or [1]) or 1
-    import math
     scale = (lambda v: math.log10(1 + v) / math.log10(1 + vmax)) if log else (lambda v: v / vmax)
     width, height, left, bottom, top = 920, 360, 60, 70, 40
     plot_w, plot_h = width - left - 20, height - top - bottom
@@ -133,6 +133,7 @@ def bar_chart(title: str, rows: list[dict], metric: str, configs: list[str], log
 
 
 def markdown_table(rows: list[dict]) -> str:
+    """Định dạng bảng kết quả thực nghiệm sang cú pháp Markdown."""
     cols = ["puzzle", "config", "outcome", "primary_vars", "aux_vars", "clauses", "sat_calls", "decisions",
             "propagations", "backtracks", "steps", "waves", "agent_sat_ms", "engine_sat_calls", "runtime_ms",
             "uniqueness"]
@@ -143,6 +144,7 @@ def markdown_table(rows: list[dict]) -> str:
 
 
 def main() -> None:
+    """Điểm vào CLI chạy thực nghiệm benchmark và ghi kết quả CSV/JSON/Markdown/SVG."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--puzzles", default=str(ROOT / "puzzles"))
     parser.add_argument("--out", default=str(ROOT / "results"))

@@ -26,10 +26,3 @@ desktop.ini
 *.swp
 *.swo
 *.tmp
-
-# LaTeX build output
-*.aux
-*.log
-*.out
-*.toc
-*.xdv
