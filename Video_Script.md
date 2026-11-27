@@ -99,8 +99,7 @@ Lời thoại gợi ý: "Có thể chạy cùng logic từ dòng lệnh: trace i
 1. Xuất video MP4 và kiểm tra thời lượng nằm trong 5–10 phút, tiếng rõ.
 2. Upload lên **Google Drive** → Share → **General access: Anyone with the link → Viewer**.
 3. Mở link trong **cửa sổ ẩn danh** để chắc người khác xem được.
-4. Dán link vào báo cáo: trong `report_latex/main.tex`, tìm dòng `Dán link Google Drive của video demo` và thay bằng `\url{<link>}`. Sau đó build lại PDF:
+4. Dán link vào báo cáo: trong `Report.tex`, tìm dòng `Dán link Google Drive của video demo` và thay bằng `\url{<link>}`. Sau đó biên dịch lại (XeLaTeX, ví dụ trên Overleaf hoặc bằng lệnh sau, chạy trong thư mục chứa `Report.tex`):
    ```bash
-   python3 report_latex/gen_data.py
-   cd report_latex && tectonic -X compile main.tex --outdir build
+   tectonic -X compile Report.tex
    ```

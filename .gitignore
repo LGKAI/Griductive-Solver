@@ -28,4 +28,8 @@ desktop.ini
 *.tmp
 
 # LaTeX build output
-report_latex/build/
+*.aux
+*.log
+*.out
+*.toc
+*.xdv
