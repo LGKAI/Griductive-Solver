@@ -152,7 +152,6 @@ def public_state_json(game_id: str, session: Session) -> dict:
         "round": session.round,
         "seq": session.seq,
         "status": engine.status if analysis.consistent else "INCONSISTENT",
-        "mistakes": engine.mistakes,
         "lost": {"cell": engine.lost[0], "verdict": engine.lost[1]} if engine.lost else None,
         "solved_count": len(state.verdicts),
         "total": len(puzzle.board.cells),

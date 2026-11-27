@@ -489,7 +489,6 @@ function renderHeader(view) {
   $("#mSolved").textContent = view.solved_count;
   $("#mTotal").textContent = view.total;
   $("#mBar").style.width = `${(100 * view.solved_count) / view.total}%`;
-  $("#mMistakes").textContent = view.mistakes;
   $("#mSat").textContent = view.sat_calls_total.toLocaleString();
   document.title = `${view.puzzle.title} · Casebook`;
 }
@@ -881,7 +880,7 @@ function gameOver(view) {
   $("#modalTitle").textContent = "Game over";
   $("#modalText").textContent = `CONTRADICTED: the clues prove ${nameOf(cell)} is ${term(proved, "adj")}, not ${term(verdict, "adj")}. `
     + "One contradicted verdict ends the case.";
-  $("#modalStats").innerHTML = `<div><b>${view.solved_count}/${view.total}</b><span>identified</span></div><div><b>${view.mistakes}</b><span>mistakes</span></div><div><b>${view.sat_calls_total}</b><span>SAT calls</span></div>`;
+  $("#modalStats").innerHTML = `<div><b>${view.solved_count}/${view.total}</b><span>identified</span></div><div><b>${view.sat_calls_total}</b><span>SAT calls</span></div>`;
   $("#modalClose").textContent = "View board";
   $("#modalNext").textContent = "Restart case";
   $("#modal").hidden = false;
@@ -894,11 +893,9 @@ function celebrate(view) {
   $("#modalNext").textContent = "Next case";
   const agentSteps = view.log.filter((e) => e.kind === "agent" && e.result === "ACCEPTED").length;
   const playerSteps = view.log.filter((e) => e.kind === "player" && e.result === "ACCEPTED").length;
-  $("#modalArt").textContent = view.mistakes === 0 ? "🏆" : "🔎";
+  $("#modalArt").textContent = "🏆";
   $("#modalTitle").textContent = "Case closed";
-  $("#modalText").textContent = view.mistakes === 0
-    ? "Every verdict was proved. No guesses, no mistakes."
-    : `Solved with ${view.mistakes} rejected verdict${view.mistakes > 1 ? "s" : ""} along the way.`;
+  $("#modalText").textContent = "Every verdict was proved from the clues. No guesses.";
   $("#modalStats").innerHTML = `<div><b>${playerSteps}</b><span>your verdicts</span></div><div><b>${agentSteps}</b><span>agent verdicts</span></div><div><b>${view.sat_calls_total}</b><span>SAT calls</span></div>`;
   $("#modal").hidden = false;
   $("#modalNext").focus();

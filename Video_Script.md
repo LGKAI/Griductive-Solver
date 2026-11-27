@@ -34,7 +34,7 @@ Hai đường link giúp vào nhanh trạng thái mong muốn nếu cần quay l
 |---|---|
 | Mở trang, để yên 2 giây | "Đây là Casebook, phiên bản Griductive của nhóm: mỗi cầu thủ bí mật bị **Red card** (tương ứng Criminal) hoặc **Fair play** (Innocent). Chỉ được kết luận khi có thể **chứng minh logic**, không được đoán." |
 | Rê chuột qua lưới | "Lưới có tọa độ cột A–D và hàng 1–4. Thẻ úp hiện ảnh, tên, vị trí và đội tuyển của cầu thủ. Thẻ có dấu ★ là thẻ lật sẵn từ đầu." |
-| Rê qua thanh trên cùng | "Phía trên là tên vụ án, số người đã xác định, số lỗi và số lần gọi SAT solver." |
+| Rê qua thanh trên cùng | "Phía trên là tên vụ án, số người đã xác định và số lần gọi SAT solver." |
 | Rê qua cột trái | "Cột trái có danh sách 12 câu đố (3×3, 4×4, 5×5 và 2 ca lỗi), nút Load, Open file, và nút New để sinh câu đố mới; sau đó là Restart, Hint, và phần Logic agent gồm Step, Auto solve, thanh chỉnh tốc độ." |
 | Rê qua cột phải | "Cột phải có ba tab: Clues (các manh mối đã lật), Trace (lịch sử nước đi và truy vấn SAT) và Solver (thống kê bộ giải)." |
 | Bấm nút sáng/tối 2 lần | "Giao diện có chế độ sáng và tối." |
@@ -48,7 +48,7 @@ Hai đường link giúp vào nhanh trạng thái mong muốn nếu cần quay l
 | # | Thao tác | Kết quả trên màn hình | Lời thoại gợi ý |
 |---|---|---|---|
 | 1 | Ở tab Clues, bấm manh mối của Courtois | 4 góc được viền sáng | "Manh mối đầu tiên: *At least 4 fair-play players in the corners*. Bấm vào manh mối thì các ô nó đếm được tô sáng: chính là 4 góc." |
-| 2 | Bấm thẻ **Haaland (B1)** → chọn **Red card** | Thẻ rung, thông báo *Not provable yet* | "Nếu đoán bừa Haaland bị thẻ đỏ, game từ chối với **NOT_PROVABLE**: các manh mối chưa đủ để chứng minh. Đây chỉ là cảnh báo và tính một lỗi." |
+| 2 | Bấm thẻ **Haaland (B1)** → chọn **Red card** | Thẻ rung, thông báo *Not provable yet* | "Nếu đoán bừa Haaland bị thẻ đỏ, game từ chối với **NOT_PROVABLE**: các manh mối chưa đủ để chứng minh. Đây chỉ là cảnh báo, không bị phạt." |
 | 3 | Bấm **Kimmich (D1)** → **Fair play** | Thẻ lật, lộ manh mối mới | "Bốn góc có ít nhất 4 người Fair play, mà bàn chỉ có 4 góc, nên cả bốn đều Fair play. Kimmich ở góc D1 được chấp nhận, thẻ lật ra và lộ thêm manh mối." |
 | 4 | **Son (A4)** → Fair play, rồi **Vinícius (D4)** → Fair play | Lộ thêm 2 manh mối | "Tương tự cho Son và Vinícius." |
 | 5 | Đọc manh mối của Vinícius | *Exactly 2 red-carded players in Salah and Tiến Linh* | "Manh mối của Vinícius nói trong hai người Salah và Tiến Linh có đúng 2 người bị thẻ đỏ, tức là cả hai." |

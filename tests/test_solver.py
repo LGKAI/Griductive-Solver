@@ -282,7 +282,6 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(res.status, ACCEPTED)
         self.assertIs(res.revealed_clue, puzzle.clues[cell])
         self.assertEqual(engine.submit(cell, verdict).status, ALREADY_KNOWN)
-        self.assertEqual(engine.mistakes, 2 if unknown else 1)
 
     def test_contradicted_verdict_ends_the_game(self):
         puzzle = generate(3, seed=42)

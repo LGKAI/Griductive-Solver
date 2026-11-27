@@ -57,7 +57,6 @@ class GameEngine:
     cardinality: str = "auto"
     verdicts: dict[str, bool] = field(default_factory=dict)
     revealed: list[str] = field(default_factory=list)  # Danh sách ô đã mở thẻ/manh mối
-    mistakes: int = 0
     sudden_death: bool = True  # a CONTRADICTED verdict ends the game
     lost: Optional[tuple[str, str]] = None  # (cell, verdict) of the verdict that ended the game
     version: int = 0
@@ -73,7 +72,6 @@ class GameEngine:
         """Đưa bàn cờ về trạng thái mở sẵn ban đầu."""
         self.verdicts = {c: self.puzzle.solution[c] for c in self.puzzle.initial}
         self.revealed = list(self.puzzle.initial)
-        self.mistakes = 0
         self.lost = None
         self.sat_calls = 0
         self.version += 1
@@ -137,7 +135,6 @@ class GameEngine:
             return SubmitResult(ACCEPTED, cell, verdict, f"Correct: {name} is {verdict.lower()}.",
                                 self.puzzle.clues[cell])
 
-        self.mistakes += 1
         if forced in (CRIMINAL_V, INNOCENT_V):
             # The knowledge base is untouched (nothing is revealed); with sudden death the
             # game simply stops accepting verdicts until it is restarted.

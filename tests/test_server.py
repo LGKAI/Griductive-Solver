@@ -92,7 +92,7 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(res["result"]["status"], "NOT_PROVABLE")
             totals.append(res["state"]["sat_calls_total"])
         self.assertEqual(len(set(totals)), 1, totals)
-        self.assertEqual(res["state"]["mistakes"], 3)
+        self.assertEqual(res["state"]["status"], "PLAYING")  # a guess is only a warning
 
     def test_agent_step_and_restart(self):
         game = self.load("01-3x3-a")["game"]
