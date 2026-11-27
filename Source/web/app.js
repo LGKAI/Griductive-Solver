@@ -21,6 +21,7 @@ const S = {
   genSize: 4,
   epoch: 0,            // bumped on load/restart: responses from an older epoch are dropped
   celebrateTimer: null,
+  modalMode: "won",    // "won" (case closed) or "lost" (game over)
 };
 
 /* ------------------------------------------------------------------ utils */
@@ -480,6 +481,8 @@ function renderHeader(view) {
     meta.push(`<span class="chip chip-soft" title="Case file">${esc(view.puzzle.case_title)}</span>`);
   }
   if (view.status === "SOLVED") meta.push(`<span class="chip chip-inn">case closed</span>`);
+  if (view.status === "LOST") meta.push(`<span class="chip chip-crim">game over</span>`);
+  $("#board").classList.toggle("lost", view.status === "LOST");
   if (view.status === "INCONSISTENT") meta.push(`<span class="chip chip-crim">inconsistent clues</span>`);
   if (view.puzzle.expected && view.puzzle.expected !== "SOLVED") meta.push(`<span class="chip chip-warn">failure-case demo</span>`);
   $("#caseMeta").innerHTML = meta.join("");
@@ -659,7 +662,11 @@ async function submitVerdict(cell, verdict) {
     hideBannerIfHint();
     renderAll(data.state);
     const card = S.cards.get(cell);
-    if (r.status === "ACCEPTED") {
+    if (r.status === "CONTRADICTED" && data.state.status === "LOST") {
+      card?.classList.remove("shake"); void card?.offsetWidth; card?.classList.add("shake");
+      setAgentState("game over");
+      setTimeout(() => { if (S.view && S.view.game === data.state.game && S.view.status === "LOST") gameOver(S.view); }, 450);
+    } else if (r.status === "ACCEPTED") {
       if (["stuck", "paused"].includes($("#agentState").textContent)) setAgentState("idle");
       toast("ok", `Correct: ${nameOf(cell)} is ${term(verdict, "adj")}.`, r.clue ? `New clue: ${formatClue(r.clue.text)}` : "");
       afterProgress(data.state);
@@ -680,8 +687,15 @@ function hideBannerIfHint() {
   if ($("#banner").classList.contains("hint")) hideBanner();
 }
 
+/** True (and tells the player) when a contradicted verdict has ended the game. */
+function gameIsOver() {
+  if (!S.view || S.view.status !== "LOST") return false;
+  toast("bad", "Game over", "A contradicted verdict ended this case. Press Restart (R) to play again.");
+  return true;
+}
+
 async function requestHint() {
-  if (!S.view || S.busy || S.loading) return;
+  if (!S.view || S.busy || S.loading || gameIsOver()) return;
   S.busy = true;
   const epoch = S.epoch;
   try {
@@ -744,7 +758,7 @@ async function agentStep() {
 }
 
 async function stepOnce() {
-  if (S.busy || S.auto || S.loading) return;
+  if (S.busy || S.auto || S.loading || gameIsOver()) return;
   S.busy = true;
   const epoch = S.epoch;
   try { await agentStep(); } catch (err) { if (epoch === S.epoch) toast("bad", "Agent step failed", esc(err.message)); }
@@ -758,7 +772,7 @@ function speedDelay() {
 
 async function toggleAuto() {
   if (S.auto) { stopAuto(); return; }
-  if (!S.view || S.busy || S.loading) return;
+  if (!S.view || S.busy || S.loading || gameIsOver()) return;
   if (S.view.status === "SOLVED") { toast("info", "Already solved", "Restart to watch the agent solve it."); return; }
   closePopover();
   S.auto = true;
@@ -859,7 +873,25 @@ function afterProgress(view) {
   }
 }
 
+function gameOver(view) {
+  const { cell, verdict } = view.lost;
+  const proved = verdict === "CRIMINAL" ? "innocent" : "criminal";
+  S.modalMode = "lost";
+  $("#modalArt").textContent = "🟥";
+  $("#modalTitle").textContent = "Game over";
+  $("#modalText").textContent = `CONTRADICTED: the clues prove ${nameOf(cell)} is ${term(proved, "adj")}, not ${term(verdict, "adj")}. `
+    + "One contradicted verdict ends the case.";
+  $("#modalStats").innerHTML = `<div><b>${view.solved_count}/${view.total}</b><span>identified</span></div><div><b>${view.mistakes}</b><span>mistakes</span></div><div><b>${view.sat_calls_total}</b><span>SAT calls</span></div>`;
+  $("#modalClose").textContent = "View board";
+  $("#modalNext").textContent = "Restart case";
+  $("#modal").hidden = false;
+  $("#modalNext").focus();
+}
+
 function celebrate(view) {
+  S.modalMode = "won";
+  $("#modalClose").textContent = "Admire the board";
+  $("#modalNext").textContent = "Next case";
   const agentSteps = view.log.filter((e) => e.kind === "agent" && e.result === "ACCEPTED").length;
   const playerSteps = view.log.filter((e) => e.kind === "player" && e.result === "ACCEPTED").length;
   $("#modalArt").textContent = view.mistakes === 0 ? "🏆" : "🔎";
@@ -893,7 +925,7 @@ function confetti() {
 function openPopover(cell) {
   const card = S.cards.get(cell);
   const info = S.view.cells.find((c) => c.cell === cell);
-  if (!card || !info || info.known) return;
+  if (!card || !info || info.known || gameIsOver()) return;
   S.popCell = cell;
   const pop = $("#popover");
   $("#popAvatar").innerHTML = avatar(info);
@@ -1041,6 +1073,7 @@ function wire() {
   $("#modalClose").onclick = () => { $("#modal").hidden = true; };
   $("#modalNext").onclick = () => {
     $("#modal").hidden = true;
+    if (S.modalMode === "lost") { restart(); return; }
     const idx = S.puzzles.findIndex((p) => p.file === S.currentFile);
     const next = S.puzzles[(idx + 1) % S.puzzles.length];
     if (next) { S.selectedFile = next.file; loadGame({ file: next.file }); }
@@ -1067,7 +1100,7 @@ function wire() {
     else if (key === "r") {
       // the keyboard shortcut asks first when there is progress to lose
       const initial = S.view ? S.view.cells.filter((c) => c.initial).length : 0;
-      if (!S.view || S.view.status === "SOLVED" || S.view.solved_count <= initial || confirm("Restart this case? Your progress will be lost.")) restart();
+      if (!S.view || S.view.status === "SOLVED" || S.view.status === "LOST" || S.view.solved_count <= initial || confirm("Restart this case? Your progress will be lost.")) restart();
     }
   });
 }

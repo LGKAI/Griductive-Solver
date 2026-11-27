@@ -267,7 +267,7 @@ class AgentTests(unittest.TestCase):
 
     def test_engine_rejections(self):
         puzzle = generate(3, seed=42)
-        engine = GameEngine(puzzle)
+        engine = GameEngine(puzzle, sudden_death=False)
         analysis = engine.analysis()
         cell, verdict = analysis.forced[0]
         wrong = "INNOCENT" if verdict == "CRIMINAL" else "CRIMINAL"
@@ -283,6 +283,25 @@ class AgentTests(unittest.TestCase):
         self.assertIs(res.revealed_clue, puzzle.clues[cell])
         self.assertEqual(engine.submit(cell, verdict).status, ALREADY_KNOWN)
         self.assertEqual(engine.mistakes, 2 if unknown else 1)
+
+    def test_contradicted_verdict_ends_the_game(self):
+        puzzle = generate(3, seed=42)
+        engine = GameEngine(puzzle)
+        analysis = engine.analysis()
+        unknown = [c for c, v in analysis.classification.items() if v == "UNKNOWN"]
+        if unknown:  # a guess is only a warning
+            self.assertEqual(engine.submit(unknown[0], "CRIMINAL").status, NOT_PROVABLE)
+            self.assertEqual(engine.status, "PLAYING")
+        cell, verdict = analysis.forced[0]
+        before = (dict(engine.verdicts), list(engine.revealed))
+        wrong = "INNOCENT" if verdict == "CRIMINAL" else "CRIMINAL"
+        self.assertEqual(engine.submit(cell, wrong).status, CONTRADICTED)
+        self.assertEqual(engine.status, "LOST")
+        self.assertEqual((engine.verdicts, engine.revealed), before)  # nothing revealed
+        self.assertEqual(engine.submit(cell, verdict).status, "GAME_OVER")
+        engine.reset()
+        self.assertEqual(engine.status, "PLAYING")
+        self.assertEqual(engine.submit(cell, verdict).status, ACCEPTED)
         engine.reset()
         self.assertEqual(set(engine.verdicts), set(puzzle.initial))
 

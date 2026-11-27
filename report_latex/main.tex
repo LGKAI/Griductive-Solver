@@ -237,7 +237,7 @@ Trạng thái ẩn và manh mối chưa lật \textbf{không bao giờ} nằm tr
 \begin{itemize}[noitemsep]
     \item \textbf{Game Engine} (\code{engine.py}) giữ toàn bộ câu đố, lời giải ẩn và manh mối chưa lật. Nó chỉ trao ra một \code{PublicState} bất biến (kích thước lưới, tên và nghề, manh mối đã lật, phán đoán đã chứng minh).
     \item \textbf{Logic Agent} (\code{agent.py}) chỉ nhận một \code{PlayerView} có đúng hai phương thức \code{public\_state()} và \code{submit(cell, verdict)}; tham chiếu tới engine bị ẩn tên nên agent không thể vô tình đọc lời giải.
-    \item Engine tự kiểm tra lại mỗi phán đoán bằng chính $\KB_t$ công khai. Nếu được kéo theo: ghi nhận, lật thẻ, thêm manh mối (tạo $\KB_{t+1}$). Nếu không: trả về \code{NOT\_PROVABLE} (chưa bị ép) hoặc \code{CONTRADICTED} (bị ép theo chiều ngược lại) và \textbf{không thay đổi} cơ sở tri thức. Lời giải ẩn chỉ dùng làm kiểm tra an toàn: nếu một phán đoán được kéo theo mà trái với lời giải lưu trong file thì câu đố bị hỏng.
+    \item Engine tự kiểm tra lại mỗi phán đoán bằng chính $\KB_t$ công khai. Nếu được kéo theo: ghi nhận, lật thẻ, thêm manh mối (tạo $\KB_{t+1}$). Nếu không: trả về \code{NOT\_PROVABLE} (chưa bị ép) hoặc \code{CONTRADICTED} (bị ép theo chiều ngược lại) và \textbf{không thay đổi} cơ sở tri thức. Trong trò chơi, \code{NOT\_PROVABLE} chỉ là cảnh báo (tính một lỗi), còn \code{CONTRADICTED} là \textbf{game over}: engine ghi nhận ván thua và từ chối mọi phán đoán, gợi ý và bước của agent cho tới khi Restart (vẫn không lật thẻ hay lộ manh mối nào). Lời giải ẩn chỉ dùng làm kiểm tra an toàn: nếu một phán đoán được kéo theo mà trái với lời giải lưu trong file thì câu đố bị hỏng.
 \end{itemize}
 Giao diện web cũng chỉ là một ``người chơi'': máy chủ không bao giờ gửi trạng thái ẩn hay manh mối chưa lật cho trình duyệt.
 
@@ -412,7 +412,7 @@ Chương trình chỉ dùng thư viện chuẩn Python (không cần cài đặt
 Giao diện là ứng dụng web cục bộ (\code{python3 main.py}, mở \code{http://127.0.0.1:8765}). Các yêu cầu của mục 4.1 trong đề được đáp ứng như sau:
 \begin{itemize}[noitemsep]
     \item Lưới có tọa độ hàng/cột; thẻ úp hiện avatar, tên và nghề; thẻ đã lật hiện trạng thái (đỏ: Red card, tức criminal; xanh: Fair play, tức innocent) và manh mối, tên người trong manh mối được tô màu.
-    \item Bấm vào thẻ úp để mở hộp chọn Criminal/Innocent (phím tắt \code{C}/\code{I}); các phím \code{H}, \code{N}, \code{A}, \code{R} ứng với Hint, Step, Auto Solve, Restart. Phán đoán đúng làm thẻ lật 3D và lộ manh mối mới; phán đoán bị từ chối làm thẻ rung, báo rõ \code{NOT\_PROVABLE} hoặc \code{CONTRADICTED} và không lộ gì thêm.
+    \item Bấm vào thẻ úp để mở hộp chọn Criminal/Innocent (phím tắt \code{C}/\code{I}); các phím \code{H}, \code{N}, \code{A}, \code{R} ứng với Hint, Step, Auto Solve, Restart. Phán đoán đúng làm thẻ lật 3D và lộ manh mối mới; phán đoán bị từ chối làm thẻ rung và không lộ gì thêm: \code{NOT\_PROVABLE} hiện cảnh báo, còn \code{CONTRADICTED} mở màn hình \textit{Game over} (ghi rõ CONTRADICTED và trạng thái đã được chứng minh) với nút Restart.
     \item Chọn một manh mối sẽ làm nổi bật các ô được đếm (viền liền), người được nhắc tên (viền đứt) và hàng/cột liên quan.
     \item Các nút Load, Open file, New (sinh câu đố $3\times3$/$4\times4$/$5\times5$), Restart, Hint, Step và Auto Solve (chỉnh tốc độ).
     \item Tab \textbf{Trace} liệt kê mọi nước đi của người chơi và agent kèm các truy vấn SAT; tab \textbf{Solver} hiện kích thước $\KB$, thống kê DPLL, cho đổi chiến lược truy vấn/cách mã hóa và chạy kiểm tra nghiệm duy nhất.
@@ -487,7 +487,7 @@ Bộ kiểm thử gồm \NumTests\ test (\code{python3 -m unittest discover -s t
     \item \textbf{Bộ mã hóa và bộ đánh giá (vét cạn):} với mọi loại manh mối (riêng ràng buộc đếm: $k = 0..8$ trên vùng lân cận của B2, đếm cả criminal và innocent) và cả 3 chế độ mã hóa, kiểm tra trên \textit{mọi} $2^9$ phép gán của lưới $3\times3$ rằng $\text{CNF} \land \text{phép gán}$ SAT $\iff$ bộ đánh giá trả True.
     \item \textbf{DPLL và vét cạn:} hàng trăm CNF ngẫu nhiên (có/không literal thuần, có assumption); mô hình trả về luôn được kiểm tra lại.
     \item \textbf{filter = naive:} trên nhiều trạng thái ngẫu nhiên, hai chiến lược cho cùng phân loại và filter không bao giờ tốn nhiều truy vấn hơn.
-    \item \textbf{Engine, agent, Hint:} phân biệt đúng NOT\_PROVABLE/CONTRADICTED, phán đoán bị từ chối không đổi $\KB$; tập manh mối của Hint đủ và tối thiểu; câu đố đi kèm đạt đúng kết quả kỳ vọng.
+    \item \textbf{Engine, agent, Hint:} phân biệt đúng NOT\_PROVABLE/CONTRADICTED, phán đoán bị từ chối không đổi $\KB$, CONTRADICTED kết thúc ván cho tới khi Restart; tập manh mối của Hint đủ và tối thiểu; câu đố đi kèm đạt đúng kết quả kỳ vọng.
     \item \textbf{Máy chủ:} yêu cầu sai định dạng trả lỗi 4xx; không có phản hồi nào chứa trạng thái ẩn hay manh mối chưa lật; nước đi gửi trước khi Restart bị từ chối.
     \item \textbf{Bộ cầu thủ:} đủ \CastFootball\ người cho lưới $5\times5$, tên và ảnh không trùng, lưới lớn hơn giữ tên trong file, agent cho cùng kết quả với tên gốc và tên cầu thủ.
 \end{itemize}
@@ -533,6 +533,7 @@ Trong quá trình thực hiện, nhóm sử dụng trợ lý lập trình \textb
     \item \textit{``Lên mạng lấy các tấm hình của mỗi nhân vật rồi cắt ra; trong bóng đá thay tội phạm bằng bị thẻ đỏ.''}
     \item \textit{``Không có hình thì bỏ luôn đi.''}
     \item \textit{``Bỏ anime đi, dùng cầu thủ làm mặc định, bỏ classic luôn.''}
+    \item \textit{``Khi chọn sai verdict của 1 player thì game over luôn thay vì báo là contradict.''}
 \end{itemize}
 
 \subsection{Kho lưu trữ mã nguồn \& Video minh họa}

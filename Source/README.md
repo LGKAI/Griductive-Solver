@@ -51,6 +51,9 @@ python3 tools/build_puzzles.py                        # regenerate the bundled p
 
 The engine reports a rejected verdict as `NOT_PROVABLE` when neither status is forced yet, or as
 `CONTRADICTED` when the opposite status is forced. A rejected verdict never reveals anything.
+`NOT_PROVABLE` is only a warning (it counts as a mistake). `CONTRADICTED` is **game over**: the
+engine stops accepting verdicts, hints and agent steps until the case is restarted
+(`GameEngine(sudden_death=False)` restores the old behaviour).
 
 ## Adding or replacing a player photo
 
