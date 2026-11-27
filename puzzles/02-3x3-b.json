@@ -1,6 +1,6 @@
 {
   "id": "02-3x3-b",
-  "title": "The Velvet Ledger",
+  "title": "The Offside Mystery",
   "size": 3,
   "initial": [
     "B2"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Basil",
-      "profession": "Writer",
+      "name": "Alisson",
+      "profession": "Goalkeeper · Brazil",
       "status": "criminal",
       "clue": {
         "type": "CONNECTED",
@@ -27,8 +27,8 @@
     },
     {
       "cell": "B1",
-      "name": "Cleo",
-      "profession": "Butler",
+      "name": "De Bruyne",
+      "profession": "Midfielder · Belgium",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -42,8 +42,8 @@
     },
     {
       "cell": "C1",
-      "name": "Cyrus",
-      "profession": "Chef",
+      "name": "Haaland",
+      "profession": "Striker · Norway",
       "status": "innocent",
       "clue": {
         "type": "PARITY",
@@ -58,8 +58,8 @@
     },
     {
       "cell": "A2",
-      "name": "Lena",
-      "profession": "Tailor",
+      "name": "Kane",
+      "profession": "Striker · England",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -73,8 +73,8 @@
     },
     {
       "cell": "B2",
-      "name": "Milo",
-      "profession": "Chef",
+      "name": "Quang Hải",
+      "profession": "Midfielder · Vietnam",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -88,8 +88,8 @@
     },
     {
       "cell": "C2",
-      "name": "Nico",
-      "profession": "Florist",
+      "name": "Ronaldo",
+      "profession": "Forward · Portugal",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -103,8 +103,8 @@
     },
     {
       "cell": "A3",
-      "name": "Vera",
-      "profession": "Baker",
+      "name": "Saka",
+      "profession": "Winger · England",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -118,8 +118,8 @@
     },
     {
       "cell": "B3",
-      "name": "Viggo",
-      "profession": "Painter",
+      "name": "Van Dijk",
+      "profession": "Defender · Netherlands",
       "status": "innocent",
       "clue": {
         "type": "IMPLIES",
@@ -135,8 +135,8 @@
     },
     {
       "cell": "C3",
-      "name": "Wren",
-      "profession": "Butler",
+      "name": "Yamal",
+      "profession": "Winger · Spain",
       "status": "criminal",
       "clue": {
         "type": "DIFFERENT",

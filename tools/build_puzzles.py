@@ -1,6 +1,9 @@
 """Sinh lại toàn bộ bộ câu đố mẫu trong thư mục ``puzzles/`` (dùng seed cố định).
 
     python tools/build_puzzles.py
+
+Mỗi câu đố được lưu kèm bộ cầu thủ và tiêu đề mà giao diện hiển thị (xem ``themes.py``),
+nên dòng lệnh (``main.py --solve``), giao diện web và báo cáo dùng chung một bộ tên.
 """
 
 from __future__ import annotations
@@ -13,6 +16,7 @@ sys.path.insert(0, str(ROOT))
 
 from griductive.generator import generate  # noqa: E402
 from griductive.puzzle import Puzzle  # noqa: E402
+from griductive.themes import DEFAULT_THEME, themed_characters  # noqa: E402
 
 OUT = ROOT / "puzzles"
 
@@ -79,16 +83,41 @@ def inconsistent_case() -> Puzzle:
     return Puzzle.from_dict(data)
 
 
+# Tiêu đề riêng (không trùng) cho từng câu đố mẫu.
+TITLES = {
+    "01-3x3-a": "The Penalty Conspiracy",
+    "02-3x3-b": "The Offside Mystery",
+    "03-3x3-c": "The Locker Room Riddle",
+    "04-3x3-d": "The Golden Boot Affair",
+    "05-4x4-a": "The Final Whistle Riddle",
+    "06-4x4-b": "The Derby Day Heist",
+    "07-4x4-c": "The Transfer Window Scandal",
+    "08-4x4-d": "The Midnight Kickoff Affair",
+    "09-5x5-a": "The Penalty Shootout Heist",
+    "10-5x5-b": "The Extra Time Mystery",
+    "90-3x3-ambiguous": "Failure case: The Twin Alibi",
+    "91-3x3-inconsistent": "Failure case: The Forged Scoresheet",
+}
+
+
+def with_cast(puzzle: Puzzle) -> Puzzle:
+    """Đặt tên, nghề theo bộ cầu thủ và tiêu đề riêng của câu đố (logic không đổi)."""
+    puzzle.characters = themed_characters(puzzle, puzzle.characters, DEFAULT_THEME)
+    puzzle.title = TITLES[puzzle.puzzle_id]
+    return puzzle
+
+
 def main() -> None:
     OUT.mkdir(exist_ok=True)
     for old in OUT.glob("*.json"):
         old.unlink()
     for file_id, size, seed, min_waves in SPECS:
-        puzzle = generate(size, seed=seed, min_waves=min_waves, puzzle_id=file_id)
+        puzzle = with_cast(generate(size, seed=seed, min_waves=min_waves, puzzle_id=file_id))
         puzzle.save(OUT / f"{file_id}.json")
         types = sorted({c.type for c in puzzle.clues.values() if c})
         print(f"{file_id}: {puzzle.title!r} waves={puzzle.meta['waves']} types={types}")
     for puzzle in (ambiguous_case(), inconsistent_case()):
+        puzzle = with_cast(puzzle)
         puzzle.save(OUT / f"{puzzle.puzzle_id}.json")
         print(f"{puzzle.puzzle_id}: {puzzle.title!r}")
 

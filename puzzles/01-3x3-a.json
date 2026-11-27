@@ -1,6 +1,6 @@
 {
   "id": "01-3x3-a",
-  "title": "The Ember Theatre",
+  "title": "The Penalty Conspiracy",
   "size": 3,
   "initial": [
     "C3"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Dmitri",
-      "profession": "Doctor",
+      "name": "Hoàng Đức",
+      "profession": "Midfielder · Vietnam",
       "status": "innocent",
       "clue": {
         "type": "DIFFERENT",
@@ -24,8 +24,8 @@
     },
     {
       "cell": "B1",
-      "name": "Greta",
-      "profession": "Florist",
+      "name": "Lewandowski",
+      "profession": "Striker · Poland",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -39,8 +39,8 @@
     },
     {
       "cell": "C1",
-      "name": "Jonah",
-      "profession": "Banker",
+      "name": "Mbappé",
+      "profession": "Forward · France",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -54,8 +54,8 @@
     },
     {
       "cell": "A2",
-      "name": "Kofi",
-      "profession": "Coder",
+      "name": "Modrić",
+      "profession": "Midfielder · Croatia",
       "status": "innocent",
       "clue": {
         "type": "IMPLIES",
@@ -71,8 +71,8 @@
     },
     {
       "cell": "B2",
-      "name": "Lior",
-      "profession": "Butler",
+      "name": "Musiala",
+      "profession": "Midfielder · Germany",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -86,8 +86,8 @@
     },
     {
       "cell": "C2",
-      "name": "Odile",
-      "profession": "Pilot",
+      "name": "Quang Hải",
+      "profession": "Midfielder · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "IMPLIES",
@@ -103,8 +103,8 @@
     },
     {
       "cell": "A3",
-      "name": "Pavel",
-      "profession": "Chemist",
+      "name": "Son",
+      "profession": "Forward · South Korea",
       "status": "innocent",
       "clue": {
         "type": "DIFFERENT",
@@ -114,8 +114,8 @@
     },
     {
       "cell": "B3",
-      "name": "Theo",
-      "profession": "Chef",
+      "name": "Valverde",
+      "profession": "Midfielder · Uruguay",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -128,8 +128,8 @@
     },
     {
       "cell": "C3",
-      "name": "Zane",
-      "profession": "Doctor",
+      "name": "Vinícius",
+      "profession": "Winger · Brazil",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",

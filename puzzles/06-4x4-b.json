@@ -1,6 +1,6 @@
 {
   "id": "06-4x4-b",
-  "title": "The Ivory Masquerade",
+  "title": "The Derby Day Heist",
   "size": 4,
   "initial": [
     "C1"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Abel",
-      "profession": "Miner",
+      "name": "Bellingham",
+      "profession": "Midfielder · England",
       "status": "criminal",
       "clue": {
         "type": "DIFFERENT",
@@ -24,8 +24,8 @@
     },
     {
       "cell": "B1",
-      "name": "Ada",
-      "profession": "Banker",
+      "name": "De Bruyne",
+      "profession": "Midfielder · Belgium",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -39,8 +39,8 @@
     },
     {
       "cell": "C1",
-      "name": "Basil",
-      "profession": "Clerk",
+      "name": "Messi",
+      "profession": "Forward · Argentina",
       "status": "innocent",
       "clue": {
         "type": "AT_MOST",
@@ -54,8 +54,8 @@
     },
     {
       "cell": "D1",
-      "name": "Dara",
-      "profession": "Banker",
+      "name": "Musiala",
+      "profession": "Midfielder · Germany",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -69,8 +69,8 @@
     },
     {
       "cell": "A2",
-      "name": "Dmitri",
-      "profession": "Banker",
+      "name": "Neymar",
+      "profession": "Forward · Brazil",
       "status": "criminal",
       "clue": {
         "type": "IMPLIES",
@@ -86,8 +86,8 @@
     },
     {
       "cell": "B2",
-      "name": "Elio",
-      "profession": "Mechanic",
+      "name": "Osimhen",
+      "profession": "Striker · Nigeria",
       "status": "innocent",
       "clue": {
         "type": "PARITY",
@@ -101,8 +101,8 @@
     },
     {
       "cell": "C2",
-      "name": "Gus",
-      "profession": "Pilot",
+      "name": "Pedri",
+      "profession": "Midfielder · Spain",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -116,8 +116,8 @@
     },
     {
       "cell": "D2",
-      "name": "Ivo",
-      "profession": "Painter",
+      "name": "Quang Hải",
+      "profession": "Midfielder · Vietnam",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -131,8 +131,8 @@
     },
     {
       "cell": "A3",
-      "name": "Kira",
-      "profession": "Chemist",
+      "name": "Ronaldo",
+      "profession": "Forward · Portugal",
       "status": "innocent",
       "clue": {
         "type": "CONNECTED",
@@ -145,8 +145,8 @@
     },
     {
       "cell": "B3",
-      "name": "Lena",
-      "profession": "Doctor",
+      "name": "Saka",
+      "profession": "Winger · England",
       "status": "criminal",
       "clue": {
         "type": "PARITY",
@@ -160,8 +160,8 @@
     },
     {
       "cell": "C3",
-      "name": "Odile",
-      "profession": "Pilot",
+      "name": "Salah",
+      "profession": "Winger · Egypt",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -174,8 +174,8 @@
     },
     {
       "cell": "D3",
-      "name": "Pia",
-      "profession": "Butler",
+      "name": "Son",
+      "profession": "Forward · South Korea",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -189,8 +189,8 @@
     },
     {
       "cell": "A4",
-      "name": "Tamsin",
-      "profession": "Butler",
+      "name": "Tiến Linh",
+      "profession": "Striker · Vietnam",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -204,8 +204,8 @@
     },
     {
       "cell": "B4",
-      "name": "Theo",
-      "profession": "Mechanic",
+      "name": "Valverde",
+      "profession": "Midfielder · Uruguay",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -219,8 +219,8 @@
     },
     {
       "cell": "C4",
-      "name": "Viggo",
-      "profession": "Coder",
+      "name": "Văn Hậu",
+      "profession": "Defender · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -234,8 +234,8 @@
     },
     {
       "cell": "D4",
-      "name": "Zane",
-      "profession": "Clerk",
+      "name": "Vinícius",
+      "profession": "Winger · Brazil",
       "status": "innocent",
       "clue": {
         "type": "AT_MOST",

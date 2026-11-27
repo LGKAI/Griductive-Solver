@@ -373,12 +373,12 @@ Hai chiến lược truy vấn cho \textbf{cùng một} kết quả phân loại
 }
 \end{algorithm}
 
-Trích đoạn trace thật của agent trên câu đố \code{01-3x3-a} (lệnh \code{python3 main.py --solve puzzles/01-3x3-a.json -v}): mỗi bước in số bước, manh mối đang dùng, mọi truy vấn SAT kèm kết quả, phán đoán và manh mối mới lộ ra. Ở bước 1, chiến lược lọc mô hình chỉ cần 9 truy vấn: $\KB \land C(A1)$ là UNSAT nên A1 bị ép là Innocent.
+Trích đoạn trace thật của agent trên câu đố \code{01-3x3-a} (lệnh \code{python3 main.py --solve puzzles/01-3x3-a.json -v}): mỗi bước in số bước, manh mối đang dùng, mọi truy vấn SAT kèm kết quả, phán đoán và manh mối mới lộ ra. Ở bước 1, chiến lược lọc mô hình chỉ cần 9 truy vấn: $\KB \land C(A1)$ là UNSAT nên A1 (Hoàng Đức) bị ép là Innocent. Dòng lệnh in trạng thái theo tên logic (CRIMINAL/INNOCENT), tương ứng với Red card/Fair play trên giao diện.
 
 \begin{Verbatim}[commandchars=\\\{\}, fontsize=\scriptsize]
-The Ember Theatre  [3x3]  strategy=filter cardinality=auto
-  face-up C3 Zane: Exactly 1 criminal in the corners
-step  1: ACCEPTED     INNOCENT  Dmitri(A1)  | SAT calls=9   vars=9+0 clauses=8
+The Penalty Conspiracy  [3x3]  strategy=filter cardinality=auto
+  face-up C3 Vinícius: Exactly 1 criminal in the corners
+step  1: ACCEPTED     INNOCENT  Hoàng Đức(A1)  | SAT calls=9   vars=9+0 clauses=8
          active clues: C3
          KB               -> SAT
          KB \ensuremath{\land} C(A1)       -> UNSAT
@@ -389,8 +389,8 @@ step  1: ACCEPTED     INNOCENT  Dmitri(A1)  | SAT calls=9   vars=9+0 clauses=8
          KB \ensuremath{\land} C(C2)       -> SAT
          KB \ensuremath{\land} C(A3)       -> UNSAT
          KB \ensuremath{\land} C(B3)       -> SAT
-         revealed: Dmitri(A1) and Greta(B1) have different statuses
-step  2: ACCEPTED     CRIMINAL  Greta(B1)  | SAT calls=8   vars=9+0 clauses=11
+         revealed: Hoàng Đức(A1) and Lewandowski(B1) have different statuses
+step  2: ACCEPTED     CRIMINAL  Lewandowski(B1)  | SAT calls=8   vars=9+0 clauses=11
          active clues: A1, C3
          KB               -> SAT
          KB \ensuremath{\land} \ensuremath{\neg}C(B1)      -> UNSAT
@@ -465,11 +465,11 @@ Giao diện là ứng dụng web cục bộ (\code{python3 main.py}, mở \code{
 \end{figure}
 
 \subsection{Bộ nhân vật cầu thủ}
-Thay cho nhân vật thám tử lưu trong file câu đố, giao diện mặc định hiển thị 30 cầu thủ nổi tiếng (Messi, Ronaldo, Mbappé, Haaland, Modrić, \dots) và các tuyển thủ Việt Nam (Quang Hải, Văn Hậu, Tiến Linh, Hoàng Đức), mỗi người kèm vị trí và đội tuyển (giữ bằng tiếng Anh như trong giao diện, ví dụ ``Forward · Argentina''). Hai trạng thái được gọi theo ngôn ngữ bóng đá: \textbf{Red card} (thay cho Criminal) và \textbf{Fair play} (thay cho Innocent) trên nhãn thẻ, nút phán đoán, manh mối (ví dụ ``Exactly 1 red-carded player in row 2''), thông báo và trace; logic bên dưới vẫn chỉ là $C_i$ đúng/sai.
+Nhân vật của mọi câu đố là 30 cầu thủ nổi tiếng (Messi, Ronaldo, Mbappé, Haaland, Modrić, \dots) và các tuyển thủ Việt Nam (Quang Hải, Văn Hậu, Tiến Linh, Hoàng Đức), mỗi người kèm vị trí và đội tuyển (giữ bằng tiếng Anh như trong giao diện, ví dụ ``Forward · Argentina''). Hai trạng thái được gọi theo ngôn ngữ bóng đá: \textbf{Red card} (thay cho Criminal) và \textbf{Fair play} (thay cho Innocent) trên nhãn thẻ, nút phán đoán, manh mối (ví dụ ``Exactly 1 red-carded player in row 2''), thông báo và trace; logic bên dưới vẫn chỉ là $C_i$ đúng/sai.
 
 \textbf{Ảnh chân dung.} Mỗi cầu thủ dùng một ảnh thật từ Wikimedia Commons với giấy phép tự do (CC BY, CC BY-SA, public domain), được cắt vuông $320\times320$ quanh khuôn mặt bằng bộ phát hiện khuôn mặt Vision của macOS (thư mục \code{Source/web/portraits/}); tác giả và giấy phép của từng ảnh được ghi trong \code{Source/web/portraits/CREDITS.md}. Nếu thiếu file ảnh, chương trình vẽ một avatar SVG mặc áo đấu đội tuyển (với sự hỗ trợ của trợ lý AI, xem Phụ lục). Vai trong trò chơi là trạng thái ngẫu nhiên, không mang hàm ý gì về người thật (giao diện cũng hiển thị lưu ý này).
 
-Bộ cầu thủ \textbf{chỉ mang tính hiển thị}: nó thay tên, nghề, ảnh và cách gọi trạng thái nhưng giữ nguyên ô, manh mối và lời giải; tên được xếp theo bảng chữ cái theo hàng (không phân biệt dấu). Với lưới lớn hơn 30 ô (file tự tải lên), chương trình giữ tên nhân vật trong file. Kiểm thử xác nhận agent cho cùng một chuỗi phán đoán với tên gốc và tên cầu thủ.
+Các file câu đố mẫu lưu sẵn tên cầu thủ (công cụ \code{tools/build\_puzzles.py} gán tên khi sinh câu đố), nên giao diện, dòng lệnh và báo cáo dùng chung một bộ tên. Bộ cầu thủ \textbf{chỉ mang tính hiển thị}: nó quyết định tên, nghề, ảnh và cách gọi trạng thái nhưng không ảnh hưởng ô, manh mối và lời giải; tên được xếp theo bảng chữ cái theo hàng (không phân biệt dấu). Với lưới lớn hơn 30 ô (file tự tải lên), chương trình giữ tên nhân vật trong file. Kiểm thử xác nhận agent cho cùng một chuỗi phán đoán với tên gốc và tên cầu thủ.
 
 \begin{figure}[H]
 \centering

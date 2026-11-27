@@ -1,6 +1,6 @@
 {
   "id": "07-4x4-c",
-  "title": "The Hollow Vault",
+  "title": "The Transfer Window Scandal",
   "size": 4,
   "initial": [
     "C1"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Abel",
-      "profession": "Tailor",
+      "name": "Alisson",
+      "profession": "Goalkeeper · Brazil",
       "status": "criminal",
       "clue": {
         "type": "SAME",
@@ -24,8 +24,8 @@
     },
     {
       "cell": "B1",
-      "name": "Cyrus",
-      "profession": "Chef",
+      "name": "Bellingham",
+      "profession": "Midfielder · England",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -44,8 +44,8 @@
     },
     {
       "cell": "C1",
-      "name": "Elio",
-      "profession": "Chemist",
+      "name": "Courtois",
+      "profession": "Goalkeeper · Belgium",
       "status": "innocent",
       "clue": {
         "type": "AT_MOST",
@@ -59,8 +59,8 @@
     },
     {
       "cell": "D1",
-      "name": "Jade",
-      "profession": "Pilot",
+      "name": "De Bruyne",
+      "profession": "Midfielder · Belgium",
       "status": "criminal",
       "clue": {
         "type": "AT_LEAST",
@@ -74,8 +74,8 @@
     },
     {
       "cell": "A2",
-      "name": "Jonah",
-      "profession": "Chemist",
+      "name": "Kane",
+      "profession": "Striker · England",
       "status": "innocent",
       "clue": {
         "type": "PARITY",
@@ -89,8 +89,8 @@
     },
     {
       "cell": "B2",
-      "name": "Kira",
-      "profession": "Chemist",
+      "name": "Kimmich",
+      "profession": "Midfielder · Germany",
       "status": "criminal",
       "clue": {
         "type": "FACT",
@@ -100,8 +100,8 @@
     },
     {
       "cell": "C2",
-      "name": "Nico",
-      "profession": "Mechanic",
+      "name": "Messi",
+      "profession": "Forward · Argentina",
       "status": "innocent",
       "clue": {
         "type": "IMPLIES",
@@ -117,8 +117,8 @@
     },
     {
       "cell": "D2",
-      "name": "Pia",
-      "profession": "Judge",
+      "name": "Modrić",
+      "profession": "Midfielder · Croatia",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -132,8 +132,8 @@
     },
     {
       "cell": "A3",
-      "name": "Rosa",
-      "profession": "Baker",
+      "name": "Musiala",
+      "profession": "Midfielder · Germany",
       "status": "innocent",
       "clue": {
         "type": "DIFFERENT",
@@ -143,8 +143,8 @@
     },
     {
       "cell": "B3",
-      "name": "Silas",
-      "profession": "Miner",
+      "name": "Ødegaard",
+      "profession": "Midfielder · Norway",
       "status": "innocent",
       "clue": {
         "type": "SAME",
@@ -154,8 +154,8 @@
     },
     {
       "cell": "C3",
-      "name": "Tamsin",
-      "profession": "Florist",
+      "name": "Pedri",
+      "profession": "Midfielder · Spain",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -169,8 +169,8 @@
     },
     {
       "cell": "D3",
-      "name": "Theo",
-      "profession": "Singer",
+      "name": "Quang Hải",
+      "profession": "Midfielder · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -184,8 +184,8 @@
     },
     {
       "cell": "A4",
-      "name": "Uma",
-      "profession": "Mechanic",
+      "name": "Rodri",
+      "profession": "Midfielder · Spain",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -199,8 +199,8 @@
     },
     {
       "cell": "B4",
-      "name": "Wren",
-      "profession": "Farmer",
+      "name": "Saka",
+      "profession": "Winger · England",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -214,8 +214,8 @@
     },
     {
       "cell": "C4",
-      "name": "Xavi",
-      "profession": "Doctor",
+      "name": "Valverde",
+      "profession": "Midfielder · Uruguay",
       "status": "criminal",
       "clue": {
         "type": "CONNECTED",
@@ -228,8 +228,8 @@
     },
     {
       "cell": "D4",
-      "name": "Yara",
-      "profession": "Singer",
+      "name": "Vinícius",
+      "profession": "Winger · Brazil",
       "status": "innocent",
       "clue": {
         "type": "DIFFERENT",

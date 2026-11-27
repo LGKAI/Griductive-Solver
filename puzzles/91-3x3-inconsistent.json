@@ -1,6 +1,6 @@
 {
   "id": "91-3x3-inconsistent",
-  "title": "Failure case: the Forged Testimony",
+  "title": "Failure case: The Forged Scoresheet",
   "size": 3,
   "initial": [
     "B2"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Ada",
-      "profession": "Florist",
+      "name": "Bellingham",
+      "profession": "Midfielder · England",
       "status": "innocent",
       "clue": {
         "type": "FACT",
@@ -24,8 +24,8 @@
     },
     {
       "cell": "B1",
-      "name": "Bruno",
-      "profession": "Sailor",
+      "name": "Courtois",
+      "profession": "Goalkeeper · Belgium",
       "status": "innocent",
       "clue": {
         "type": "SAME",
@@ -35,8 +35,8 @@
     },
     {
       "cell": "C1",
-      "name": "Cyrus",
-      "profession": "Doctor",
+      "name": "Mbappé",
+      "profession": "Forward · France",
       "status": "innocent",
       "clue": {
         "type": "AT_MOST",
@@ -48,8 +48,8 @@
     },
     {
       "cell": "A2",
-      "name": "Dmitri",
-      "profession": "Banker",
+      "name": "Modrić",
+      "profession": "Midfielder · Croatia",
       "status": "criminal",
       "clue": {
         "type": "FACT",
@@ -59,8 +59,8 @@
     },
     {
       "cell": "B2",
-      "name": "Elio",
-      "profession": "Coder",
+      "name": "Neymar",
+      "profession": "Forward · Brazil",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -73,29 +73,29 @@
     },
     {
       "cell": "C2",
-      "name": "Faye",
-      "profession": "Singer",
+      "name": "Pedri",
+      "profession": "Midfielder · Spain",
       "status": "criminal",
       "clue": null
     },
     {
       "cell": "A3",
-      "name": "Gus",
-      "profession": "Butler",
+      "name": "Rodri",
+      "profession": "Midfielder · Spain",
       "status": "criminal",
       "clue": null
     },
     {
       "cell": "B3",
-      "name": "Hana",
-      "profession": "Painter",
+      "name": "Ronaldo",
+      "profession": "Forward · Portugal",
       "status": "innocent",
       "clue": null
     },
     {
       "cell": "C3",
-      "name": "Ivo",
-      "profession": "Farmer",
+      "name": "Son",
+      "profession": "Forward · South Korea",
       "status": "innocent",
       "clue": null
     }

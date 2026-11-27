@@ -1,6 +1,6 @@
 {
   "id": "04-3x3-d",
-  "title": "The Copper Garden",
+  "title": "The Golden Boot Affair",
   "size": 3,
   "initial": [
     "A1"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Alma",
-      "profession": "Painter",
+      "name": "Alisson",
+      "profession": "Goalkeeper · Brazil",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -28,8 +28,8 @@
     },
     {
       "cell": "B1",
-      "name": "Dara",
-      "profession": "Florist",
+      "name": "Haaland",
+      "profession": "Striker · Norway",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -43,8 +43,8 @@
     },
     {
       "cell": "C1",
-      "name": "Elio",
-      "profession": "Sailor",
+      "name": "Kimmich",
+      "profession": "Midfielder · Germany",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -58,8 +58,8 @@
     },
     {
       "cell": "A2",
-      "name": "Hugo",
-      "profession": "Painter",
+      "name": "Mbappé",
+      "profession": "Forward · France",
       "status": "criminal",
       "clue": {
         "type": "SAME",
@@ -69,8 +69,8 @@
     },
     {
       "cell": "B2",
-      "name": "Ines",
-      "profession": "Judge",
+      "name": "Pedri",
+      "profession": "Midfielder · Spain",
       "status": "criminal",
       "clue": {
         "type": "AT_MOST",
@@ -84,8 +84,8 @@
     },
     {
       "cell": "C2",
-      "name": "Ivo",
-      "profession": "Pilot",
+      "name": "Son",
+      "profession": "Forward · South Korea",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -98,8 +98,8 @@
     },
     {
       "cell": "A3",
-      "name": "Theo",
-      "profession": "Pilot",
+      "name": "Tiến Linh",
+      "profession": "Striker · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "IMPLIES",
@@ -115,8 +115,8 @@
     },
     {
       "cell": "B3",
-      "name": "Wren",
-      "profession": "Doctor",
+      "name": "Van Dijk",
+      "profession": "Defender · Netherlands",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -130,8 +130,8 @@
     },
     {
       "cell": "C3",
-      "name": "Yara",
-      "profession": "Florist",
+      "name": "Vinícius",
+      "profession": "Winger · Brazil",
       "status": "innocent",
       "clue": {
         "type": "PARITY",

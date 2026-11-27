@@ -1,6 +1,6 @@
 {
   "id": "09-5x5-a",
-  "title": "The Harbor Ledger",
+  "title": "The Penalty Shootout Heist",
   "size": 5,
   "initial": [
     "B2"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Ada",
-      "profession": "Singer",
+      "name": "Alisson",
+      "profession": "Goalkeeper · Brazil",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -27,8 +27,8 @@
     },
     {
       "cell": "B1",
-      "name": "Alma",
-      "profession": "Butler",
+      "name": "De Bruyne",
+      "profession": "Midfielder · Belgium",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -42,8 +42,8 @@
     },
     {
       "cell": "C1",
-      "name": "Cleo",
-      "profession": "Banker",
+      "name": "Griezmann",
+      "profession": "Forward · France",
       "status": "criminal",
       "clue": {
         "type": "AT_MOST",
@@ -60,8 +60,8 @@
     },
     {
       "cell": "D1",
-      "name": "Cyrus",
-      "profession": "Florist",
+      "name": "Haaland",
+      "profession": "Striker · Norway",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -75,8 +75,8 @@
     },
     {
       "cell": "E1",
-      "name": "Dara",
-      "profession": "Pilot",
+      "name": "Kane",
+      "profession": "Striker · England",
       "status": "criminal",
       "clue": {
         "type": "IMPLIES",
@@ -92,8 +92,8 @@
     },
     {
       "cell": "A2",
-      "name": "Dmitri",
-      "profession": "Butler",
+      "name": "Kimmich",
+      "profession": "Midfielder · Germany",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -108,8 +108,8 @@
     },
     {
       "cell": "B2",
-      "name": "Edda",
-      "profession": "Farmer",
+      "name": "Lewandowski",
+      "profession": "Striker · Poland",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -123,8 +123,8 @@
     },
     {
       "cell": "C2",
-      "name": "Felix",
-      "profession": "Chef",
+      "name": "Mbappé",
+      "profession": "Forward · France",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -138,8 +138,8 @@
     },
     {
       "cell": "D2",
-      "name": "Gus",
-      "profession": "Banker",
+      "name": "Messi",
+      "profession": "Forward · Argentina",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -153,8 +153,8 @@
     },
     {
       "cell": "E2",
-      "name": "Hana",
-      "profession": "Baker",
+      "name": "Modrić",
+      "profession": "Midfielder · Croatia",
       "status": "innocent",
       "clue": {
         "type": "DIFFERENT",
@@ -164,8 +164,8 @@
     },
     {
       "cell": "A3",
-      "name": "Ivo",
-      "profession": "Butler",
+      "name": "Neymar",
+      "profession": "Forward · Brazil",
       "status": "innocent",
       "clue": {
         "type": "SAME",
@@ -175,8 +175,8 @@
     },
     {
       "cell": "B3",
-      "name": "Jade",
-      "profession": "Baker",
+      "name": "Ødegaard",
+      "profession": "Midfielder · Norway",
       "status": "innocent",
       "clue": {
         "type": "AT_MOST",
@@ -190,8 +190,8 @@
     },
     {
       "cell": "C3",
-      "name": "Jonah",
-      "profession": "Mechanic",
+      "name": "Pedri",
+      "profession": "Midfielder · Spain",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -208,8 +208,8 @@
     },
     {
       "cell": "D3",
-      "name": "Kofi",
-      "profession": "Clerk",
+      "name": "Quang Hải",
+      "profession": "Midfielder · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "SAME",
@@ -219,8 +219,8 @@
     },
     {
       "cell": "E3",
-      "name": "Lena",
-      "profession": "Butler",
+      "name": "Rodri",
+      "profession": "Midfielder · Spain",
       "status": "innocent",
       "clue": {
         "type": "AT_MOST",
@@ -234,8 +234,8 @@
     },
     {
       "cell": "A4",
-      "name": "Milo",
-      "profession": "Chef",
+      "name": "Ronaldo",
+      "profession": "Forward · Portugal",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -250,8 +250,8 @@
     },
     {
       "cell": "B4",
-      "name": "Nadia",
-      "profession": "Coder",
+      "name": "Saka",
+      "profession": "Winger · England",
       "status": "innocent",
       "clue": {
         "type": "COMPARE",
@@ -269,8 +269,8 @@
     },
     {
       "cell": "C4",
-      "name": "Odile",
-      "profession": "Sailor",
+      "name": "Salah",
+      "profession": "Winger · Egypt",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -284,8 +284,8 @@
     },
     {
       "cell": "D4",
-      "name": "Pia",
-      "profession": "Baker",
+      "name": "Son",
+      "profession": "Forward · South Korea",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -299,8 +299,8 @@
     },
     {
       "cell": "E4",
-      "name": "Rosa",
-      "profession": "Florist",
+      "name": "Tiến Linh",
+      "profession": "Striker · Vietnam",
       "status": "innocent",
       "clue": {
         "type": "SAME",
@@ -310,8 +310,8 @@
     },
     {
       "cell": "A5",
-      "name": "Sana",
-      "profession": "Chef",
+      "name": "Valverde",
+      "profession": "Midfielder · Uruguay",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -325,8 +325,8 @@
     },
     {
       "cell": "B5",
-      "name": "Silas",
-      "profession": "Chef",
+      "name": "Van Dijk",
+      "profession": "Defender · Netherlands",
       "status": "innocent",
       "clue": {
         "type": "IMPLIES",
@@ -342,8 +342,8 @@
     },
     {
       "cell": "C5",
-      "name": "Tamsin",
-      "profession": "Sailor",
+      "name": "Văn Hậu",
+      "profession": "Defender · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "PARITY",
@@ -357,8 +357,8 @@
     },
     {
       "cell": "D5",
-      "name": "Viggo",
-      "profession": "Florist",
+      "name": "Vinícius",
+      "profession": "Winger · Brazil",
       "status": "criminal",
       "clue": {
         "type": "SAME",
@@ -368,8 +368,8 @@
     },
     {
       "cell": "E5",
-      "name": "Yara",
-      "profession": "Singer",
+      "name": "Yamal",
+      "profession": "Winger · Spain",
       "status": "innocent",
       "clue": {
         "type": "COMPARE",

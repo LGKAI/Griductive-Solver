@@ -1,6 +1,6 @@
 {
   "id": "90-3x3-ambiguous",
-  "title": "Failure case: the Twin Alibi",
+  "title": "Failure case: The Twin Alibi",
   "size": 3,
   "initial": [
     "B2"
@@ -12,8 +12,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Alma",
-      "profession": "Baker",
+      "name": "De Bruyne",
+      "profession": "Midfielder · Belgium",
       "status": "criminal",
       "clue": {
         "type": "DIFFERENT",
@@ -23,8 +23,8 @@
     },
     {
       "cell": "B1",
-      "name": "Basil",
-      "profession": "Guard",
+      "name": "Haaland",
+      "profession": "Striker · Norway",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -36,8 +36,8 @@
     },
     {
       "cell": "C1",
-      "name": "Cleo",
-      "profession": "Judge",
+      "name": "Kane",
+      "profession": "Striker · England",
       "status": "innocent",
       "clue": {
         "type": "SAME",
@@ -47,8 +47,8 @@
     },
     {
       "cell": "A2",
-      "name": "Dara",
-      "profession": "Pilot",
+      "name": "Messi",
+      "profession": "Forward · Argentina",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -61,8 +61,8 @@
     },
     {
       "cell": "B2",
-      "name": "Edda",
-      "profession": "Clerk",
+      "name": "Modrić",
+      "profession": "Midfielder · Croatia",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -75,8 +75,8 @@
     },
     {
       "cell": "C2",
-      "name": "Felix",
-      "profession": "Chef",
+      "name": "Ødegaard",
+      "profession": "Midfielder · Norway",
       "status": "criminal",
       "clue": {
         "type": "AT_MOST",
@@ -89,8 +89,8 @@
     },
     {
       "cell": "A3",
-      "name": "Greta",
-      "profession": "Miner",
+      "name": "Saka",
+      "profession": "Winger · England",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -103,8 +103,8 @@
     },
     {
       "cell": "B3",
-      "name": "Hugo",
-      "profession": "Tailor",
+      "name": "Son",
+      "profession": "Forward · South Korea",
       "status": "innocent",
       "clue": {
         "type": "FACT",
@@ -114,8 +114,8 @@
     },
     {
       "cell": "C3",
-      "name": "Ines",
-      "profession": "Writer",
+      "name": "Van Dijk",
+      "profession": "Defender · Netherlands",
       "status": "criminal",
       "clue": {
         "type": "AT_LEAST",

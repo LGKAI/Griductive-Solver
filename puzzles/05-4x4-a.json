@@ -1,6 +1,6 @@
 {
   "id": "05-4x4-a",
-  "title": "The Ember Gallery",
+  "title": "The Final Whistle Riddle",
   "size": 4,
   "initial": [
     "A1"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Ada",
-      "profession": "Doctor",
+      "name": "Courtois",
+      "profession": "Goalkeeper · Belgium",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -27,8 +27,8 @@
     },
     {
       "cell": "B1",
-      "name": "Basil",
-      "profession": "Writer",
+      "name": "Haaland",
+      "profession": "Striker · Norway",
       "status": "criminal",
       "clue": {
         "type": "AT_LEAST",
@@ -42,8 +42,8 @@
     },
     {
       "cell": "C1",
-      "name": "Edda",
-      "profession": "Singer",
+      "name": "Hoàng Đức",
+      "profession": "Midfielder · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -57,8 +57,8 @@
     },
     {
       "cell": "D1",
-      "name": "Elio",
-      "profession": "Pilot",
+      "name": "Kimmich",
+      "profession": "Midfielder · Germany",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -71,8 +71,8 @@
     },
     {
       "cell": "A2",
-      "name": "Felix",
-      "profession": "Pilot",
+      "name": "Mbappé",
+      "profession": "Forward · France",
       "status": "innocent",
       "clue": {
         "type": "DIFFERENT",
@@ -82,8 +82,8 @@
     },
     {
       "cell": "B2",
-      "name": "Greta",
-      "profession": "Judge",
+      "name": "Musiala",
+      "profession": "Midfielder · Germany",
       "status": "innocent",
       "clue": {
         "type": "SAME",
@@ -93,8 +93,8 @@
     },
     {
       "cell": "C2",
-      "name": "Gus",
-      "profession": "Clerk",
+      "name": "Neymar",
+      "profession": "Forward · Brazil",
       "status": "criminal",
       "clue": {
         "type": "COMPARE",
@@ -121,8 +121,8 @@
     },
     {
       "cell": "D2",
-      "name": "Hana",
-      "profession": "Mechanic",
+      "name": "Ødegaard",
+      "profession": "Midfielder · Norway",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -136,8 +136,8 @@
     },
     {
       "cell": "A3",
-      "name": "Hugo",
-      "profession": "Judge",
+      "name": "Pedri",
+      "profession": "Midfielder · Spain",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -151,8 +151,8 @@
     },
     {
       "cell": "B3",
-      "name": "Jade",
-      "profession": "Baker",
+      "name": "Quang Hải",
+      "profession": "Midfielder · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -166,8 +166,8 @@
     },
     {
       "cell": "C3",
-      "name": "Kofi",
-      "profession": "Farmer",
+      "name": "Saka",
+      "profession": "Winger · England",
       "status": "innocent",
       "clue": {
         "type": "FACT",
@@ -177,8 +177,8 @@
     },
     {
       "cell": "D3",
-      "name": "Milo",
-      "profession": "Butler",
+      "name": "Salah",
+      "profession": "Winger · Egypt",
       "status": "criminal",
       "clue": {
         "type": "DIFFERENT",
@@ -188,8 +188,8 @@
     },
     {
       "cell": "A4",
-      "name": "Pavel",
-      "profession": "Judge",
+      "name": "Son",
+      "profession": "Forward · South Korea",
       "status": "innocent",
       "clue": {
         "type": "PARITY",
@@ -203,8 +203,8 @@
     },
     {
       "cell": "B4",
-      "name": "Uma",
-      "profession": "Singer",
+      "name": "Tiến Linh",
+      "profession": "Striker · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "SAME",
@@ -214,8 +214,8 @@
     },
     {
       "cell": "C4",
-      "name": "Vera",
-      "profession": "Tailor",
+      "name": "Valverde",
+      "profession": "Midfielder · Uruguay",
       "status": "criminal",
       "clue": {
         "type": "PARITY",
@@ -229,8 +229,8 @@
     },
     {
       "cell": "D4",
-      "name": "Zane",
-      "profession": "Sailor",
+      "name": "Vinícius",
+      "profession": "Winger · Brazil",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",

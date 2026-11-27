@@ -1,6 +1,6 @@
 {
   "id": "08-4x4-d",
-  "title": "The Silent Ledger",
+  "title": "The Midnight Kickoff Affair",
   "size": 4,
   "initial": [
     "A1"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Alma",
-      "profession": "Butler",
+      "name": "Alisson",
+      "profession": "Goalkeeper · Brazil",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -28,8 +28,8 @@
     },
     {
       "cell": "B1",
-      "name": "Basil",
-      "profession": "Pilot",
+      "name": "Bellingham",
+      "profession": "Midfielder · England",
       "status": "innocent",
       "clue": {
         "type": "DIFFERENT",
@@ -39,8 +39,8 @@
     },
     {
       "cell": "C1",
-      "name": "Bruno",
-      "profession": "Singer",
+      "name": "De Bruyne",
+      "profession": "Midfielder · Belgium",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -55,8 +55,8 @@
     },
     {
       "cell": "D1",
-      "name": "Hugo",
-      "profession": "Chef",
+      "name": "Griezmann",
+      "profession": "Forward · France",
       "status": "innocent",
       "clue": {
         "type": "AT_LEAST",
@@ -70,8 +70,8 @@
     },
     {
       "cell": "A2",
-      "name": "Jonah",
-      "profession": "Miner",
+      "name": "Haaland",
+      "profession": "Striker · Norway",
       "status": "criminal",
       "clue": {
         "type": "PARITY",
@@ -85,8 +85,8 @@
     },
     {
       "cell": "B2",
-      "name": "Kira",
-      "profession": "Coder",
+      "name": "Kimmich",
+      "profession": "Midfielder · Germany",
       "status": "innocent",
       "clue": {
         "type": "SAME",
@@ -96,8 +96,8 @@
     },
     {
       "cell": "C2",
-      "name": "Mila",
-      "profession": "Farmer",
+      "name": "Lewandowski",
+      "profession": "Striker · Poland",
       "status": "innocent",
       "clue": {
         "type": "COMPARE",
@@ -115,8 +115,8 @@
     },
     {
       "cell": "D2",
-      "name": "Nico",
-      "profession": "Chemist",
+      "name": "Mbappé",
+      "profession": "Forward · France",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -130,8 +130,8 @@
     },
     {
       "cell": "A3",
-      "name": "Omar",
-      "profession": "Miner",
+      "name": "Musiala",
+      "profession": "Midfielder · Germany",
       "status": "criminal",
       "clue": {
         "type": "COMPARE",
@@ -149,8 +149,8 @@
     },
     {
       "cell": "B3",
-      "name": "Pavel",
-      "profession": "Farmer",
+      "name": "Rodri",
+      "profession": "Midfielder · Spain",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -165,8 +165,8 @@
     },
     {
       "cell": "C3",
-      "name": "Pia",
-      "profession": "Florist",
+      "name": "Ronaldo",
+      "profession": "Forward · Portugal",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -180,8 +180,8 @@
     },
     {
       "cell": "D3",
-      "name": "Silas",
-      "profession": "Coder",
+      "name": "Saka",
+      "profession": "Winger · England",
       "status": "criminal",
       "clue": {
         "type": "COMPARE",
@@ -200,8 +200,8 @@
     },
     {
       "cell": "A4",
-      "name": "Theo",
-      "profession": "Florist",
+      "name": "Salah",
+      "profession": "Winger · Egypt",
       "status": "criminal",
       "clue": {
         "type": "EXACTLY",
@@ -224,8 +224,8 @@
     },
     {
       "cell": "B4",
-      "name": "Vera",
-      "profession": "Coder",
+      "name": "Tiến Linh",
+      "profession": "Striker · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "SAME",
@@ -235,8 +235,8 @@
     },
     {
       "cell": "C4",
-      "name": "Wren",
-      "profession": "Mechanic",
+      "name": "Van Dijk",
+      "profession": "Defender · Netherlands",
       "status": "criminal",
       "clue": {
         "type": "PARITY",
@@ -250,8 +250,8 @@
     },
     {
       "cell": "D4",
-      "name": "Yara",
-      "profession": "Writer",
+      "name": "Văn Hậu",
+      "profession": "Defender · Vietnam",
       "status": "criminal",
       "clue": {
         "type": "PARITY",

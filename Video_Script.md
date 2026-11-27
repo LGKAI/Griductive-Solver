@@ -19,7 +19,7 @@ Yêu cầu khác của đề: video dài 5–10 phút, có **thuyết minh hoặ
 2. Phóng to trình duyệt toàn màn hình. Nên đặt zoom 110–125% để chữ đọc được trong video.
 3. Chọn chế độ tối, bấm nút mặt trăng ở góc phải.
 4. Để sẵn một terminal thứ hai, đang đứng trong thư mục `Source/`, cho phần 4.
-5. Tập trước một lượt. Các nước đi bên dưới dùng câu đố **`05-4x4-a` (The Ember Gallery)**.
+5. Tập trước một lượt. Các nước đi bên dưới dùng câu đố **`05-4x4-a` (The Final Whistle Riddle)**.
 6. Quay bằng QuickTime (File → New Screen Recording) hoặc OBS, và thu tiếng micro.
 
 Hai đường link giúp vào nhanh trạng thái mong muốn nếu cần quay lại một cảnh:

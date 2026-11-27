@@ -58,11 +58,9 @@ class Session:
     seq: int = 0    # Tăng sau mỗi thay đổi giúp trình duyệt bỏ qua phản hồi đến trễ
     theme: str = DEFAULT_THEME
     base_characters: dict[str, Character] = field(default_factory=dict)  # Giữ dàn nhân vật gốc của tệp
-    base_title: str = ""
 
     def __post_init__(self) -> None:
         self.base_characters = dict(self.engine.puzzle.characters)
-        self.base_title = self.engine.puzzle.title
 
     def apply_theme(self, theme_id: str) -> None:
         """Áp dụng lớp hiển thị nhân vật mới (không ảnh hưởng ô, manh mối hay đáp án)."""
@@ -71,7 +69,6 @@ class Session:
             puzzle.characters = themed_characters(puzzle, self.base_characters, theme_id)
         except ValueError as exc:
             raise ApiError(str(exc)) from None
-        puzzle.title = THEMES[theme_id].title_for(puzzle.puzzle_id) or self.base_title
         self.theme = theme_id
 
 
@@ -144,7 +141,7 @@ def public_state_json(game_id: str, session: Session) -> dict:
     analysis = engine.analysis()
     return {
         "game": game_id,
-        "puzzle": {"id": puzzle.puzzle_id, "title": puzzle.title, "case_title": session.base_title,
+        "puzzle": {"id": puzzle.puzzle_id, "title": puzzle.title,
                    "size": puzzle.board.size,
                    "expected": puzzle.meta.get("expected", "SOLVED"), "note": puzzle.meta.get("note")},
         "theme": session.theme,
@@ -239,7 +236,7 @@ def api_load(body: dict) -> dict:
             if not isinstance(seed, int) or isinstance(seed, bool):
                 raise ApiError("seed must be an integer")
             puzzle = generate(size, seed=seed, puzzle_id=f"random-{size}x{size}-{seed}")
-            puzzle.title += f" (seed {seed})"
+            puzzle.title = f"{THEMES[DEFAULT_THEME].title_for(puzzle.puzzle_id) or puzzle.title} (seed {seed})"
         else:
             raise ApiError("Specify 'file', 'data' or 'generate'.")
     except PuzzleError as exc:

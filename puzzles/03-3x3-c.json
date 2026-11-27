@@ -1,6 +1,6 @@
 {
   "id": "03-3x3-c",
-  "title": "The Copper Orchard",
+  "title": "The Locker Room Riddle",
   "size": 3,
   "initial": [
     "C1"
@@ -13,8 +13,8 @@
   "characters": [
     {
       "cell": "A1",
-      "name": "Alma",
-      "profession": "Singer",
+      "name": "Alisson",
+      "profession": "Goalkeeper · Brazil",
       "status": "criminal",
       "clue": {
         "type": "IMPLIES",
@@ -30,8 +30,8 @@
     },
     {
       "cell": "B1",
-      "name": "Dmitri",
-      "profession": "Butler",
+      "name": "Bellingham",
+      "profession": "Midfielder · England",
       "status": "innocent",
       "clue": {
         "type": "COMPARE",
@@ -58,8 +58,8 @@
     },
     {
       "cell": "C1",
-      "name": "Elio",
-      "profession": "Guard",
+      "name": "Modrić",
+      "profession": "Midfielder · Croatia",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -73,8 +73,8 @@
     },
     {
       "cell": "A2",
-      "name": "Lena",
-      "profession": "Mechanic",
+      "name": "Neymar",
+      "profession": "Forward · Brazil",
       "status": "criminal",
       "clue": {
         "type": "DIFFERENT",
@@ -84,8 +84,8 @@
     },
     {
       "cell": "B2",
-      "name": "Omar",
-      "profession": "Banker",
+      "name": "Osimhen",
+      "profession": "Striker · Nigeria",
       "status": "innocent",
       "clue": {
         "type": "FACT",
@@ -95,8 +95,8 @@
     },
     {
       "cell": "C2",
-      "name": "Pia",
-      "profession": "Coder",
+      "name": "Ronaldo",
+      "profession": "Forward · Portugal",
       "status": "innocent",
       "clue": {
         "type": "EXACTLY",
@@ -110,8 +110,8 @@
     },
     {
       "cell": "A3",
-      "name": "Rufus",
-      "profession": "Farmer",
+      "name": "Salah",
+      "profession": "Winger · Egypt",
       "status": "innocent",
       "clue": {
         "type": "COMPARE",
@@ -128,8 +128,8 @@
     },
     {
       "cell": "B3",
-      "name": "Uma",
-      "profession": "Banker",
+      "name": "Tiến Linh",
+      "profession": "Striker · Vietnam",
       "status": "innocent",
       "clue": {
         "type": "DIFFERENT",
@@ -139,8 +139,8 @@
     },
     {
       "cell": "C3",
-      "name": "Vera",
-      "profession": "Butler",
+      "name": "Valverde",
+      "profession": "Midfielder · Uruguay",
       "status": "criminal",
       "clue": {
         "type": "PARITY",

@@ -477,9 +477,6 @@ function renderHeader(view) {
   $("#legInn").textContent = term("innocent");
   const meta = [`<span class="chip chip-accent chip-mono">${view.puzzle.size}×${view.puzzle.size}</span>`,
     `<span class="chip chip-soft chip-mono">${esc(view.puzzle.id)}</span>`];
-  if (view.puzzle.case_title && view.puzzle.case_title !== view.puzzle.title) {
-    meta.push(`<span class="chip chip-soft" title="Case file">${esc(view.puzzle.case_title)}</span>`);
-  }
   if (view.status === "SOLVED") meta.push(`<span class="chip chip-inn">case closed</span>`);
   if (view.status === "LOST") meta.push(`<span class="chip chip-crim">game over</span>`);
   $("#board").classList.toggle("lost", view.status === "LOST");
