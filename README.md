@@ -66,7 +66,7 @@ python tools/build_puzzles.py
 | **Tab Trace** | Liệt kê từng bước đi của người chơi và tác tử cùng các truy vấn SAT (ví dụ `KB ∧ ¬C(B2) -> UNSAT`), manh mối đang kích hoạt và manh mối mới mở. |
 | **Tab Solver** | Theo dõi kích thước Cơ sở tri thức (biến chính, biến phụ, số mệnh đề), thống kê DPLL, đổi chiến lược truy vấn / chế độ mã hóa đếm và chạy kiểm tra nghiệm duy nhất. |
 
-Nếu phán đoán không hợp lệ, Engine từ chối và trả về `NOT_PROVABLE` (chưa đủ dữ kiện ép buộc) hoặc `CONTRADICTED` (logic chứng minh điều ngược lại) mà không làm lộ bất kỳ thông tin ẩn nào.
+Nếu phán đoán không hợp lệ, Engine từ chối và trả về `NOT_PROVABLE` (chưa đủ dữ kiện ép buộc) hoặc `CONTRADICTED` (logic chứng minh điều ngược lại) mà không làm lộ bất kỳ thông tin ẩn nào. `NOT_PROVABLE` chỉ là cảnh báo (tính một lỗi). `CONTRADICTED` là **game over**: Engine ngừng nhận phán đoán, gợi ý và bước đi của tác tử cho đến khi nhấn Restart (`GameEngine(sudden_death=False)` khôi phục hành vi cũ).
 
 ## 4. Thêm hoặc thay ảnh chân dung cầu thủ
 

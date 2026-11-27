@@ -26,3 +26,6 @@ desktop.ini
 *.swp
 *.swo
 *.tmp
+
+# LaTeX build output
+report_latex/build/

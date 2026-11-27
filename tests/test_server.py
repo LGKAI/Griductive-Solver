@@ -188,6 +188,24 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(status, 200, res)
         self.assertEqual(res["state"]["theme"], "classic")
         self.assertEqual(res["state"]["cells"][0]["name"], "P01A")
+    def test_contradicted_verdict_is_game_over(self):
+        state = self.load("01-3x3-a")
+        game = state["game"]
+        _, data = self.post("/api/analysis", {"game": game})
+        cell, verdict = next((c, v) for c, v in data["analysis"]["classification"].items() if v != "UNKNOWN")
+        wrong = "INNOCENT" if verdict == "CRIMINAL" else "CRIMINAL"
+        _, data = self.post("/api/verdict", {"game": game, "cell": cell, "verdict": wrong})
+        self.assertEqual(data["result"]["status"], "CONTRADICTED")
+        self.assertEqual(data["state"]["status"], "LOST")
+        self.assertEqual(data["state"]["lost"], {"cell": cell, "verdict": wrong})
+        self.assertFalse(next(c for c in data["state"]["cells"] if c["cell"] == cell)["known"])
+        for path in ("/api/step", "/api/hint"):
+            status, _ = self.post(path, {"game": game})
+            self.assertEqual(status, 409)
+        _, data = self.post("/api/verdict", {"game": game, "cell": cell, "verdict": verdict})
+        self.assertEqual(data["result"]["status"], "GAME_OVER")
+        _, data = self.post("/api/restart", {"game": game})
+        self.assertEqual((data["state"]["status"], data["state"]["lost"]), ("PLAYING", None))
 
 if __name__ == "__main__":
     unittest.main()

@@ -527,3 +527,6 @@ kbd {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* game over: the remaining face-down cards fade out */
+.board.lost .card:not(.known) { opacity: .45; filter: grayscale(.7); pointer-events: none; }

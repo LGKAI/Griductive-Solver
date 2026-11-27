@@ -22,9 +22,11 @@ CONTRADICTED = "CONTRADICTED"
 ALREADY_KNOWN = "ALREADY_KNOWN"
 INVALID = "INVALID"
 INCONSISTENT = "INCONSISTENT"
+GAME_OVER = "GAME_OVER"
 
 PLAYING = "PLAYING"
 SOLVED = "SOLVED"
+LOST = "LOST"  # a CONTRADICTED verdict ended the game (sudden death)
 
 
 class PuzzleIntegrityError(RuntimeError):
@@ -56,6 +58,8 @@ class GameEngine:
     verdicts: dict[str, bool] = field(default_factory=dict)
     revealed: list[str] = field(default_factory=list)  # Danh sách ô đã mở thẻ/manh mối
     mistakes: int = 0
+    sudden_death: bool = True  # a CONTRADICTED verdict ends the game
+    lost: Optional[tuple[str, str]] = None  # (cell, verdict) of the verdict that ended the game
     version: int = 0
     sat_calls: int = 0  # Số lần gọi SAT mà chính Engine dùng để thẩm định phán đoán
     _cache: Optional[tuple[int, Analysis]] = field(default=None, repr=False)
@@ -70,6 +74,7 @@ class GameEngine:
         self.verdicts = {c: self.puzzle.solution[c] for c in self.puzzle.initial}
         self.revealed = list(self.puzzle.initial)
         self.mistakes = 0
+        self.lost = None
         self.sat_calls = 0
         self.version += 1
         self._cache = None
@@ -81,6 +86,8 @@ class GameEngine:
 
     @property
     def status(self) -> str:
+        if self.lost is not None:
+            return LOST
         return SOLVED if len(self.verdicts) == len(self.board.cells) else PLAYING
 
     def public_state(self) -> PublicState:
@@ -105,6 +112,8 @@ class GameEngine:
         verdict = str(verdict).upper()
         if not self.board.is_cell(cell) or verdict not in (CRIMINAL_V, INNOCENT_V):
             return SubmitResult(INVALID, str(cell), verdict, "Unknown cell or verdict.")
+        if self.lost is not None:
+            return SubmitResult(GAME_OVER, cell, verdict, "The game is over. Restart the case to play again.")
         if cell in self.verdicts:
             return SubmitResult(ALREADY_KNOWN, cell, verdict, "This character is already solved.")
 
@@ -130,6 +139,10 @@ class GameEngine:
 
         self.mistakes += 1
         if forced in (CRIMINAL_V, INNOCENT_V):
+            # The knowledge base is untouched (nothing is revealed); with sudden death the
+            # game simply stops accepting verdicts until it is restarted.
+            if self.sudden_death:
+                self.lost = (cell, verdict)
             return SubmitResult(CONTRADICTED, cell, verdict,
                                 f"Contradicted: the clues prove {name} is {forced.lower()}.")
         return SubmitResult(NOT_PROVABLE, cell, verdict,

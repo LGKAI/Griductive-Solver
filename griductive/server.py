@@ -153,6 +153,7 @@ def public_state_json(game_id: str, session: Session) -> dict:
         "seq": session.seq,
         "status": engine.status if analysis.consistent else "INCONSISTENT",
         "mistakes": engine.mistakes,
+        "lost": {"cell": engine.lost[0], "verdict": engine.lost[1]} if engine.lost else None,
         "solved_count": len(state.verdicts),
         "total": len(puzzle.board.cells),
         "cells": cells,
@@ -306,11 +307,17 @@ def api_verdict(body: dict) -> dict:
                 "state": public_state_json(body["game"], session)}
 
 
+def _check_playing(session: Session) -> None:
+    if session.engine.status == "LOST":
+        raise ApiError("Game over: a contradicted verdict ended this case. Restart to play again.", 409)
+
+
 def api_hint(body: dict) -> dict:
     """Trả về một gợi ý có thể chứng minh ngay cùng tập manh mối hỗ trợ tối thiểu."""
     session = STORE.get(body.get("game"))
     with session.lock:
         _check_round(session, body)
+        _check_playing(session)
         hint = session.agent.hint(session.engine.player_view().public_state())
         return {"hint": hint, "state": public_state_json(body["game"], session)}
 
@@ -320,6 +327,7 @@ def api_step(body: dict) -> dict:
     session = STORE.get(body.get("game"))
     with session.lock:
         _check_round(session, body)
+        _check_playing(session)
         entry = session.agent.step(session.engine.player_view()).to_dict()
         session.seq += 1
         session.sat_calls += entry["sat_calls"]
