@@ -40,6 +40,14 @@ FIELDS = ["puzzle", "size", "config", "outcome", "expected", "primary_vars", "au
           "engine_sat_calls", "runtime_ms", "uniqueness", "uniqueness_sat_calls"]
 
 
+def _configure_stdio() -> None:
+    """Use UTF-8 for Vietnamese CLI text on Windows and redirected streams."""
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            reconfigure(encoding="utf-8", errors="replace")
+
+
 def run_one(puzzle: Puzzle, label: str, strategy: str, cardinality: str, time_limit: float) -> dict:
     """Chạy một ván câu đố với một cấu hình và thu thập đầy đủ các chỉ số hiệu năng.
 
@@ -145,6 +153,7 @@ def markdown_table(rows: list[dict]) -> str:
 
 def main() -> None:
     """Điểm vào CLI chạy thực nghiệm benchmark và ghi kết quả CSV/JSON/Markdown/SVG."""
+    _configure_stdio()
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--puzzles", default=str(ROOT / "puzzles"))
     parser.add_argument("--out", default=str(ROOT / "results"))

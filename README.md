@@ -111,39 +111,4 @@ Source/
 
 **Tách biệt Engine và Agent:** `GameEngine` quản lý toàn bộ đề bài và đáp án ẩn. `LogicAgent` chỉ nhận đối tượng `PlayerView` (`engine.player_view()`) với đúng hai phương thức: `public_state()` (chỉ trả về các manh mối đã mở và kết luận đã chứng minh) và `submit(cell, verdict)`. Trình duyệt web cũng được đối xử tương tự, hoàn toàn không nhận dữ liệu ẩn từ máy chủ.
 
-## 6. Ngôn ngữ manh mối (Clue Language)
-
-- **6 mẫu cốt lõi:** `FACT`, `SAME`, `DIFFERENT`, `EXACTLY`, `AT_LEAST`, `AT_MOST` (các mẫu đếm hỗ trợ `"who": "innocent"` để đếm người vô tội).
-- **Các phần mở rộng:**
-
-| Mở rộng | Ví dụ JSON |
-|---|---|
-| `PARITY` | `{"type":"PARITY","parity":"odd","region":{"kind":"col","index":"A"}}` |
-| `COMPARE` | `{"type":"COMPARE","op":"more","left":{"kind":"row","index":1},"right":{"kind":"row","index":2}}` |
-| `CONNECTED` | `{"type":"CONNECTED","region":{"kind":"row","index":3},"who":"innocent"}` |
-| `IMPLIES` | `{"type":"IMPLIES","if":{"cell":"A1","status":"criminal"},"then":{"cell":"B2","status":"innocent"}}` |
-| Vùng nâng cao | `all`, `corners`, `edge`, `ray` (`left`/`right`/`above`/`below`), `between`, `common_neighbors`, `intersect`, `union`, `minus` |
-
-## 7. Định dạng tệp câu đố (JSON)
-
-```json
-{
-  "id": "my-case",
-  "title": "My Case",
-  "size": 3,
-  "initial": ["B2"],
-  "characters": [
-    {
-      "cell": "A1",
-      "name": "Abel",
-      "profession": "Cook",
-      "status": "criminal",
-      "clue": {"type": "EXACTLY", "k": 1, "region": {"kind": "neighbors", "of": "B2"}}
-    }
-  ]
-}
-```
-
-- `characters` phải bao phủ toàn bộ ô trên lưới; tên nhân vật phải duy nhất và xếp theo thứ tự bảng chữ cái theo từng hàng (`A1, B1, ..., A2, ...`).
-- `status` là đáp án ẩn mà chỉ `GameEngine` được phép đọc.
-- `initial` là danh sách các thẻ được mở sẵn lúc bắt đầu. Hệ thống sẽ từ chối tệp nếu có bất kỳ manh mối nào sai trên chính đáp án của nó (trừ khi gắn cờ `allow_false_clues` cho ca thử nghiệm mâu thuẫn).
+> 🎮 **Chúc bạn có những trải nghiệm chơi game vui vẻ!**

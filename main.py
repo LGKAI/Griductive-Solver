@@ -24,6 +24,14 @@ from griductive.engine import GameEngine, PuzzleIntegrityError  # noqa: E402
 from griductive.puzzle import Puzzle, PuzzleError  # noqa: E402
 
 
+def _configure_stdio() -> None:
+    """Use UTF-8 for Vietnamese CLI text on Windows and redirected streams."""
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            reconfigure(encoding="utf-8", errors="replace")
+
+
 def _names(puzzle: Puzzle, text: str) -> str:
     """Thay thế các token {cell} trong manh mối bằng 'Tên(cell)' dễ đọc."""
     for cell, ch in puzzle.characters.items():
@@ -101,6 +109,7 @@ def serve(host: str, port: int, open_browser: bool) -> int:
 
 def main(argv=None) -> int:
     """Phân tích tham số dòng lệnh và điều phối chế độ CLI hoặc Web GUI."""
+    _configure_stdio()
     parser = argparse.ArgumentParser(description="Casebook: bộ giải Griductive không đoán mò")
     parser.add_argument("--solve", metavar="PUZZLE.json", help="Giải câu đố trên terminal")
     parser.add_argument("--check", metavar="PUZZLE.json", help="Kiểm tra nghiệm duy nhất của tập manh mối")
